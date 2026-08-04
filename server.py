@@ -7,6 +7,25 @@ import subprocess
 PORT = 8080
 
 class SovereignHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/api/files':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            # Read all text files in workspace directory
+            files_dict = {}
+            for filename in os.listdir('.'):
+                if filename.endswith(('.html', '.js', '.css', '.json', '.md')) and filename != 'server.py':
+                    if os.path.isfile(filename):
+                        with open(filename, 'r', encoding='utf-8') as f:
+                            files_dict[filename] = f.read()
+            # Ensure index.html always exists
+            if 'index.html' not in files_dict:
+                files_dict['index.html'] = "<p>Sovereign Node Active</p>"
+            self.wfile.write(json.dumps(files_dict).encode())
+            return
+        super().do_GET()
+
     def do_POST(self):
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
@@ -31,30 +50,21 @@ class SovereignHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({"status": "success", "message": "Files saved to local disk."}).encode())
-            print(f"[DISK] Workspace files synchronized successfully.")
 
         elif self.path == '/api/commit':
             msg = data.get('message', 'Automated PSA Sovereign Commit')
             try:
                 subprocess.run(['git', 'add', '.'], check=True)
                 result = subprocess.run(['git', 'commit', '-m', msg], capture_output=True, text=True, check=True)
-                
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "status": "success", 
-                    "output": result.stdout.strip()
-                }).encode())
-                print(f"[GIT] Commit executed: {msg}")
+                self.wfile.write(json.dumps({"status": "success", "output": result.stdout.strip()}).encode())
             except subprocess.CalledProcessError as e:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "status": "error", 
-                    "output": e.stderr.strip() if e.stderr else str(e)
-                }).encode())
+                self.wfile.write(json.dumps({"status": "error", "output": e.stderr.strip() if e.stderr else str(e)}).encode())
 
         elif self.path == '/api/push':
             try:
@@ -62,19 +72,12 @@ class SovereignHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "status": "success", 
-                    "output": result.stdout.strip() or "Successfully pushed to remote."
-                }).encode())
-                print(f"[GIT] Push executed successfully.")
+                self.wfile.write(json.dumps({"status": "success", "output": result.stdout.strip() or "Successfully pushed to remote."}).encode())
             except subprocess.CalledProcessError as e:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "status": "error", 
-                    "output": e.stderr.strip() if e.stderr else str(e)
-                }).encode())
+                self.wfile.write(json.dumps({"status": "error", "output": e.stderr.strip() if e.stderr else str(e)}).encode())
 
         elif self.path == '/api/vercel':
             try:
@@ -82,19 +85,12 @@ class SovereignHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "status": "success", 
-                    "output": result.stdout.strip() or "Successfully deployed to Vercel production."
-                }).encode())
-                print(f"[VERCEL] Production deployment executed.")
+                self.wfile.write(json.dumps({"status": "success", "output": result.stdout.strip() or "Successfully deployed to Vercel."}).encode())
             except subprocess.CalledProcessError as e:
                 self.send_response(500)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
-                self.wfile.write(json.dumps({
-                    "status": "error", 
-                    "output": e.stderr.strip() if e.stderr else str(e)
-                }).encode())
+                self.wfile.write(json.dumps({"status": "error", "output": e.stderr.strip() if e.stderr else str(e)}).encode())
         else:
             self.send_response(404)
             self.end_headers()
@@ -109,12 +105,6 @@ class SovereignHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-Handler = SovereignHandler
-
-with socketserver.TCPServer(("", PORT), Handler) as httpd:
+with socketserver.TCPServer(("", PORT), SovereignHandler) as httpd:
     print(f"PSA Sovereign Backend active at http://localhost:{PORT}")
-    print(f"Inventor/Founder: Rean Van Aswegen")
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\n[-] Shutting down PSA Sovereign Backend.")
+    httpd.serve_forever()

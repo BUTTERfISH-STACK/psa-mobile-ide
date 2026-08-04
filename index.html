@@ -7,82 +7,38 @@
     <style>
         * { box-sizing: border-box; }
         body { 
-            font-family: monospace; 
-            background: #050505; 
-            color: #f59e0b; 
-            margin: 0; 
-            padding: 8px; 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: monospace; background: #050505; color: #f59e0b; margin: 0; padding: 8px; 
+            display: flex; flex-direction: column; min-height: 100vh;
         }
-        header { 
-            border-bottom: 1px solid #27272a; 
-            padding-bottom: 8px; 
-            margin-bottom: 8px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        header { border-bottom: 1px solid #27272a; padding-bottom: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
         h1 { font-size: 0.85rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
-        .header-actions { display: flex; gap: 5px; align-items: center; }
-        .badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050505; padding: 3px 8px; font-size: 0.58rem; border-radius: 4px; font-weight: bold; }
+        .badge { background: #f59e0b; color: #050505; padding: 3px 8px; font-size: 0.58rem; border-radius: 4px; font-weight: bold; }
         .status { color: #10b981; font-size: 0.65rem; }
-        
-        .founder-plaque {
-            background: linear-gradient(135deg, #121216 0%, #09090b 100%);
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            border-radius: 6px;
-            padding: 6px 10px;
-            margin-bottom: 8px;
-            text-align: center;
-        }
+        .founder-plaque { background: #121216; border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 6px; padding: 6px 10px; margin-bottom: 8px; text-align: center; }
         .plaque-title { font-size: 0.58rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; }
         .plaque-name { font-size: 0.78rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
         .plaque-sub { font-size: 0.6rem; color: #f59e0b; margin-top: 2px; font-weight: bold; }
-
-        #toast-container {
-            position: fixed; top: 10px; right: 10px; z-index: 999;
-            display: flex; flex-direction: column; gap: 6px; pointer-events: none;
-        }
-        .toast {
-            background: #09090b; border: 1px solid #10b981; color: #10b981;
-            padding: 8px 12px; border-radius: 6px; font-size: 0.65rem; font-weight: bold;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); pointer-events: auto;
-        }
+        #toast-container { position: fixed; top: 10px; right: 10px; z-index: 999; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+        .toast { background: #09090b; border: 1px solid #10b981; color: #10b981; padding: 8px 12px; border-radius: 6px; font-size: 0.65rem; font-weight: bold; pointer-events: auto; }
         .toast.error { border-color: #f87171; color: #f87171; }
-
         .main-layout { display: flex; gap: 8px; margin-bottom: 8px; }
-        .sidebar {
-            width: 170px; background: #09090b; border: 1px solid #27272a; border-radius: 6px;
-            display: flex; flex-direction: column; overflow: hidden;
-        }
-        .sidebar-header { background: #121216; padding: 6px 8px; font-size: 0.6rem; color: #a1a1aa; border-bottom: 1px solid #27272a; display: flex; justify-content: space-between; align-items: center; }
+        .sidebar { width: 170px; background: #09090b; border: 1px solid #27272a; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
+        .sidebar-header { background: #121216; padding: 6px 8px; font-size: 0.6rem; color: #a1a1aa; border-bottom: 1px solid #27272a; }
         .file-list { padding: 6px; display: flex; flex-direction: column; gap: 5px; }
-        .file-item {
-            background: #121216; border: 1px solid #27272a; color: #a1a1aa; padding: 6px 8px;
-            font-size: 0.64rem; border-radius: 5px; cursor: pointer;
-        }
+        .file-item { background: #121216; border: 1px solid #27272a; color: #a1a1aa; padding: 6px 8px; font-size: 0.64rem; border-radius: 5px; cursor: pointer; }
         .file-item.active { border-color: #f59e0b; color: #f59e0b; font-weight: bold; }
-
         .workspace-grid { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
         .pane { background: #09090b; border: 1px solid #27272a; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
         .pane-header { background: #121216; padding: 6px 8px; font-size: 0.62rem; color: #71717a; border-bottom: 1px solid #27272a; }
-        textarea { width: 100%; height: 220px; background: transparent; color: #f59e0b; border: none; padding: 10px; font-family: monospace; font-size: 0.72rem; outline: none; }
-        iframe { width: 100%; height: 220px; background: #ffffff; border: none; }
-
+        textarea { width: 100%; height: 200px; background: transparent; color: #f59e0b; border: none; padding: 10px; font-family: monospace; font-size: 0.72rem; outline: none; }
+        iframe { width: 100%; height: 200px; background: #ffffff; border: none; }
         .terminal-container { background: #09090b; border: 1px solid #27272a; border-radius: 6px; display: flex; flex-direction: column; margin-bottom: 8px; }
-        .terminal-logs { max-height: 90px; padding: 6px 10px; font-size: 0.58rem; overflow-y: auto; color: #10b981; line-height: 1.4; }
+        .terminal-logs { max-height: 80px; padding: 6px 10px; font-size: 0.58rem; overflow-y: auto; color: #10b981; line-height: 1.4; }
         .terminal-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; }
         .terminal-prompt { padding: 4px 10px; color: #10b981; font-size: 0.58rem; font-weight: bold; }
         .terminal-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.58rem; padding: 6px; outline: none; }
-
         .btn-group { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-        .btn { 
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050505; border: none; 
-            padding: 8px 10px; font-weight: bold; flex: 1; min-width: 110px; border-radius: 6px; cursor: pointer; font-size: 0.65rem;
-            display: flex; align-items: center; justify-content: center; text-align: center;
-        }
+        .btn { background: #f59e0b; color: #050505; border: none; padding: 8px 10px; font-weight: bold; flex: 1; min-width: 110px; border-radius: 6px; cursor: pointer; font-size: 0.65rem; text-align: center; }
         .btn-secondary { background: #18181b; color: #f59e0b; border: 1px solid #27272a; }
     </style>
 </head>
@@ -90,10 +46,7 @@
     <div id="toast-container"></div>
     <header>
         <h1>PSA™ v3.1 CORE</h1>
-        <div class="header-actions">
-            <span class="badge" id="runtime-badge">v3.1 SOVEREIGN NODE</span>
-            <span class="status">● ACTIVE</span>
-        </div>
+        <span class="status">● ACTIVE</span>
     </header>
 
     <div class="founder-plaque">
@@ -104,16 +57,16 @@
 
     <div class="main-layout">
         <div class="sidebar">
-            <div class="sidebar-header"><span>📁 Files</span></div>
+            <div class="sidebar-header">📁 Files</div>
             <div class="file-list" id="file-list-container"></div>
         </div>
         <div class="workspace-grid">
             <div class="pane">
-                <div class="pane-header" id="active-filename">EDITING: index.html</div>
+                <div class="pane-header" id="active-filename">EDITING: app.html</div>
                 <textarea id="code-editor" oninput="updateActiveFile()"></textarea>
             </div>
             <div class="pane">
-                <div class="pane-header">LIVE EDGE PREVIEW</div>
+                <div class="pane-header">LIVE PREVIEW</div>
                 <iframe id="preview-frame"></iframe>
             </div>
         </div>
@@ -121,7 +74,7 @@
 
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v3.1 git push & vercel deployment bridge active for Rean Van Aswegen.</p>
+            <p>> runtime: v3.1 multi-file workspace bridge active for Rean Van Aswegen.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
@@ -137,193 +90,8 @@
     </div>
 
     <script>
-        let files = {
-            'index.html': `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pocket State Architecture (PSA™ v3.1) — Sovereign Telemetry</title>
-    <style>
-        :root {
-            --bg-deep: #050505;
-            --surface: rgba(18, 18, 22, 0.85);
-            --border: rgba(245, 158, 11, 0.3);
-            --border-glow: rgba(245, 158, 11, 0.7);
-            --gold-primary: #f59e0b;
-            --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --success: #10b981;
-            --font-mono: 'Courier New', Courier, monospace;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        .brand h2 { font-size: 1.1rem; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
-        .brand p { font-size: 0.7rem; color: var(--gold-primary); letter-spacing: 1px; margin-top: 4px; }
-        .node-tag {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: var(--success);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .pulse { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.8; } }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            transition: all 0.3s;
-        }
-        .card:hover { border-color: var(--border-glow); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1); }
-        .card-title { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .metric { font-size: 1.6rem; font-weight: bold; color: var(--gold-primary); margin-bottom: 6px; }
-        .metric-sub { font-size: 0.65rem; color: var(--text-muted); }
-        .console {
-            background: #030304;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 14px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 160px;
-        }
-        .console-logs {
-            flex: 1;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 4px;
-            padding: 10px;
-            font-size: 0.7rem;
-            color: var(--success);
-            overflow-y: auto;
-            line-height: 1.5;
-            margin-top: 8px;
-        }
-        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
-        .action-btn {
-            background: var(--gold-gradient);
-            color: #050505;
-            border: none;
-            padding: 10px 18px;
-            font-weight: bold;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            border-radius: 6px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            flex: 1;
-        }
-        .action-btn-outline { background: transparent; color: var(--gold-primary); border: 1px solid var(--gold-primary); }
-        footer { margin-top: 20px; text-align: center; font-size: 0.65rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 12px; letter-spacing: 1px; }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="brand">
-            <h2>PSA™ Sovereign Showcase</h2>
-            <p>Architect: Rean Van Aswegen</p>
-        </div>
-        <div class="node-tag">
-            <div class="pulse"></div>
-            <span>AIR-GAPPED ZERO-CLOUD</span>
-        </div>
-    </header>
-
-    <div class="grid">
-        <div class="card">
-            <div class="card-title">State Engine Hash</div>
-            <div class="metric" id="hash-display">0x9F8A</div>
-            <div class="metric-sub">Immutable Local RAM State</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Network Overhead</div>
-            <div class="metric">0.00 ms</div>
-            <div class="metric-sub">Zero External API Calls</div>
-        </div>
-        <div class="card">
-            <div class="card-title">Storage Allocation</div>
-            <div class="metric">3.8 KB</div>
-            <div class="metric-sub">Optimized Edge Footprint</div>
-        </div>
-    </div>
-
-    <div class="console">
-        <div class="card-title" style="display:flex; justify-content:space-between;">
-            <span>PSA™ Core Telemetry Stream</span>
-            <span id="live-time">--:--:--</span>
-        </div>
-        <div class="console-logs" id="logs">
-            <p>> Initializing Pocket State Architecture kernel...</p>
-            <p>> Sovereign local disk sync verified successfully.</p>
-            <p>> Node online. Ready for high-speed mobile execution.</p>
-        </div>
-    </div>
-
-    <div class="btn-row">
-        <button class="action-btn" onclick="mutateState()">Mutate Pocket State</button>
-        <button class="action-btn action-btn-outline" onclick="verifyIntegrity()">Run Integrity Check</button>
-    </div>
-
-    <footer>
-        POCKET STATE ARCHITECTURE™ — ZERO-CLOUD MOBILE INFRASTRUCTURE
-    </footer>
-
-    <script>
-        setInterval(() => {
-            document.getElementById('live-time').innerText = new Date().toLocaleTimeString();
-        }, 1000);
-
-        function logMsg(txt) {
-            const box = document.getElementById('logs');
-            const time = new Date().toLocaleTimeString();
-            box.innerHTML += '<p>> [' + time + '] ' + txt + '</p>';
-            box.scrollTop = box.scrollHeight;
-        }
-
-        function mutateState() {
-            const newHash = '0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase().padStart(4, '0');
-            document.getElementById('hash-display').innerText = newHash;
-            logMsg('State mutated. Root hash updated to ' + newHash);
-        }
-
-        function verifyIntegrity() {
-            logMsg('Executing zero-cloud cryptographic verification...');
-            setTimeout(() => {
-                logMsg('Verification passed: 100% sovereign, zero external leaks.');
-            }, 500);
-        }
-    </script>
-</body>
-</html>`
-        };
-        let currentFile = 'index.html';
+        let files = {};
+        let currentFile = 'app.html';
 
         function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
@@ -334,10 +102,27 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
+        async function loadFiles() {
+            try {
+                const res = await fetch('http://localhost:8080/api/files');
+                files = await res.json();
+                if (!files[currentFile]) {
+                    currentFile = Object.keys(files)[0] || 'app.html';
+                }
+                renderFiles();
+                document.getElementById('code-editor').value = files[currentFile] || '';
+                document.getElementById('active-filename').innerText = "EDITING: " + currentFile;
+                compileAndRender();
+            } catch (err) {
+                showToast("Failed to load workspace files", true);
+            }
+        }
+
         function renderFiles() {
             const container = document.getElementById('file-list-container');
             container.innerHTML = '';
             Object.keys(files).forEach(f => {
+                if (f === 'index.html') return; // Don't clutter editor with IDE source itself
                 const item = document.createElement('div');
                 item.className = 'file-item' + (f === currentFile ? ' active' : '');
                 item.innerText = f;
@@ -375,110 +160,54 @@
                 const commitData = await commitRes.json();
 
                 if (saveRes.ok && commitRes.ok) {
-                    showToast("✅ Saved & Git Committed!");
-                    terminal.innerHTML += '<p style="color: #10b981;">> [' + timestamp + '] Disk Sync & Git Commit Successful!</p>';
-                    if (commitData.output) terminal.innerHTML += '<p style="color: #38bdf8;">> ' + commitData.output + '</p>';
+                    showToast("✅ Saved & Committed!");
+                    terminal.innerHTML += '<p>> [' + timestamp + '] Disk Sync & Commit Successful!</p>';
                 } else {
-                    throw new Error(commitData.output || "Backend write failed");
+                    throw new Error(commitData.output || "Failed");
                 }
             } catch (err) {
-                showToast("❌ Backend error: " + err.message, true);
-                terminal.innerHTML += '<p style="color: #f87171;">> [' + timestamp + '] Error: ' + err.message + '</p>';
+                showToast("❌ Error: " + err.message, true);
+                terminal.innerHTML += '<p style="color: #f87171;">> Error: ' + err.message + '</p>';
             }
             terminal.scrollTop = terminal.scrollHeight;
         }
 
         async function pushToGit() {
-            showToast("Pushing to remote repository...");
-            const terminal = document.getElementById('terminal-logs');
-            const timestamp = new Date().toLocaleTimeString();
-
-            try {
-                const pushRes = await fetch('http://localhost:8080/api/push', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const pushData = await pushRes.json();
-
-                if (pushRes.ok) {
-                    showToast("✅ Successfully Pushed to Remote!");
-                    terminal.innerHTML += '<p style="color: #10b981;">> [' + timestamp + '] Git Push Successful!</p>';
-                    if (pushData.output) terminal.innerHTML += '<p style="color: #38bdf8;">> ' + pushData.output + '</p>';
-                } else {
-                    throw new Error(pushData.output || "Git push failed");
-                }
-            } catch (err) {
-                showToast("❌ Push error: " + err.message, true);
-                terminal.innerHTML += '<p style="color: #f87171;">> [' + timestamp + '] Push Error: ' + err.message + '</p>';
-            }
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast("Pushing to git...");
+            const res = await fetch('http://localhost:8080/api/push', { method: 'POST' });
+            if (res.ok) showToast("✅ Pushed to Git!");
+            else showToast("❌ Push failed", true);
         }
 
         async function deployToVercel() {
-            showToast("Deploying to Vercel production...");
-            const terminal = document.getElementById('terminal-logs');
-            const timestamp = new Date().toLocaleTimeString();
-
-            try {
-                const vercelRes = await fetch('http://localhost:8080/api/vercel', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const vercelData = await vercelRes.json();
-
-                if (vercelRes.ok) {
-                    showToast("✅ Vercel Production Deployment Live!");
-                    terminal.innerHTML += '<p style="color: #10b981;">> [' + timestamp + '] Vercel Deploy Successful!</p>';
-                    if (vercelData.output) terminal.innerHTML += '<p style="color: #38bdf8;">> ' + vercelData.output + '</p>';
-                } else {
-                    throw new Error(vercelData.output || "Vercel deployment failed");
-                }
-            } catch (err) {
-                showToast("❌ Vercel error: " + err.message, true);
-                terminal.innerHTML += '<p style="color: #f87171;">> [' + timestamp + '] Vercel Error: ' + err.message + '</p>';
-            }
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast("Deploying to Vercel...");
+            const res = await fetch('http://localhost:8080/api/vercel', { method: 'POST' });
+            if (res.ok) showToast("✅ Vercel Deploy Live!");
+            else showToast("❌ Deployment failed", true);
         }
 
         function compileAndRender() {
             const iframe = document.getElementById('preview-frame');
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
-            doc.write(files['index.html'] || '');
+            doc.write(files[currentFile] || '');
             doc.close();
-            showToast("Build compiled successfully!");
+            showToast("Build compiled!");
         }
 
         function handleTerm(e) {
             if (e.key === 'Enter') {
                 const input = document.getElementById('term-cmd');
                 const cmd = input.value.trim().toLowerCase();
-                const terminal = document.getElementById('terminal-logs');
                 if (!cmd) return;
-                terminal.innerHTML += '<p style="color: #fff;">> psa$ ' + cmd + '</p>';
                 input.value = '';
-
-                if (cmd === 'build') {
-                    compileAndRender();
-                    terminal.innerHTML += '<p style="color: #10b981;">> BUILD SUCCESS.</p>';
-                } else if (cmd === 'git push') {
-                    pushToGit();
-                } else if (cmd === 'vercel' || cmd === 'deploy') {
-                    deployToVercel();
-                } else if (cmd === 'clear') {
-                    terminal.innerHTML = '';
-                } else {
-                    terminal.innerHTML += '<p style="color: #f87171;">Unknown command: ' + cmd + '</p>';
-                }
-                terminal.scrollTop = terminal.scrollHeight;
+                if (cmd === 'build') compileAndRender();
+                else if (cmd === 'git push') pushToGit();
+                else if (cmd === 'vercel' || cmd === 'deploy') deployToVercel();
             }
         }
 
-        window.onload = () => {
-            renderFiles();
-            document.getElementById('code-editor').value = files[currentFile];
-            compileAndRender();
-        };
+        window.onload = loadFiles;
     </script>
 </body>
 </html>
