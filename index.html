@@ -3,37 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSA™ Mobile IDE & Runtime v1.2</title>
+    <title>PSA™ Master IDE & Runtime</title>
     <style>
         * { box-sizing: border-box; }
         body { 
             font-family: monospace; 
-            background: #090d16; 
-            color: #38bdf8; 
+            background: #050505; 
+            color: #f59e0b; 
             margin: 0; 
-            padding: 12px; 
+            padding: 10px; 
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
         header { 
-            border-bottom: 1px solid #1e293b; 
+            border-bottom: 1px solid #27272a; 
             padding-bottom: 8px; 
-            margin-bottom: 10px; 
+            margin-bottom: 8px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        h1 { font-size: 1rem; margin: 0; color: #f8fafc; }
-        .badge { background: #0369a1; color: #e0f2fe; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; }
-        .status { color: #4ade80; font-size: 0.8rem; }
+        h1 { font-size: 0.95rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
+        .badge { background: #d97706; color: #050505; padding: 2px 6px; font-size: 0.65rem; border-radius: 4px; font-weight: bold; }
+        .status { color: #10b981; font-size: 0.75rem; }
         
+        .file-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+        }
+        .tab {
+            background: #121216;
+            border: 1px solid #27272a;
+            color: #a1a1aa;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: #18181b;
+            border-color: #f59e0b;
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
         .workspace-grid {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 8px;
             min-height: 0;
         }
         
@@ -41,18 +64,18 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #020617;
-            border: 1px solid #1e293b;
+            background: #09090b;
+            border: 1px solid #27272a;
             border-radius: 6px;
             overflow: hidden;
         }
 
         .pane-header {
-            background: #0f172a;
-            padding: 6px 10px;
-            font-size: 0.75rem;
-            color: #64748b;
-            border-bottom: 1px solid #1e293b;
+            background: #121216;
+            padding: 5px 8px;
+            font-size: 0.7rem;
+            color: #71717a;
+            border-bottom: 1px solid #27272a;
             display: flex;
             justify-content: space-between;
         }
@@ -60,11 +83,11 @@
         textarea {
             flex: 1;
             background: transparent;
-            color: #38bdf8;
+            color: #f59e0b;
             border: none;
-            padding: 10px;
+            padding: 8px;
             font-family: monospace;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             resize: none;
             outline: none;
         }
@@ -77,24 +100,25 @@
         }
 
         .terminal { 
-            background: #020617; 
-            border: 1px solid #1e293b; 
-            padding: 8px 10px; 
+            background: #09090b; 
+            border: 1px solid #27272a; 
+            padding: 6px 8px; 
             border-radius: 6px; 
-            font-size: 0.75rem;
-            height: 80px;
+            font-size: 0.7rem;
+            height: 70px;
             overflow-y: auto;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            color: #10b981;
         }
         
         .btn-group {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
         
         .btn { 
-            background: #38bdf8; 
-            color: #090d16; 
+            background: #f59e0b; 
+            color: #050505; 
             border: none; 
             padding: 10px; 
             font-weight: bold; 
@@ -104,8 +128,9 @@
             font-size: 0.8rem;
         }
         .btn-secondary {
-            background: #1e293b;
-            color: #38bdf8;
+            background: #18181b;
+            color: #f59e0b;
+            border: 1px solid #27272a;
         }
         .btn:active { opacity: 0.8; }
         p { margin: 2px 0; }
@@ -113,40 +138,25 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ Mobile IDE</h1>
+        <h1>PSA™ MASTER IDE</h1>
         <div>
-            <span class="badge">v1.2 Sandbox</span>
-            <span class="status">● ONLINE</span>
+            <span class="badge">v1.3 PRO</span>
+            <span class="status">● SECURE</span>
         </div>
     </header>
+
+    <div class="file-tabs">
+        <div class="tab active" onclick="switchFile('index.html')">index.html</div>
+        <div class="tab" onclick="switchFile('app.py')">app.py</div>
+        <div class="tab" onclick="switchFile('runtime.sh')">runtime.sh</div>
+    </div>
     
     <div class="workspace-grid">
-        <!-- Editor Pane -->
         <div class="pane">
-            <div class="pane-header"><span>SOURCE EDITOR (HTML/JS)</span></div>
-            <textarea id="code-editor"><!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body { background: #111; color: #4ade80; font-family: sans-serif; text-align: center; padding-top: 40px; }
-        h2 { margin: 0; }
-    </style>
-</head>
-<body>
-    <h2>PSA™ Node Active</h2>
-    <p>Tap button below to test runtime script.</p>
-    <button onclick="runTest()">Run Console Test</button>
-    <script>
-        function runTest() {
-            console.log("SUCCESS: Payload executed inside mobile sandbox node.");
-            alert("Sandbox signal verified!");
-        }
-    </script>
-</body>
-</html></textarea>
+            <div class="pane-header"><span id="active-filename">EDITING: index.html</span></div>
+            <textarea id="code-editor" oninput="updateActiveFile()"></textarea>
         </div>
 
-        <!-- Live Preview Pane -->
         <div class="pane">
             <div class="pane-header"><span>LIVE EDGE PREVIEW</span></div>
             <iframe id="preview-frame"></iframe>
@@ -154,44 +164,67 @@
     </div>
 
     <div class="terminal" id="terminal-logs">
-        <p>> psa-daemon: sandbox container initialized.</p>
-        <p>> status: ready for mobile compilation.</p>
+        <p>> psa-master: core daemon online.</p>
+        <p>> status: multi-file workspace ready.</p>
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-secondary" onclick="saveState()">SAVE</button>
-        <button class="btn" onclick="executeBuild()">COMPILE & RENDER</button>
+        <button class="btn btn-secondary" onclick="saveWorkspace()">SAVE STATE</button>
+        <button class="btn" onclick="compileAndRender()">COMPILE & RUN</button>
     </div>
 
     <script>
-        function saveState() {
+        let files = {
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #09090b; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 30px; }\n        h2 { border-bottom: 1px solid #f59e0b; display: inline-block; padding-bottom: 4px; }\n    </style>\n</head>\n<body>\n    <h2>PSA™ Obsidian Node</h2>\n    <p>Multi-file runtime fully operational.</p>\n    <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;">Fire Signal</button>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: Master runtime signal emitted.");\n            alert("PSA Master Node Verified!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Edge Engine\nimport sys\n\ndef init_node():\n    print("[+] Initializing Python kernel...")\n    return True\n\nif __name__ == "__main__":\n    init_node()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Runtime Daemon\necho "Starting local edge container..."\npython3 -m http.server 8080`
+        };
+
+        let currentFile = 'index.html';
+
+        function switchFile(filename) {
+            currentFile = filename;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('active-filename').innerText = "EDITING: " + filename;
+            document.getElementById('code-editor').value = files[filename];
+        }
+
+        function updateActiveFile() {
+            files[currentFile] = document.getElementById('code-editor').value;
+        }
+
+        function saveWorkspace() {
             const terminal = document.getElementById('terminal-logs');
-            const content = document.getElementById('code-editor').value;
-            localStorage.setItem('psa_workspace_code', content);
-            terminal.innerHTML += `<p style="color: #facc15;">> State saved to local mobile storage.</p>`;
+            localStorage.setItem('psa_master_workspace', JSON.stringify(files));
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] All workspace files saved to local mobile storage.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function executeBuild() {
+        function compileAndRender() {
             const terminal = document.getElementById('terminal-logs');
-            const code = document.getElementById('code-editor').value;
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling and injecting runtime state...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling multi-file workspace...</p>`;
             
-            // Render code into iframe sandbox
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
-            doc.write(code);
+            doc.write(files['index.html']);
             doc.close();
 
-            terminal.innerHTML += `<p style="color: #4ade80;">> [${timestamp}] RENDER COMPLETE: Edge preview live.</p>`;
+            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Edge preview updated.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Initial render on load
-        window.onload = () => { executeBuild(); };
+        window.onload = () => {
+            const saved = localStorage.getItem('psa_master_workspace');
+            if (saved) {
+                try { files = JSON.parse(saved); } catch(e) {}
+            }
+            document.getElementById('code-editor').value = files[currentFile];
+            compileAndRender();
+        };
     </script>
 </body>
 </html>
