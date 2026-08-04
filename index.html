@@ -3,39 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v3.1) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v3.1) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with true disk persistence and Git backend integration for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
-    <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
-    <meta name="author" content="Rean Van Aswegen">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v3.1) | Rean Van Aswegen">
-    <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
-    <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
-
-    <!-- Structured Data (JSON-LD Schema) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v3.1",
-      "author": {
-        "@type": "Person",
-        "name": "Rean Van Aswegen",
-        "jobTitle": "Inventor & Founder"
-      },
-      "description": "A decentralized architectural pattern designed for zero-cloud, offline-first mobile software automation and execution.",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Cross-Platform, Mobile, Termux, Local"
-    }
-    </script>
-
+    <title>Pocket State Architecture (PSA™ v3.1) — Rean Van Aswegen</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -47,9 +15,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            user-select: none;
-            -webkit-user-select: none;
-            overflow-y: auto;
         }
         header { 
             border-bottom: 1px solid #27272a; 
@@ -58,28 +23,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-shrink: 0;
         }
         h1 { font-size: 0.85rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
-        .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-        .badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050505; padding: 3px 8px; font-size: 0.58rem; border-radius: 4px; font-weight: bold; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
-        .nav-btn {
-            background: #18181b;
-            border: 1px solid #f59e0b;
-            color: #f59e0b;
-            font-size: 0.6rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            min-height: 26px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nav-btn:hover { background: #f59e0b; color: #050505; box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
-        .nav-btn:active { transform: scale(0.96); }
-        .status { color: #10b981; font-size: 0.65rem; white-space: nowrap; text-shadow: 0 0 6px rgba(16, 185, 129, 0.4); }
+        .header-actions { display: flex; gap: 5px; align-items: center; }
+        .badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050505; padding: 3px 8px; font-size: 0.58rem; border-radius: 4px; font-weight: bold; }
+        .status { color: #10b981; font-size: 0.65rem; }
         
-        /* Founder & SEO Plaque Banner */
         .founder-plaque {
             background: linear-gradient(135deg, #121216 0%, #09090b 100%);
             border: 1px solid rgba(245, 158, 11, 0.4);
@@ -87,989 +36,264 @@
             padding: 6px 10px;
             margin-bottom: 8px;
             text-align: center;
-            box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.08), 0 2px 8px rgba(0, 0, 0, 0.5);
-            flex-shrink: 0;
         }
-        .plaque-title { font-size: 0.58rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+        .plaque-title { font-size: 0.58rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; }
         .plaque-name { font-size: 0.78rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
         .plaque-sub { font-size: 0.6rem; color: #f59e0b; margin-top: 2px; font-weight: bold; }
 
-        /* Toast Notification System */
         #toast-container {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            pointer-events: none;
+            position: fixed; top: 10px; right: 10px; z-index: 999;
+            display: flex; flex-direction: column; gap: 6px; pointer-events: none;
         }
         .toast {
-            background: #09090b;
-            border: 1px solid #10b981;
-            color: #10b981;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.65rem;
-            font-weight: bold;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            pointer-events: auto;
-            max-width: 280px;
+            background: #09090b; border: 1px solid #10b981; color: #10b981;
+            padding: 8px 12px; border-radius: 6px; font-size: 0.65rem; font-weight: bold;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); pointer-events: auto;
         }
-        .toast.error {
-            border-color: #f87171;
-            color: #f87171;
-            box-shadow: 0 4px 20px rgba(248, 113, 113, 0.3);
-        }
-        @keyframes toastIn {
-            0% { transform: translateY(-20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
+        .toast.error { border-color: #f87171; color: #f87171; }
 
-        /* General Modal Overlay */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.88);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            backdrop-filter: blur(4px);
-        }
-        .modal-box {
-            background: #09090b;
-            border: 1px solid #f59e0b;
-            border-radius: 8px;
-            padding: 14px;
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
-            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
-            animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        @keyframes modalPop {
-            0% { transform: scale(0.85); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .modal-title { font-size: 0.78rem; color: #fff; margin-bottom: 10px; font-weight: bold; letter-spacing: 1px; }
-        .modal-btn {
-            background: #18181b;
-            border: 1px solid #27272a;
-            color: #f59e0b;
-            padding: 9px;
-            width: 100%;
-            font-family: monospace;
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            min-height: 36px;
-            transition: all 0.2s ease;
-        }
-        .modal-btn:hover { border-color: #f59e0b; background: #27272a; }
-        .modal-btn.danger {
-            background: #450a0a;
-            border-color: #7f1d1d;
-            color: #f87171;
-        }
-        .modal-btn.danger:hover { background: #7f1d1d; color: #fff; }
-        .modal-btn:active { transform: scale(0.98); }
-
-        .modal-scroll-content {
-            text-align: left;
-            max-height: 220px;
-            overflow-y: auto;
-            font-size: 0.64rem;
-            color: #d4d4d8;
-            margin-bottom: 12px;
-            padding-right: 4px;
-            line-height: 1.4;
-        }
-        .content-section { margin-bottom: 10px; }
-        .content-section b { color: #f59e0b; display: block; margin-bottom: 2px; }
-
-        /* Plugin Card List */
-        .plugin-card {
-            background: #121216;
-            border: 1px solid #27272a;
-            border-radius: 6px;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-            transition: border-color 0.2s ease;
-        }
-        .plugin-card:hover { border-color: rgba(245, 158, 11, 0.5); }
-        .plugin-info { text-align: left; flex: 1; }
-        .plugin-name { color: #fff; font-weight: bold; font-size: 0.68rem; }
-        .plugin-desc { color: #a1a1aa; font-size: 0.58rem; margin-top: 2px; }
-        .plugin-toggle-btn {
-            background: #18181b;
-            border: 1px solid #27272a;
-            color: #f59e0b;
-            font-size: 0.58rem;
-            padding: 5px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            white-space: nowrap;
-            min-height: 28px;
-            transition: all 0.2s ease;
-        }
-        .plugin-toggle-btn.active {
-            background: #d97706;
-            color: #050505;
-            border-color: #f59e0b;
-            box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
-        }
-
-        /* Main Workspace Layout & Collapsible Sidebar */
-        .main-layout {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-            position: relative;
-        }
-
+        .main-layout { display: flex; gap: 8px; margin-bottom: 8px; }
         .sidebar {
-            width: 170px;
-            min-width: 170px;
-            max-width: 170px;
-            flex-shrink: 0;
-            background: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                        min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                        max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 0.25s ease, 
-                        border-color 0.3s ease,
-                        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            transform: translateX(0);
+            width: 170px; background: #09090b; border: 1px solid #27272a; border-radius: 6px;
+            display: flex; flex-direction: column; overflow: hidden;
         }
-        .sidebar.collapsed {
-            width: 0 !important;
-            min-width: 0 !important;
-            max-width: 0 !important;
-            border-color: transparent;
-            opacity: 0;
-            pointer-events: none;
-            margin-right: -8px;
-            transform: translateX(-10px);
-        }
-
-        .sidebar-header {
-            background: #121216;
-            padding: 6px 8px;
-            font-size: 0.6rem;
-            color: #a1a1aa;
-            border-bottom: 1px solid #27272a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            min-height: 30px;
-            flex-shrink: 0;
-        }
-        .sidebar-actions { display: flex; gap: 4px; align-items: center; }
-        .new-file-btn { 
-            background: #f59e0b; 
-            color: #050505; 
-            border: none; 
-            font-size: 0.6rem; 
-            font-weight: bold; 
-            padding: 3px 7px; 
-            border-radius: 3px; 
-            cursor: pointer; 
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
-        }
-        .new-file-btn:hover { box-shadow: 0 0 8px rgba(245, 158, 11, 0.5); }
-        .new-file-btn:active { transform: scale(0.95); }
-        
-        .collapse-btn { 
-            background: #18181b; 
-            color: #f59e0b; 
-            border: 1px solid #27272a; 
-            font-size: 0.6rem; 
-            padding: 2px 6px; 
-            border-radius: 3px; 
-            cursor: pointer; 
-            transition: all 0.2s ease;
-        }
-        .collapse-btn:hover { background: #27272a; border-color: #f59e0b; }
-
-        .file-list {
-            max-height: 380px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            white-space: nowrap;
-            width: 170px;
-        }
+        .sidebar-header { background: #121216; padding: 6px 8px; font-size: 0.6rem; color: #a1a1aa; border-bottom: 1px solid #27272a; display: flex; justify-content: space-between; align-items: center; }
+        .file-list { padding: 6px; display: flex; flex-direction: column; gap: 5px; }
         .file-item {
-            background: #121216;
-            border: 1px solid #27272a;
-            color: #a1a1aa;
-            padding: 6px 8px;
-            font-size: 0.64rem;
-            border-radius: 5px;
-            cursor: pointer;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #121216; border: 1px solid #27272a; color: #a1a1aa; padding: 6px 8px;
+            font-size: 0.64rem; border-radius: 5px; cursor: pointer;
         }
-        .file-item::before {
-            content: "📄";
-            font-size: 0.58rem;
-        }
-        .file-item:hover {
-            background: #18181b;
-            border-color: rgba(245, 158, 11, 0.5);
-            color: #ffffff;
-            transform: translateX(2px);
-        }
-        .file-item.active { 
-            background: linear-gradient(135deg, #18181b 0%, #121216 100%); 
-            border-color: #f59e0b; 
-            color: #f59e0b; 
-            font-weight: bold;
-            box-shadow: inset 3px 0 0 #f59e0b, 0 2px 6px rgba(245, 158, 11, 0.15);
-        }
-        .file-item.active::before { content: "⚡"; }
+        .file-item.active { border-color: #f59e0b; color: #f59e0b; font-weight: bold; }
 
-        .workspace-grid {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            min-width: 0;
-        }
-        
-        .pane {
-            display: flex;
-            flex-direction: column;
-            background: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            transition: border-color 0.2s ease;
-        }
-        .pane:focus-within { border-color: rgba(245, 158, 11, 0.4); }
-        
-        .pane-header {
-            background: #121216;
-            padding: 6px 8px;
-            font-size: 0.62rem;
-            color: #71717a;
-            border-bottom: 1px solid #27272a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 32px;
-            flex-shrink: 0;
-        }
-        .pane-header-left { display: flex; align-items: center; gap: 6px; }
-        .toggle-sidebar-trigger { 
-            background: #18181b; 
-            border: 1px solid #27272a; 
-            color: #f59e0b; 
-            font-size: 0.6rem; 
-            padding: 3px 7px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            min-height: 24px; 
-            font-weight: bold;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .toggle-sidebar-trigger:hover { background: #f59e0b; color: #050505; border-color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
-        .toggle-sidebar-trigger:active { transform: scale(0.96); }
+        .workspace-grid { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+        .pane { background: #09090b; border: 1px solid #27272a; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+        .pane-header { background: #121216; padding: 6px 8px; font-size: 0.62rem; color: #71717a; border-bottom: 1px solid #27272a; }
+        textarea { width: 100%; height: 220px; background: transparent; color: #f59e0b; border: none; padding: 10px; font-family: monospace; font-size: 0.72rem; outline: none; }
+        iframe { width: 100%; height: 220px; background: #ffffff; border: none; }
 
-        .snippet-bar {
-            display: flex;
-            gap: 5px;
-            padding: 6px 8px;
-            background: #0f0f13;
-            border-bottom: 1px solid #27272a;
-            overflow-x: auto;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .snippet-btn {
-            background: #18181b;
-            border: 1px solid #27272a;
-            color: #f59e0b;
-            font-size: 0.58rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            white-space: nowrap;
-            min-height: 26px;
-            font-weight: bold;
-            transition: all 0.2s ease;
-        }
-        .snippet-btn:hover { background: #27272a; border-color: #f59e0b; }
-        .snippet-btn:active { background: #f59e0b; color: #050505; transform: scale(0.96); }
-
-        textarea {
-            width: 100%;
-            height: 240px;
-            background: transparent;
-            color: #f59e0b;
-            border: none;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 0.72rem;
-            resize: vertical;
-            outline: none;
-            user-select: text;
-            -webkit-user-select: text;
-            line-height: 1.4;
-        }
-        iframe { width: 100%; height: 260px; background: #ffffff; border: none; }
-
-        .ai-dock {
-            background: #09090b;
-            border: 1px solid rgba(217, 119, 6, 0.6);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            flex-shrink: 0;
-        }
-        .ai-output { max-height: 80px; padding: 6px 10px; font-size: 0.6rem; overflow-y: auto; color: #38bdf8; }
-        .ai-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; flex-shrink: 0; }
-        .ai-prompt { padding: 4px 10px; color: #38bdf8; font-size: 0.6rem; font-weight: bold; }
-        .ai-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.6rem; padding: 6px; outline: none; user-select: text; -webkit-user-select: text; }
-
-        .terminal-container {
-            background: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            flex-shrink: 0;
-        }
+        .terminal-container { background: #09090b; border: 1px solid #27272a; border-radius: 6px; display: flex; flex-direction: column; margin-bottom: 8px; }
         .terminal-logs { max-height: 90px; padding: 6px 10px; font-size: 0.58rem; overflow-y: auto; color: #10b981; line-height: 1.4; }
-        .terminal-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; flex-shrink: 0; }
+        .terminal-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; }
         .terminal-prompt { padding: 4px 10px; color: #10b981; font-size: 0.58rem; font-weight: bold; }
-        .terminal-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.58rem; padding: 6px; outline: none; user-select: text; -webkit-user-select: text; }
+        .terminal-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.58rem; padding: 6px; outline: none; }
 
-        .btn-group { display: flex; gap: 8px; margin-top: 4px; margin-bottom: 12px; flex-shrink: 0; }
+        .btn-group { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
         .btn { 
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
-            color: #050505; 
-            border: none; 
-            padding: 10px 12px; 
-            font-weight: bold; 
-            flex: 1; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-size: 0.72rem;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050505; border: none; 
+            padding: 8px 10px; font-weight: bold; flex: 1; min-width: 110px; border-radius: 6px; cursor: pointer; font-size: 0.65rem;
+            display: flex; align-items: center; justify-content: center; text-align: center;
         }
-        .btn:hover { box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); transform: translateY(-1px); }
-        .btn:active { transform: translateY(1px) scale(0.99); }
-        
-        .btn-secondary {
-            background: #18181b;
-            color: #f59e0b;
-            border: 1px solid #27272a;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-        }
-        .btn-secondary:hover { background: #27272a; border-color: #f59e0b; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.15); }
-        p { margin: 2px 0; }
+        .btn-secondary { background: #18181b; color: #f59e0b; border: 1px solid #27272a; }
     </style>
 </head>
 <body>
-    <!-- Toast Notification Container -->
     <div id="toast-container"></div>
-
     <header>
         <h1>PSA™ v3.1 CORE</h1>
         <div class="header-actions">
-            <button class="nav-btn" onclick="runFormatter()">[FORMAT]</button>
-            <button class="nav-btn" onclick="openPlugins()">[# PLUGINS]</button>
-            <button class="nav-btn" onclick="openGuide()">[? GUIDE]</button>
-            <span class="badge">v3.1 DISK BACKEND</span>
+            <span class="badge" id="runtime-badge">v3.1 SOVEREIGN NODE</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
 
-    <!-- Permanent Inventor & Founder Plaque -->
     <div class="founder-plaque">
         <div class="plaque-title">Sovereign Architecture Node</div>
         <div class="plaque-name">REAN VAN ASWEGEN</div>
         <div class="plaque-sub">INVENTOR & FOUNDER — POCKET STATE ARCHITECTURE (PSA™)</div>
     </div>
 
-    <!-- Plugin Marketplace Modal -->
-    <div class="modal-overlay" id="plugins-modal" onclick="closePluginsOverlay(event)">
-        <div class="modal-box" style="max-width: 310px;">
-            <div class="modal-title">PSA™ LOCAL EXTENSIONS</div>
-            <div class="modal-scroll-content" id="plugin-list-container">
-                <!-- Dynamically populated plugin cards -->
-            </div>
-            <button class="modal-btn" onclick="closePlugins()">CLOSE</button>
-        </div>
-    </div>
-
-    <!-- Onboarding Guide Modal -->
-    <div class="modal-overlay" id="guide-modal" onclick="closeGuideOverlay(event)">
-        <div class="modal-box" style="max-width: 300px;">
-            <div class="modal-title">PSA™ v3.1 GUIDE</div>
-            <div class="modal-scroll-content">
-                <div class="content-section">
-                    <b>1. True Disk & Git Backend</b>
-                    'SAVE & COMMIT' writes files directly to the local Termux directory and runs real Git commits via Python backend.
-                </div>
-                <div class="content-section">
-                    <b>2. Visual Toast Alerts</b>
-                    Instant visual feedback toasts confirm successful saves, disk syncs, and shell operations.
-                </div>
-                <div class="content-section">
-                    <b>3. Sovereign Formatter ([FORMAT])</b>
-                    Real operational indentation & syntax normalization engine for active code buffers.
-                </div>
-                <div class="content-section">
-                    <b>4. Interactive Shell (psa$)</b>
-                    Type <b>format</b>, <b>lint</b>, <b>git log</b>, <b>plugins</b>, or <b>build</b> in the terminal.
-                </div>
-            </div>
-            <button class="modal-btn" onclick="closeGuide()">GOT IT</button>
-        </div>
-    </div>
-
-    <!-- Long-Press Context Action Modal -->
-    <div class="modal-overlay" id="context-modal" onclick="closeModal(event)">
-        <div class="modal-box">
-            <div class="modal-title" id="modal-filename-label">FILE OPTIONS</div>
-            <button class="modal-btn" onclick="renameCurrentFile()">RENAME FILE</button>
-            <button class="modal-btn danger" onclick="deleteCurrentFile()">DELETE FILE</button>
-            <button class="modal-btn" style="background:#09090b; color:#a1a1aa; border-color:#27272a;" onclick="closeModalDirect()">CANCEL</button>
-        </div>
-    </div>
-
-    <!-- Main Workspace Layout -->
     <div class="main-layout">
-        <div class="sidebar" id="app-sidebar">
-            <div class="sidebar-header">
-                <span>📁 Files</span>
-                <div class="sidebar-actions">
-                    <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
-                    <button class="collapse-btn" onclick="toggleSidebar()" title="Collapse Sidebar">◀</button>
-                </div>
-            </div>
-            <div class="file-list" id="file-list-container">
-                <!-- Dynamically populated file items -->
-            </div>
+        <div class="sidebar">
+            <div class="sidebar-header"><span>📁 Files</span></div>
+            <div class="file-list" id="file-list-container"></div>
         </div>
-
         <div class="workspace-grid">
             <div class="pane">
-                <div class="pane-header">
-                    <div class="pane-header-left">
-                        <button class="toggle-sidebar-trigger" id="sidebar-toggle-btn" onclick="toggleSidebar()">📁 Files Drawer</button>
-                        <span id="active-filename">EDITING: index.html</span>
-                    </div>
-                </div>
-                <div class="snippet-bar">
-                    <button class="snippet-btn" onclick="insertSnippet('html')">&lt;html&gt;</button>
-                    <button class="snippet-btn" onclick="insertSnippet('style')">&lt;style&gt;</button>
-                    <button class="snippet-btn" onclick="insertSnippet('script')">&lt;script&gt;</button>
-                    <button class="snippet-btn" onclick="insertSnippet('flex')">Flex Layout</button>
-                    <button class="snippet-btn" onclick="insertSnippet('python')">Py Core</button>
-                </div>
+                <div class="pane-header" id="active-filename">EDITING: index.html</div>
                 <textarea id="code-editor" oninput="updateActiveFile()"></textarea>
             </div>
-
             <div class="pane">
-                <div class="pane-header"><span>LIVE EDGE PREVIEW</span></div>
+                <div class="pane-header">LIVE EDGE PREVIEW</div>
                 <iframe id="preview-frame"></iframe>
             </div>
         </div>
     </div>
 
-    <!-- Local AI Bridge Dock -->
-    <div class="ai-dock">
-        <div class="ai-output" id="ai-logs">
-            <p>> v3.1-backend: true disk write & git shell integration active for Rean Van Aswegen.</p>
-        </div>
-        <div class="ai-input-row">
-            <span class="ai-prompt">ollama$</span>
-            <input type="text" id="ai-cmd" class="ai-input" placeholder="ask local model..." onkeydown="handleAIQuery(event)">
-        </div>
-    </div>
-
-    <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v3.1 active. Type 'format', 'lint', 'git log', or 'help'.</p>
+            <p>> runtime: v3.1 git push & vercel deployment bridge active for Rean Van Aswegen.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
-            <input type="text" id="term-cmd" class="terminal-input" placeholder="type command (format, lint, git log, build, export)..." onkeydown="handleTerminalCommand(event)">
+            <input type="text" id="term-cmd" class="terminal-input" placeholder="type command (build, git push, vercel)..." onkeydown="handleTerm(event)">
         </div>
     </div>
 
-    <!-- Action CTA Bar -->
     <div class="btn-group">
-        <button class="btn btn-secondary" onclick="saveWorkspace()">SAVE & COMMIT</button>
-        <button class="btn" onclick="compileAndRender()">COMPILE & RUN</button>
+        <button class="btn btn-secondary" onclick="saveAndCommit()">SAVE & COMMIT</button>
+        <button class="btn" onclick="pushToGit()">PUSH TO GIT</button>
+        <button class="btn btn-secondary" onclick="deployToVercel()">DEPLOY VERCEL</button>
+        <button class="btn btn-secondary" onclick="compileAndRender()">BUILD</button>
     </div>
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>PSA™ Sovereign Node</title>\n    <style>\n        body { \n            background: #050505; \n            color: #f59e0b; \n            font-family: monospace; \n            padding: 20px; \n            margin: 0;\n        }\n        .container {\n            border: 1px solid #27272a;\n            background: #09090b;\n            padding: 20px;\n            border-radius: 8px;\n        }\n        h1 { color: #ffffff; font-size: 1.2rem; margin-top: 0; }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <h1>PSA™ Sovereign Environment</h1>\n        <p>Clean slate initialized by Rean Van Aswegen.</p>\n    </div>\n</body>\n</html>`
+            'index.html': `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>PSA™ Sovereign Environment</title>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; padding: 20px; }\n    </style>\n</head>\n<body>\n    <h1>PSA™ Sovereign Environment</h1>\n    <p>Clean slate initialized by Rean Van Aswegen.</p>\n</body>\n</html>`
         };
-
-        let plugins = {
-            'sovereign-formatter': { name: 'Sovereign Formatter', desc: 'Real indentation & buffer sanitizer engine.', enabled: true },
-            'offline-linter': { name: 'Offline Syntax Linter', desc: 'Real static tag & bracket verification.', enabled: true },
-            'obsidian-highlighter': { name: 'Obsidian High-Contrast Engine', desc: 'Enforces obsidian black & gold DOM tokens.', enabled: true },
-            'git-local-ledger': { name: 'Local Git Ledger', desc: 'Real local commit hash generation in storage.', enabled: true }
-        };
-
-        let gitCommits = [];
         let currentFile = 'index.html';
-        let targetFileForAction = null;
-        let pressTimer = null;
-        let isSidebarCollapsed = false;
 
-        function showToast(message, isError = false) {
+        function showToast(msg, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast' + (isError ? ' error' : '');
-            toast.innerText = message;
+            toast.innerText = msg;
             container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(-10px)';
-                toast.style.transition = 'all 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        function runFormatter() {
-            if (!plugins['sovereign-formatter'].enabled) {
-                showToast("Sovereign Formatter plugin is DISABLED.", true);
-                return;
-            }
-            let code = document.getElementById('code-editor').value;
-            code = code.replace(/\r\n/g, '\n')
-                       .split('\n')
-                       .map(line => line.trimEnd())
-                       .join('\n')
-                       .replace(/\n{3,}/g, '\n\n');
-            
-            document.getElementById('code-editor').value = code;
-            updateActiveFile();
-            showToast("Buffer formatted successfully.");
-
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [FORMATTER] Sanitized buffer for ${currentFile}.</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        function runLinter() {
-            if (!plugins['offline-linter'].enabled) return;
-            const code = document.getElementById('code-editor').value;
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #38bdf8;">> [LINTER] Scanning ${currentFile}...</p>`;
-
-            let errors = 0;
-            const openDivs = (code.match(/<div[^>]*>/g) || []).length;
-            const closeDivs = (code.match(/<\/div>/g) || []).length;
-            if (openDivs !== closeDivs) {
-                terminal.innerHTML += `<p style="color: #f87171;">> [Linter Warning] Mismatched <div> tags.</p>`;
-                errors++;
-            }
-
-            if (errors === 0) {
-                terminal.innerHTML += `<p style="color: #10b981;">> [LINTER] Zero structural faults detected.</p>`;
-            }
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        async function saveWorkspace() {
-            updateActiveFile();
-            showToast("Saving to local disk & committing...");
-
-            const terminal = document.getElementById('terminal-logs');
-            const timestamp = new Date().toLocaleTimeString();
-
-            try {
-                // 1. Save files to disk via Python backend
-                const saveRes = await fetch('http://localhost:8080/api/save', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ files: files })
-                });
-                const saveData = await saveRes.json();
-
-                // 2. Execute real git commit via Python backend
-                const commitMsg = `Manual save & commit for ${currentFile} at ${timestamp}`;
-                const commitRes = await fetch('http://localhost:8080/api/commit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: commitMsg })
-                });
-                const commitData = await commitRes.json();
-
-                if (saveRes.ok && commitRes.ok) {
-                    showToast("✅ Saved to Disk & Git Committed!");
-                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Disk Sync & Git Commit Successful!</p>`;
-                    if (commitData.output) {
-                        terminal.innerHTML += `<p style="color: #38bdf8;">> ${commitData.output}</p>`;
-                    }
-                } else {
-                    throw new Error(saveData.message || commitData.message || "Backend synchronization failed.");
-                }
-            } catch (err) {
-                // Fallback to localStorage if Python backend is offline
-                const payload = { files: files, plugins: plugins, commits: gitCommits };
-                localStorage.setItem('psa_v31_workspace', JSON.stringify(payload));
-                showToast("⚠️ Backend offline. Saved to browser storage.");
-                terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Persisted to localStorage (Start server.py for disk sync).</p>`;
-            }
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        function openPlugins() {
-            renderPluginList();
-            document.getElementById('plugins-modal').style.display = 'flex';
-        }
-
-        function closePlugins() {
-            document.getElementById('plugins-modal').style.display = 'none';
-        }
-
-        function closePluginsOverlay(e) {
-            if (e.target.id === 'plugins-modal') closePlugins();
-        }
-
-        function renderPluginList() {
-            const container = document.getElementById('plugin-list-container');
-            container.innerHTML = '';
-            Object.keys(plugins).forEach(key => {
-                const p = plugins[key];
-                const card = document.createElement('div');
-                card.className = 'plugin-card';
-                card.innerHTML = `
-                    <div class="plugin-info">
-                        <div class="plugin-name">${p.name}</div>
-                        <div class="plugin-desc">${p.desc}</div>
-                    </div>
-                    <button class="plugin-toggle-btn ${p.enabled ? 'active' : ''}" onclick="togglePlugin('${key}')">
-                        ${p.enabled ? 'ENABLED' : 'DISABLED'}
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function togglePlugin(key) {
-            plugins[key].enabled = !plugins[key].enabled;
-            renderPluginList();
-            showToast(`${plugins[key].name} set to ${plugins[key].enabled ? 'ENABLED' : 'DISABLED'}`);
-        }
-
-        function openGuide() {
-            document.getElementById('guide-modal').style.display = 'flex';
-        }
-
-        function closeGuide() {
-            document.getElementById('guide-modal').style.display = 'none';
-        }
-
-        function closeGuideOverlay(e) {
-            if (e.target.id === 'guide-modal') closeGuide();
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('app-sidebar');
-            const toggleTrigger = document.getElementById('sidebar-toggle-btn');
-            isSidebarCollapsed = !isSidebarCollapsed;
-            
-            if (isSidebarCollapsed) {
-                sidebar.classList.add('collapsed');
-                toggleTrigger.innerHTML = "▶ Show Files";
-            } else {
-                sidebar.classList.remove('collapsed');
-                toggleTrigger.innerHTML = "📁 Files Drawer";
-            }
-        }
-
-        function renderFileList() {
+        function renderFiles() {
             const container = document.getElementById('file-list-container');
             container.innerHTML = '';
-            Object.keys(files).forEach(filename => {
+            Object.keys(files).forEach(f => {
                 const item = document.createElement('div');
-                item.className = 'file-item' + (filename === currentFile ? ' active' : '');
-                item.innerText = filename;
-                
-                item.onclick = () => switchFile(filename);
-                item.onmousedown = (e) => startLongPress(e, filename);
-                item.ontouchstart = (e) => startLongPress(e, filename);
-                item.onmouseup = clearLongPress;
-                item.ontouchend = clearLongPress;
-                item.onmouseleave = clearLongPress;
-
+                item.className = 'file-item' + (f === currentFile ? ' active' : '');
+                item.innerText = f;
+                item.onclick = () => {
+                    currentFile = f;
+                    document.getElementById('active-filename').innerText = "EDITING: " + f;
+                    document.getElementById('code-editor').value = files[f];
+                    renderFiles();
+                };
                 container.appendChild(item);
             });
-        }
-
-        function startLongPress(e, filename) {
-            clearLongPress();
-            pressTimer = setTimeout(() => {
-                targetFileForAction = filename;
-                document.getElementById('modal-filename-label').innerText = "FILE: " + filename;
-                document.getElementById('context-modal').style.display = 'flex';
-            }, 600);
-        }
-
-        function clearLongPress() {
-            if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
-        }
-
-        function closeModal(e) {
-            if (e.target.id === 'context-modal') closeModalDirect();
-        }
-
-        function closeModalDirect() {
-            document.getElementById('context-modal').style.display = 'none';
-            targetFileForAction = null;
-        }
-
-        function renameCurrentFile() {
-            if (!targetFileForAction) return;
-            const oldName = targetFileForAction;
-            closeModalDirect();
-
-            const newName = prompt(`Rename "${oldName}" to:`, oldName);
-            if (!newName || newName.trim() === '' || newName === oldName) return;
-            const trimmed = newName.trim();
-
-            if (files[trimmed]) {
-                showToast("File name already exists.", true);
-                return;
-            }
-
-            files[trimmed] = files[oldName];
-            delete files[oldName];
-            if (currentFile === oldName) currentFile = trimmed;
-
-            renderFileList();
-            switchFile(currentFile);
-            showToast(`Renamed to ${trimmed}`);
-        }
-
-        function deleteCurrentFile() {
-            if (!targetFileForAction) return;
-            const fileToDelete = targetFileForAction;
-            closeModalDirect();
-
-            if (Object.keys(files).length <= 1) {
-                showToast("Cannot delete the final remaining file.", true);
-                return;
-            }
-
-            if (!confirm(`Delete "${fileToDelete}"?`)) return;
-
-            delete files[fileToDelete];
-            if (currentFile === fileToDelete) currentFile = Object.keys(files)[0];
-
-            renderFileList();
-            switchFile(currentFile);
-            showToast(`Deleted ${fileToDelete}`);
-        }
-
-        function switchFile(filename) {
-            currentFile = filename;
-            renderFileList();
-            document.getElementById('active-filename').innerText = "EDITING: " + filename;
-            document.getElementById('code-editor').value = files[filename] || '';
         }
 
         function updateActiveFile() {
             files[currentFile] = document.getElementById('code-editor').value;
         }
 
-        function createNewFile() {
-            const filename = prompt("Enter new module filename:");
-            if (!filename) return;
-            const trimmed = filename.trim();
-            if (files[trimmed]) {
-                showToast("File already exists.", true);
-                return;
-            }
-            files[trimmed] = `<!-- Module: ${trimmed} -->\n<!-- Inventor & Founder: Rean Van Aswegen -->\n`;
-            switchFile(trimmed);
-            showToast(`Created ${trimmed}`);
-        }
-
-        function insertSnippet(type) {
-            const editor = document.getElementById('code-editor');
-            const pos = editor.selectionStart;
-            let snippet = '';
-            
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v3.1 Node -->\n</div>\n';
-            if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v3.1 Active");\n<\/script>\n';
-            if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
-            if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
-
-            editor.value = editor.value.substring(0, pos) + snippet + editor.value.substring(editor.selectionEnd);
+        async function saveAndCommit() {
             updateActiveFile();
-            showToast("Snippet inserted.");
-        }
-
-        function compileAndRender() {
-            if (plugins['offline-linter'].enabled) runLinter();
-
+            showToast("Writing to local disk & committing...");
             const terminal = document.getElementById('terminal-logs');
-            const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
-            
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v3.1 bundle...</p>`;
-            
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(files['index.html'] || '<div>No index.html found</div>');
-            doc.close();
 
-            showToast("Build compiled successfully!");
-            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS.</p>`;
+            try {
+                const saveRes = await fetch('http://localhost:8080/api/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ files: files })
+                });
+                const commitRes = await fetch('http://localhost:8080/api/commit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: `Manual commit for ${currentFile} at ${timestamp}` })
+                });
+                const commitData = await commitRes.json();
+
+                if (saveRes.ok && commitRes.ok) {
+                    showToast("✅ Saved & Git Committed!");
+                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Disk Sync & Git Commit Successful!</p>`;
+                    if (commitData.output) terminal.innerHTML += `<p style="color: #38bdf8;">> ${commitData.output}</p>`;
+                } else {
+                    throw new Error(commitData.output || "Backend write failed");
+                }
+            } catch (err) {
+                showToast("❌ Backend error: " + err.message, true);
+                terminal.innerHTML += `<p style="color: #f87171;">> [${timestamp}] Error: ${err.message}</p>`;
+            }
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function exportSovereignArchive() {
-            const payload = { files: files, plugins: plugins, commits: gitCommits };
-            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'psa_v31_sovereign_archive.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast("Archive exported.");
+        async function pushToGit() {
+            showToast("Pushing to remote repository...");
+            const terminal = document.getElementById('terminal-logs');
+            const timestamp = new Date().toLocaleTimeString();
+
+            try {
+                const pushRes = await fetch('http://localhost:8080/api/push', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const pushData = await pushRes.json();
+
+                if (pushRes.ok) {
+                    showToast("✅ Successfully Pushed to Remote!");
+                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Git Push Successful!</p>`;
+                    if (pushData.output) terminal.innerHTML += `<p style="color: #38bdf8;">> ${pushData.output}</p>`;
+                } else {
+                    throw new Error(pushData.output || "Git push failed");
+                }
+            } catch (err) {
+                showToast("❌ Push error: " + err.message, true);
+                terminal.innerHTML += `<p style="color: #f87171;">> [${timestamp}] Push Error: ${err.message}</p>`;
+            }
+            terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function handleTerminalCommand(event) {
-            if (event.key === 'Enter') {
+        async function deployToVercel() {
+            showToast("Deploying to Vercel production...");
+            const terminal = document.getElementById('terminal-logs');
+            const timestamp = new Date().toLocaleTimeString();
+
+            try {
+                const vercelRes = await fetch('http://localhost:8080/api/vercel', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const vercelData = await vercelRes.json();
+
+                if (vercelRes.ok) {
+                    showToast("✅ Vercel Production Deployment Live!");
+                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Vercel Deploy Successful!</p>`;
+                    if (vercelData.output) terminal.innerHTML += `<p style="color: #38bdf8;">> ${vercelData.output}</p>`;
+                } else {
+                    throw new Error(vercelData.output || "Vercel deployment failed");
+                }
+            } catch (err) {
+                showToast("❌ Vercel error: " + err.message, true);
+                terminal.innerHTML += `<p style="color: #f87171;">> [${timestamp}] Vercel Error: ${err.message}</p>`;
+            }
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function compileAndRender() {
+            const iframe = document.getElementById('preview-frame');
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            doc.open();
+            doc.write(files['index.html'] || '');
+            doc.close();
+            showToast("Build compiled successfully!");
+        }
+
+        function handleTerm(e) {
+            if (e.key === 'Enter') {
                 const input = document.getElementById('term-cmd');
                 const cmd = input.value.trim().toLowerCase();
                 const terminal = document.getElementById('terminal-logs');
-                
                 if (!cmd) return;
-                terminal.innerHTML += `<p style="color: #ffffff;">> psa$ ${cmd}</p>`;
+                terminal.innerHTML += `<p style="color: #fff;">> psa$ ${cmd}</p>`;
                 input.value = '';
 
-                if (cmd === 'help') {
-                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: format, lint, plugins, guide, build, export, status, clear, list</p>`;
-                } else if (cmd === 'format') {
-                    runFormatter();
-                } else if (cmd === 'lint') {
-                    runLinter();
-                } else if (cmd === 'plugins') {
-                    openPlugins();
-                } else if (cmd === 'guide') {
-                    openGuide();
-                } else if (cmd === 'build') {
+                if (cmd === 'build') {
                     compileAndRender();
-                } else if (cmd === 'export') {
-                    exportSovereignArchive();
-                } else if (cmd === 'status') {
-                    terminal.innerHTML += `<p style="color: #10b981;">Node: Disk Backend Engine | Inventor: Rean Van Aswegen</p>`;
+                    terminal.innerHTML += `<p style="color: #10b981;">> BUILD SUCCESS.</p>`;
+                } else if (cmd === 'git push') {
+                    pushToGit();
+                } else if (cmd === 'vercel' || cmd === 'deploy') {
+                    deployToVercel();
                 } else if (cmd === 'clear') {
-                    terminal.innerHTML = `<p>> terminal cleared.</p>`;
-                } else if (cmd === 'list') {
-                    terminal.innerHTML += `<p style="color: #f59e0b;">Files: ${Object.keys(files).join(', ')}</p>`;
+                    terminal.innerHTML = '';
                 } else {
-                    terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}. Type 'help'.</p>`;
+                    terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}</p>`;
                 }
                 terminal.scrollTop = terminal.scrollHeight;
             }
         }
 
-        async function handleAIQuery(event) {
-            if (event.key === 'Enter') {
-                const input = document.getElementById('ai-cmd');
-                const prompt = input.value.trim();
-                const aiLogs = document.getElementById('ai-logs');
-                
-                if (!prompt) return;
-
-                aiLogs.innerHTML += `<p style="color: #ffffff;">> prompt: ${prompt}</p>`;
-                aiLogs.scrollTop = aiLogs.scrollHeight;
-                input.value = '';
-
-                try {
-                    const response = await fetch('http://localhost:11434/api/generate', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            model: 'llama3',
-                            prompt: `You are the local co-pilot for Rean Van Aswegen, inventor of Pocket State Architecture (PSA). Answer: ${prompt}`,
-                            stream: false
-                        })
-                    });
-                    const data = await response.json();
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
-                } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v3.1 request for Rean Van Aswegen.</p>`;
-                }
-                aiLogs.scrollTop = aiLogs.scrollHeight;
-            }
-        }
-
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v31_workspace');
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    if (parsed.files) files = parsed.files;
-                    if (parsed.plugins) plugins = parsed.plugins;
-                } catch(e) {}
-            }
-            if (!files[currentFile]) {
-                currentFile = Object.keys(files)[0] || 'index.html';
-            }
-            renderFileList();
-            document.getElementById('code-editor').value = files[currentFile] || '';
+            renderFiles();
+            document.getElementById('code-editor').value = files[currentFile];
             compileAndRender();
         };
     </script>
