@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v3.0) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v3.0) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with full document scrolling and premium UI for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v3.1) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v3.1) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with true disk persistence and Git backend integration for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v3.0) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v3.1) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v3.0",
+      "alternateName": "PSA™ v3.1",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -49,7 +49,7 @@
             min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
-            overflow-y: auto; /* Fully enables main document scrolling */
+            overflow-y: auto;
         }
         header { 
             border-bottom: 1px solid #27272a; 
@@ -93,6 +93,40 @@
         .plaque-title { font-size: 0.58rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
         .plaque-name { font-size: 0.78rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
         .plaque-sub { font-size: 0.6rem; color: #f59e0b; margin-top: 2px; font-weight: bold; }
+
+        /* Toast Notification System */
+        #toast-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            pointer-events: none;
+        }
+        .toast {
+            background: #09090b;
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+            max-width: 280px;
+        }
+        .toast.error {
+            border-color: #f87171;
+            color: #f87171;
+            box-shadow: 0 4px 20px rgba(248, 113, 113, 0.3);
+        }
+        @keyframes toastIn {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
 
         /* General Modal Overlay */
         .modal-overlay {
@@ -196,7 +230,7 @@
             box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
         }
 
-        /* Main Workspace Layout & Flawless Collapsible Sidebar */
+        /* Main Workspace Layout & Collapsible Sidebar */
         .main-layout {
             display: flex;
             gap: 8px;
@@ -373,7 +407,6 @@
         .toggle-sidebar-trigger:hover { background: #f59e0b; color: #050505; border-color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
         .toggle-sidebar-trigger:active { transform: scale(0.96); }
 
-        /* Flawlessly Spaced Snippet Bar */
         .snippet-bar {
             display: flex;
             gap: 5px;
@@ -433,7 +466,6 @@
         .ai-prompt { padding: 4px 10px; color: #38bdf8; font-size: 0.6rem; font-weight: bold; }
         .ai-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.6rem; padding: 6px; outline: none; user-select: text; -webkit-user-select: text; }
 
-        /* Interactive Terminal Runner */
         .terminal-container {
             background: #09090b;
             border: 1px solid #27272a;
@@ -450,7 +482,6 @@
         .terminal-prompt { padding: 4px 10px; color: #10b981; font-size: 0.58rem; font-weight: bold; }
         .terminal-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.58rem; padding: 6px; outline: none; user-select: text; -webkit-user-select: text; }
 
-        /* Flawlessly Spaced Bottom CTA Action Bar */
         .btn-group { display: flex; gap: 8px; margin-top: 4px; margin-bottom: 12px; flex-shrink: 0; }
         .btn { 
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
@@ -484,13 +515,16 @@
     </style>
 </head>
 <body>
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
     <header>
-        <h1>PSA™ v3.0 CORE</h1>
+        <h1>PSA™ v3.1 CORE</h1>
         <div class="header-actions">
             <button class="nav-btn" onclick="runFormatter()">[FORMAT]</button>
             <button class="nav-btn" onclick="openPlugins()">[# PLUGINS]</button>
             <button class="nav-btn" onclick="openGuide()">[? GUIDE]</button>
-            <span class="badge">v3.0 FULL SCROLL</span>
+            <span class="badge">v3.1 DISK BACKEND</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -516,19 +550,19 @@
     <!-- Onboarding Guide Modal -->
     <div class="modal-overlay" id="guide-modal" onclick="closeGuideOverlay(event)">
         <div class="modal-box" style="max-width: 300px;">
-            <div class="modal-title">PSA™ v3.0 GUIDE</div>
+            <div class="modal-title">PSA™ v3.1 GUIDE</div>
             <div class="modal-scroll-content">
                 <div class="content-section">
-                    <b>1. Full Document Scrolling</b>
-                    Viewport-locking removed; smooth main page scrolling lets you navigate all tools without cutoff.
+                    <b>1. True Disk & Git Backend</b>
+                    'SAVE & COMMIT' writes files directly to the local Termux directory and runs real Git commits via Python backend.
                 </div>
                 <div class="content-section">
-                    <b>2. Sovereign Formatter ([FORMAT])</b>
+                    <b>2. Visual Toast Alerts</b>
+                    Instant visual feedback toasts confirm successful saves, disk syncs, and shell operations.
+                </div>
+                <div class="content-section">
+                    <b>3. Sovereign Formatter ([FORMAT])</b>
                     Real operational indentation & syntax normalization engine for active code buffers.
-                </div>
-                <div class="content-section">
-                    <b>3. Local Git Ledger (`git commit`, `git log`)</b>
-                    Creates real cryptographic SHA-like local commit hashes in offline storage upon saving.
                 </div>
                 <div class="content-section">
                     <b>4. Interactive Shell (psa$)</b>
@@ -549,7 +583,7 @@
         </div>
     </div>
 
-    <!-- Main Workspace Layout with Flawless Collapsible Sidebar -->
+    <!-- Main Workspace Layout -->
     <div class="main-layout">
         <div class="sidebar" id="app-sidebar">
             <div class="sidebar-header">
@@ -592,7 +626,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v3.0-scroll-fix: full document scrolling enabled for Rean Van Aswegen.</p>
+            <p>> v3.1-backend: true disk write & git shell integration active for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -603,7 +637,7 @@
     <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v3.0 active. Type 'format', 'lint', 'git log', or 'help'.</p>
+            <p>> runtime: v3.1 active. Type 'format', 'lint', 'git log', or 'help'.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
@@ -611,7 +645,7 @@
         </div>
     </div>
 
-    <!-- Flawlessly Spaced Action CTA Bar -->
+    <!-- Action CTA Bar -->
     <div class="btn-group">
         <button class="btn btn-secondary" onclick="saveWorkspace()">SAVE & COMMIT</button>
         <button class="btn" onclick="compileAndRender()">COMPILE & RUN</button>
@@ -635,9 +669,23 @@
         let pressTimer = null;
         let isSidebarCollapsed = false;
 
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (isError ? ' error' : '');
+            toast.innerText = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
         function runFormatter() {
             if (!plugins['sovereign-formatter'].enabled) {
-                alert("Sovereign Formatter plugin is currently DISABLED in [# PLUGINS].");
+                showToast("Sovereign Formatter plugin is DISABLED.", true);
                 return;
             }
             let code = document.getElementById('code-editor').value;
@@ -649,63 +697,75 @@
             
             document.getElementById('code-editor').value = code;
             updateActiveFile();
+            showToast("Buffer formatted successfully.");
 
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [FORMATTER] Successfully sanitized and normalized buffer for ${currentFile}.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [FORMATTER] Sanitized buffer for ${currentFile}.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
         function runLinter() {
-            if (!plugins['offline-linter'].enabled) {
-                alert("Offline Syntax Linter plugin is currently DISABLED in [# PLUGINS].");
-                return;
-            }
+            if (!plugins['offline-linter'].enabled) return;
             const code = document.getElementById('code-editor').value;
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #38bdf8;">> [LINTER] Scanning ${currentFile} for syntax/tag integrity...</p>`;
+            terminal.innerHTML += `<p style="color: #38bdf8;">> [LINTER] Scanning ${currentFile}...</p>`;
 
             let errors = 0;
             const openDivs = (code.match(/<div[^>]*>/g) || []).length;
             const closeDivs = (code.match(/<\/div>/g) || []).length;
             if (openDivs !== closeDivs) {
-                terminal.innerHTML += `<p style="color: #f87171;">> [Linter Warning] Mismatched <div> tags: Opened ${openDivs}, Closed ${closeDivs}.</p>`;
-                errors++;
-            }
-
-            const openBrackets = (code.match(/\{/g) || []).length;
-            const closeBrackets = (code.match(/\}/g) || []).length;
-            if (openBrackets !== closeBrackets) {
-                terminal.innerHTML += `<p style="color: #f87171;">> [Linter Warning] Mismatched curly braces {}: Opened ${openBrackets}, Closed ${closeBrackets}.</p>`;
+                terminal.innerHTML += `<p style="color: #f87171;">> [Linter Warning] Mismatched <div> tags.</p>`;
                 errors++;
             }
 
             if (errors === 0) {
-                terminal.innerHTML += `<p style="color: #10b981;">> [LINTER] Zero structural faults detected. Code integrity optimal.</p>`;
+                terminal.innerHTML += `<p style="color: #10b981;">> [LINTER] Zero structural faults detected.</p>`;
             }
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function generateGitCommit(message = "Update sovereign module state") {
-            if (!plugins['git-local-ledger'].enabled) return;
-            
-            const rawString = JSON.stringify(files) + Date.now().toString();
-            let hash = 0;
-            for (let i = 0; i < rawString.length; i++) {
-                hash = ((hash << 5) - hash) + rawString.charCodeAt(i);
-                hash |= 0;
+        async function saveWorkspace() {
+            updateActiveFile();
+            showToast("Saving to local disk & committing...");
+
+            const terminal = document.getElementById('terminal-logs');
+            const timestamp = new Date().toLocaleTimeString();
+
+            try {
+                // 1. Save files to disk via Python backend
+                const saveRes = await fetch('http://localhost:8080/api/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ files: files })
+                });
+                const saveData = await saveRes.json();
+
+                // 2. Execute real git commit via Python backend
+                const commitMsg = `Manual save & commit for ${currentFile} at ${timestamp}`;
+                const commitRes = await fetch('http://localhost:8080/api/commit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: commitMsg })
+                });
+                const commitData = await commitRes.json();
+
+                if (saveRes.ok && commitRes.ok) {
+                    showToast("✅ Saved to Disk & Git Committed!");
+                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Disk Sync & Git Commit Successful!</p>`;
+                    if (commitData.output) {
+                        terminal.innerHTML += `<p style="color: #38bdf8;">> ${commitData.output}</p>`;
+                    }
+                } else {
+                    throw new Error(saveData.message || commitData.message || "Backend synchronization failed.");
+                }
+            } catch (err) {
+                // Fallback to localStorage if Python backend is offline
+                const payload = { files: files, plugins: plugins, commits: gitCommits };
+                localStorage.setItem('psa_v31_workspace', JSON.stringify(payload));
+                showToast("⚠️ Backend offline. Saved to browser storage.");
+                terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Persisted to localStorage (Start server.py for disk sync).</p>`;
             }
-            const hexHash = Math.abs(hash).toString(16).padStart(8, '0') + Math.abs(~hash).toString(16).padStart(8, '0');
-            
-            const commitEntry = {
-                hash: hexHash.substring(0, 10),
-                time: new Date().toLocaleTimeString(),
-                msg: message,
-                file: currentFile
-            };
-            
-            gitCommits.unshift(commitEntry);
-            if (gitCommits.length > 20) gitCommits.pop();
-            localStorage.setItem('psa_v30_commits', JSON.stringify(gitCommits));
+            terminal.scrollTop = terminal.scrollHeight;
         }
 
         function openPlugins() {
@@ -744,10 +804,7 @@
         function togglePlugin(key) {
             plugins[key].enabled = !plugins[key].enabled;
             renderPluginList();
-            saveWorkspace();
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [PLUGIN] ${plugins[key].name} set to ${plugins[key].enabled ? 'ACTIVE' : 'INACTIVE'}</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast(`${plugins[key].name} set to ${plugins[key].enabled ? 'ENABLED' : 'DISABLED'}`);
         }
 
         function openGuide() {
@@ -827,7 +884,7 @@
             const trimmed = newName.trim();
 
             if (files[trimmed]) {
-                alert("A file with that name already exists.");
+                showToast("File name already exists.", true);
                 return;
             }
 
@@ -837,11 +894,7 @@
 
             renderFileList();
             switchFile(currentFile);
-            saveWorkspace();
-
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> Renamed ${oldName} to ${trimmed}</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast(`Renamed to ${trimmed}`);
         }
 
         function deleteCurrentFile() {
@@ -850,7 +903,7 @@
             closeModalDirect();
 
             if (Object.keys(files).length <= 1) {
-                alert("Cannot delete the final remaining file.");
+                showToast("Cannot delete the final remaining file.", true);
                 return;
             }
 
@@ -861,11 +914,7 @@
 
             renderFileList();
             switchFile(currentFile);
-            saveWorkspace();
-
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f87171;">> Deleted file: ${fileToDelete}</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast(`Deleted ${fileToDelete}`);
         }
 
         function switchFile(filename) {
@@ -884,12 +933,12 @@
             if (!filename) return;
             const trimmed = filename.trim();
             if (files[trimmed]) {
-                alert("File already exists.");
+                showToast("File already exists.", true);
                 return;
             }
             files[trimmed] = `<!-- Module: ${trimmed} -->\n<!-- Inventor & Founder: Rean Van Aswegen -->\n`;
             switchFile(trimmed);
-            saveWorkspace();
+            showToast(`Created ${trimmed}`);
         }
 
         function insertSnippet(type) {
@@ -897,42 +946,32 @@
             const pos = editor.selectionStart;
             let snippet = '';
             
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v3.0 Node -->\n</div>\n';
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v3.1 Node -->\n</div>\n';
             if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v3.0 Active");\n<\/script>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v3.1 Active");\n<\/script>\n';
             if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
             if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
 
             editor.value = editor.value.substring(0, pos) + snippet + editor.value.substring(editor.selectionEnd);
             updateActiveFile();
-        }
-
-        function saveWorkspace() {
-            generateGitCommit(`Manual save & commit for ${currentFile}`);
-            const payload = { files: files, plugins: plugins, commits: gitCommits };
-            localStorage.setItem('psa_v30_workspace', JSON.stringify(payload));
-            
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v3.0 workspace persisted & local Git commit generated.</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast("Snippet inserted.");
         }
 
         function compileAndRender() {
-            if (plugins['offline-linter'].enabled) {
-                runLinter();
-            }
+            if (plugins['offline-linter'].enabled) runLinter();
 
             const terminal = document.getElementById('terminal-logs');
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v3.0 sovereign bundle...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v3.1 bundle...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
             doc.write(files['index.html'] || '<div>No index.html found</div>');
             doc.close();
 
+            showToast("Build compiled successfully!");
             terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
@@ -943,13 +982,10 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'psa_v30_sovereign_archive.json';
+            a.download = 'psa_v31_sovereign_archive.json';
             a.click();
             URL.revokeObjectURL(url);
-            
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [ARCHIVE] Sovereign operational archive exported successfully.</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+            showToast("Archive exported.");
         }
 
         function handleTerminalCommand(event) {
@@ -963,33 +999,21 @@
                 input.value = '';
 
                 if (cmd === 'help') {
-                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: format, lint, git log, plugins, guide, build, export, status, clear, list</p>`;
+                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: format, lint, plugins, guide, build, export, status, clear, list</p>`;
                 } else if (cmd === 'format') {
                     runFormatter();
                 } else if (cmd === 'lint') {
                     runLinter();
-                } else if (cmd === 'git log') {
-                    terminal.innerHTML += `<p style="color: #f59e0b;">--- LOCAL GIT LEDGER ---</p>`;
-                    if (gitCommits.length === 0) {
-                        terminal.innerHTML += `<p style="color: #a1a1aa;">No commits recorded yet. Tap SAVE & COMMIT.</p>`;
-                    } else {
-                        gitCommits.forEach(c => {
-                            terminal.innerHTML += `<p style="color: #38bdf8;">[${c.hash}] ${c.time} - ${c.msg} (${c.file})</p>`;
-                        });
-                    }
                 } else if (cmd === 'plugins') {
                     openPlugins();
-                    terminal.innerHTML += `<p style="color: #f59e0b;">> Opened local extension manager.</p>`;
                 } else if (cmd === 'guide') {
                     openGuide();
-                    terminal.innerHTML += `<p style="color: #f59e0b;">> Opened onboarding guide overlay.</p>`;
                 } else if (cmd === 'build') {
                     compileAndRender();
                 } else if (cmd === 'export') {
                     exportSovereignArchive();
                 } else if (cmd === 'status') {
-                    const activeCount = Object.values(plugins).filter(p => p.enabled).length;
-                    terminal.innerHTML += `<p style="color: #10b981;">Node: Full Scroll Engine | Inventor: Rean Van Aswegen | Active Plugins: ${activeCount} | Commits: ${gitCommits.length}</p>`;
+                    terminal.innerHTML += `<p style="color: #10b981;">Node: Disk Backend Engine | Inventor: Rean Van Aswegen</p>`;
                 } else if (cmd === 'clear') {
                     terminal.innerHTML = `<p>> terminal cleared.</p>`;
                 } else if (cmd === 'list') {
@@ -1026,20 +1050,19 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v3.0 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v3.1 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v30_workspace');
+            const saved = localStorage.getItem('psa_v31_workspace');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
                     if (parsed.files) files = parsed.files;
                     if (parsed.plugins) plugins = parsed.plugins;
-                    if (parsed.commits) gitCommits = parsed.commits;
                 } catch(e) {}
             }
             if (!files[currentFile]) {
