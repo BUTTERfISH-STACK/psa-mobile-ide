@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v1.9) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v1.9) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with dynamic file explorer for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v2.0) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v2.0) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with long-press context file management for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v1.9) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.0) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v1.9",
+      "alternateName": "PSA™ v2.0",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -47,6 +47,8 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
+            user-select: none;
+            -webkit-user-select: none;
         }
         header { 
             border-bottom: 1px solid #27272a; 
@@ -137,6 +139,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            position: relative;
         }
 
         .file-item.active {
@@ -145,6 +148,47 @@
             color: #f59e0b;
             font-weight: bold;
         }
+
+        /* Context Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: #09090b;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 12px;
+            width: 80%;
+            max-width: 260px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+        }
+        .modal-title { font-size: 0.75rem; color: #fff; margin-bottom: 10px; font-weight: bold; }
+        .modal-btn {
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #f59e0b;
+            padding: 8px;
+            width: 100%;
+            font-family: monospace;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+        .modal-btn.danger {
+            background: #450a0a;
+            border-color: #7f1d1d;
+            color: #f87171;
+        }
+        .modal-btn:active { opacity: 0.8; }
 
         .workspace-grid {
             flex: 1;
@@ -184,6 +228,8 @@
             font-size: 0.72rem;
             resize: none;
             outline: none;
+            user-select: text;
+            -webkit-user-select: text;
         }
 
         iframe {
@@ -199,7 +245,7 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 60px;
+            height: 55px;
             margin-bottom: 5px;
             overflow: hidden;
         }
@@ -234,6 +280,8 @@
             font-size: 0.62rem;
             padding: 3px;
             outline: none;
+            user-select: text;
+            -webkit-user-select: text;
         }
 
         .terminal-container {
@@ -242,7 +290,7 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 45px;
+            height: 40px;
             margin-bottom: 5px;
             overflow: hidden;
         }
@@ -282,9 +330,9 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v1.9 CORE</h1>
+        <h1>PSA™ v2.0 CORE</h1>
         <div>
-            <span class="badge">v1.9 EXPLORER</span>
+            <span class="badge">v2.0 CONTEXT</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -296,6 +344,16 @@
         <div class="plaque-sub">INVENTOR & FOUNDER — POCKET STATE ARCHITECTURE (PSA™)</div>
     </div>
 
+    <!-- Long-Press Context Action Modal -->
+    <div class="modal-overlay" id="context-modal" onclick="closeModal(event)">
+        <div class="modal-box">
+            <div class="modal-title" id="modal-filename-label">FILE OPTIONS</div>
+            <button class="modal-btn" onclick="renameCurrentFile()">RENAME FILE</button>
+            <button class="modal-btn danger" onclick="deleteCurrentFile()">DELETE FILE</button>
+            <button class="modal-btn" style="background:#09090b; color:#a1a1aa; border-color:#27272a;" onclick="closeModalDirect()">CANCEL</button>
+        </div>
+    </div>
+
     <!-- Main Workspace Layout with VS Code-style Sidebar -->
     <div class="main-layout">
         <div class="sidebar">
@@ -304,7 +362,7 @@
                 <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
             </div>
             <div class="file-list" id="file-list-container">
-                <!-- Dynamically populated file items -->
+                <!-- Dynamically populated file items with long-press support -->
             </div>
         </div>
 
@@ -324,7 +382,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v1.9-explorer: dynamic file controller initialized for Rean Van Aswegen.</p>
+            <p>> v2.0-context: sovereign file engine initialized for Rean Van Aswegen.</p>
             <p>> ollama-bridge: http://localhost:11434 online.</p>
         </div>
         <div class="ai-input-row">
@@ -335,7 +393,7 @@
 
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v1.9 explorer operational.</p>
+            <p>> runtime: v2.0 context engine operational.</p>
         </div>
     </div>
 
@@ -346,13 +404,15 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v1.9 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Explorer Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify Explorer State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.9 File Explorer verified for Rean Van Aswegen.");\n            alert("PSA™ v1.9 Dynamic File Active!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine - v1.9 Explorer\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v1.9 dynamic explorer engine active.")\n\nif __name__ == '__main__':\n    run()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v1.9 Explorer\necho "Starting v1.9 dynamic workspace..."\npython3 -m http.server 8080`,
-            'psa_core.js': `// PSA State Management Core v1.9\nconsole.log("PSA Explorer Core v1.9 loaded for Rean Van Aswegen.");`
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v2.0 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Context Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v2.0 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v2.0 Context verified for Rean Van Aswegen.");\n            alert("PSA™ v2.0 Long-Press Active!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine - v2.0\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v2.0 sovereign context engine active.")\n\nif __name__ == '__main__':\n    run()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v2.0\necho "Starting v2.0 sovereign workspace..."\npython3 -m http.server 8080`,
+            'psa_core.js': `// PSA State Management Core v2.0\nconsole.log("PSA Context Core v2.0 loaded for Rean Van Aswegen.");`
         };
 
         let currentFile = 'index.html';
+        let targetFileForAction = null;
+        let pressTimer = null;
 
         function renderFileList() {
             const container = document.getElementById('file-list-container');
@@ -361,16 +421,111 @@
                 const item = document.createElement('div');
                 item.className = 'file-item' + (filename === currentFile ? ' active' : '');
                 item.innerText = filename;
+                
+                // Click to switch file
                 item.onclick = () => switchFile(filename);
+
+                // Long-press detection (Touch & Mouse support)
+                item.onmousedown = (e) => startLongPress(e, filename);
+                item.ontouchstart = (e) => startLongPress(e, filename);
+                
+                item.onmouseup = clearLongPress;
+                item.ontouchend = clearLongPress;
+                item.onmouseleave = clearLongPress;
+
                 container.appendChild(item);
             });
+        }
+
+        function startLongPress(e, filename) {
+            clearLongPress();
+            pressTimer = setTimeout(() => {
+                targetFileForAction = filename;
+                document.getElementById('modal-filename-label').innerText = "FILE: " + filename;
+                document.getElementById('context-modal').style.display = 'flex';
+            }, 600); // 600ms hold time
+        }
+
+        function clearLongPress() {
+            if (pressTimer) {
+                clearTimeout(pressTimer);
+                pressTimer = null;
+            }
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'context-modal') {
+                closeModalDirect();
+            }
+        }
+
+        function closeModalDirect() {
+            document.getElementById('context-modal').style.display = 'none';
+            targetFileForAction = null;
+        }
+
+        function renameCurrentFile() {
+            if (!targetFileForAction) return;
+            const oldName = targetFileForAction;
+            closeModalDirect();
+
+            const newName = prompt(`Rename "${oldName}" to:`, oldName);
+            if (!newName || newName.trim() === '' || newName === oldName) return;
+            const trimmed = newName.trim();
+
+            if (files[trimmed]) {
+                alert("A file with that name already exists.");
+                return;
+            }
+
+            files[trimmed] = files[oldName];
+            delete files[oldName];
+
+            if (currentFile === oldName) {
+                currentFile = trimmed;
+            }
+
+            renderFileList();
+            switchFile(currentFile);
+            saveWorkspace();
+
+            const terminal = document.getElementById('terminal-logs');
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [CONTEXT] Renamed ${oldName} to ${trimmed}</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function deleteCurrentFile() {
+            if (!targetFileForAction) return;
+            const fileToDelete = targetFileForAction;
+            closeModalDirect();
+
+            if (Object.keys(files).length <= 1) {
+                alert("Cannot delete the final remaining file.");
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete "${fileToDelete}"?`)) return;
+
+            delete files[fileToDelete];
+
+            if (currentFile === fileToDelete) {
+                currentFile = Object.keys(files)[0];
+            }
+
+            renderFileList();
+            switchFile(currentFile);
+            saveWorkspace();
+
+            const terminal = document.getElementById('terminal-logs');
+            terminal.innerHTML += `<p style="color: #f87171;">> [CONTEXT] Deleted file: ${fileToDelete}</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
         }
 
         function switchFile(filename) {
             currentFile = filename;
             renderFileList();
             document.getElementById('active-filename').innerText = "EDITING: " + filename;
-            document.getElementById('code-editor').value = files[filename];
+            document.getElementById('code-editor').value = files[filename] || '';
         }
 
         function updateActiveFile() {
@@ -395,8 +550,8 @@
 
         function saveWorkspace() {
             const terminal = document.getElementById('terminal-logs');
-            localStorage.setItem('psa_v19_workspace', JSON.stringify(files));
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v1.9 workspace saved locally.</p>`;
+            localStorage.setItem('psa_v20_workspace', JSON.stringify(files));
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.0 workspace saved locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -405,14 +560,14 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v1.9 explorer state...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.0 sovereign context state...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
             doc.write(files['index.html'] || '<div>No index.html found</div>');
             doc.close();
 
-            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Explorer active.</p>`;
+            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Context engine active.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -441,14 +596,14 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v1.9 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.0 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v19_workspace');
+            const saved = localStorage.getItem('psa_v20_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
@@ -456,7 +611,7 @@
                 currentFile = Object.keys(files)[0] || 'index.html';
             }
             renderFileList();
-            document.getElementById('code-editor').value = files[currentFile];
+            document.getElementById('code-editor').value = files[currentFile] || '';
             compileAndRender();
         };
     </script>
