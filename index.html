@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSA™ Mobile IDE & Runtime</title>
+    <title>PSA™ Mobile IDE & Runtime v1.2</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -19,7 +19,7 @@
         header { 
             border-bottom: 1px solid #1e293b; 
             padding-bottom: 8px; 
-            margin-bottom: 12px; 
+            margin-bottom: 10px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -28,37 +28,63 @@
         .badge { background: #0369a1; color: #e0f2fe; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; }
         .status { color: #4ade80; font-size: 0.8rem; }
         
-        .editor-container {
+        .workspace-grid {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 10px;
+            min-height: 0;
         }
         
-        textarea {
+        .pane {
             flex: 1;
+            display: flex;
+            flex-direction: column;
             background: #020617;
-            color: #38bdf8;
             border: 1px solid #1e293b;
             border-radius: 6px;
-            padding: 12px;
+            overflow: hidden;
+        }
+
+        .pane-header {
+            background: #0f172a;
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            color: #64748b;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        textarea {
+            flex: 1;
+            background: transparent;
+            color: #38bdf8;
+            border: none;
+            padding: 10px;
             font-family: monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             resize: none;
             outline: none;
         }
-        textarea:focus { border-color: #38bdf8; }
+
+        iframe {
+            flex: 1;
+            background: #ffffff;
+            border: none;
+            width: 100%;
+        }
 
         .terminal { 
             background: #020617; 
             border: 1px solid #1e293b; 
-            padding: 8px 12px; 
+            padding: 8px 10px; 
             border-radius: 6px; 
             font-size: 0.75rem;
-            height: 90px;
+            height: 80px;
             overflow-y: auto;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .btn-group {
@@ -70,12 +96,12 @@
             background: #38bdf8; 
             color: #090d16; 
             border: none; 
-            padding: 12px; 
+            padding: 10px; 
             font-weight: bold; 
             flex: 1; 
             border-radius: 6px; 
             cursor: pointer; 
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .btn-secondary {
             background: #1e293b;
@@ -89,30 +115,52 @@
     <header>
         <h1>PSA™ Mobile IDE</h1>
         <div>
-            <span class="badge">v1.1</span>
+            <span class="badge">v1.2 Sandbox</span>
             <span class="status">● ONLINE</span>
         </div>
     </header>
     
-    <div class="editor-container">
-        <label style="font-size: 0.75rem; color: #64748b;">ACTIVE SCRIPT: app.py / workspace.sh</label>
-        <textarea id="code-editor">#!/bin/bash
-# Pocket State Architecture (PSA™) 
-# Written natively on mobile terminal
+    <div class="workspace-grid">
+        <!-- Editor Pane -->
+        <div class="pane">
+            <div class="pane-header"><span>SOURCE EDITOR (HTML/JS)</span></div>
+            <textarea id="code-editor"><!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: #111; color: #4ade80; font-family: sans-serif; text-align: center; padding-top: 40px; }
+        h2 { margin: 0; }
+    </style>
+</head>
+<body>
+    <h2>PSA™ Node Active</h2>
+    <p>Tap button below to test runtime script.</p>
+    <button onclick="runTest()">Run Console Test</button>
+    <script>
+        function runTest() {
+            console.log("SUCCESS: Payload executed inside mobile sandbox node.");
+            alert("Sandbox signal verified!");
+        }
+    </script>
+</body>
+</html></textarea>
+        </div>
 
-echo "Initializing core mobile runtime..."
-psa-daemon --start --port=8080
-</textarea>
+        <!-- Live Preview Pane -->
+        <div class="pane">
+            <div class="pane-header"><span>LIVE EDGE PREVIEW</span></div>
+            <iframe id="preview-frame"></iframe>
+        </div>
     </div>
 
     <div class="terminal" id="terminal-logs">
-        <p>> system: mobile editor loaded successfully.</p>
-        <p>> status: zero cloud dependencies.</p>
+        <p>> psa-daemon: sandbox container initialized.</p>
+        <p>> status: ready for mobile compilation.</p>
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-secondary" onclick="saveState()">SAVE STATE</button>
-        <button class="btn" onclick="executeCode()">COMPILE & RUN</button>
+        <button class="btn btn-secondary" onclick="saveState()">SAVE</button>
+        <button class="btn" onclick="executeBuild()">COMPILE & RENDER</button>
     </div>
 
     <script>
@@ -124,18 +172,26 @@ psa-daemon --start --port=8080
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function executeCode() {
+        function executeBuild() {
             const terminal = document.getElementById('terminal-logs');
+            const code = document.getElementById('code-editor').value;
+            const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Executing state payload...</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling and injecting runtime state...</p>`;
+            
+            // Render code into iframe sandbox
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            doc.open();
+            doc.write(code);
+            doc.close();
 
-            setTimeout(() => {
-                terminal.innerHTML += `<p style="color: #4ade80;">> [${timestamp}] EXECUTION COMPLETE: 0 errors, runtime stable.</p>`;
-                terminal.scrollTop = terminal.scrollHeight;
-            }, 400);
+            terminal.innerHTML += `<p style="color: #4ade80;">> [${timestamp}] RENDER COMPLETE: Edge preview live.</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
         }
+
+        // Initial render on load
+        window.onload = () => { executeBuild(); };
     </script>
 </body>
 </html>
