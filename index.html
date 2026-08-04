@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v2.1) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v2.1) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with interactive shell and toolkit for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v2.2) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v2.2) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with collapsible sidebar for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.1) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.2) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v2.1",
+      "alternateName": "PSA™ v2.2",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -117,7 +117,7 @@
         }
         .modal-btn:active { opacity: 0.8; }
 
-        /* Main Workspace Layout with Sidebar */
+        /* Main Workspace Layout with Collapsible Sidebar */
         .main-layout {
             flex: 1;
             display: flex;
@@ -134,6 +134,15 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            transition: width 0.2s ease, opacity 0.2s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 0;
+            min-width: 0;
+            border: none;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .sidebar-header {
@@ -147,6 +156,12 @@
             align-items: center;
             text-transform: uppercase;
             letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .sidebar-actions {
+            display: flex;
+            gap: 2px;
         }
 
         .new-file-btn {
@@ -160,6 +175,16 @@
             cursor: pointer;
         }
 
+        .collapse-btn {
+            background: #18181b;
+            color: #f59e0b;
+            border: 1px solid #27272a;
+            font-size: 0.6rem;
+            padding: 1px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
         .file-list {
             flex: 1;
             overflow-y: auto;
@@ -167,6 +192,7 @@
             display: flex;
             flex-direction: column;
             gap: 3px;
+            white-space: nowrap;
         }
 
         .file-item {
@@ -177,7 +203,6 @@
             font-size: 0.65rem;
             border-radius: 4px;
             cursor: pointer;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -216,6 +241,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .pane-header-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toggle-sidebar-trigger {
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #f59e0b;
+            font-size: 0.6rem;
+            padding: 1px 5px;
+            border-radius: 3px;
+            cursor: pointer;
         }
 
         /* Snippet Injector Toolbar */
@@ -378,9 +419,9 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v2.1 CORE</h1>
+        <h1>PSA™ v2.2 CORE</h1>
         <div>
-            <span class="badge">v2.1 TOOLKIT</span>
+            <span class="badge">v2.2 COLLAPSIBLE</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -402,12 +443,15 @@
         </div>
     </div>
 
-    <!-- Main Workspace Layout with VS Code-style Sidebar -->
+    <!-- Main Workspace Layout with Collapsible Sidebar -->
     <div class="main-layout">
-        <div class="sidebar">
+        <div class="sidebar" id="app-sidebar">
             <div class="sidebar-header">
                 <span>Files</span>
-                <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
+                <div class="sidebar-actions">
+                    <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
+                    <button class="collapse-btn" onclick="toggleSidebar()">◀</button>
+                </div>
             </div>
             <div class="file-list" id="file-list-container">
                 <!-- Dynamically populated file items -->
@@ -417,7 +461,10 @@
         <div class="workspace-grid">
             <div class="pane">
                 <div class="pane-header">
-                    <span id="active-filename">EDITING: index.html</span>
+                    <div class="pane-header-left">
+                        <button class="toggle-sidebar-trigger" id="sidebar-toggle-btn" onclick="toggleSidebar()">☰ Files</button>
+                        <span id="active-filename">EDITING: index.html</span>
+                    </div>
                 </div>
                 <div class="snippet-bar">
                     <button class="snippet-btn" onclick="insertSnippet('html')">&lt;html&gt;</button>
@@ -439,7 +486,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v2.1-toolkit: sovereign shell & snippets initialized for Rean Van Aswegen.</p>
+            <p>> v2.2-core: collapsible sidebar & sovereign toolkit initialized for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -450,7 +497,7 @@
     <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v2.1 active. Type 'help' for commands.</p>
+            <p>> runtime: v2.2 active. Type 'help' for commands.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
@@ -465,15 +512,26 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v2.1 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Toolkit Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v2.1 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v2.1 Toolkit verified for Rean Van Aswegen.");\n            alert("PSA™ v2.1 Sovereign Shell Active!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine - v2.1\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v2.1 sovereign toolkit engine active.")\n\nif __name__ == '__main__':\n    run()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v2.1\necho "Starting v2.1 toolkit workspace..."\npython3 -m http.server 8080`,
-            'psa_core.js': `// PSA State Management Core v2.1\nconsole.log("PSA Toolkit Core v2.1 loaded for Rean Van Aswegen.");`
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v2.2 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Collapsible Core)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v2.2 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v2.2 Collapsible verified for Rean Van Aswegen.");\n            alert("PSA™ v2.2 Sidebar Toggle Active!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine - v2.2\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v2.2 collapsible sovereign core active.")\n\nif __name__ == '__main__':\n    run()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v2.2\necho "Starting v2.2 collapsible workspace..."\npython3 -m http.server 8080`,
+            'psa_core.js': `// PSA State Management Core v2.2\nconsole.log("PSA Collapsible Core v2.2 loaded for Rean Van Aswegen.");`
         };
 
         let currentFile = 'index.html';
         let targetFileForAction = null;
         let pressTimer = null;
+        let isSidebarCollapsed = false;
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('app-sidebar');
+            isSidebarCollapsed = !isSidebarCollapsed;
+            if (isSidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+            } else {
+                sidebar.classList.remove('collapsed');
+            }
+        }
 
         function renderFileList() {
             const container = document.getElementById('file-list-container');
@@ -609,9 +667,9 @@
             const pos = editor.selectionStart;
             let snippet = '';
             
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.1 Node -->\n</div>\n';
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.2 Node -->\n</div>\n';
             if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.1 Active");\n<\/script>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.2 Active");\n<\/script>\n';
             if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
             if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
 
@@ -620,9 +678,9 @@
         }
 
         function saveWorkspace() {
-            localStorage.setItem('psa_v21_workspace', JSON.stringify(files));
+            localStorage.setItem('psa_v22_workspace', JSON.stringify(files));
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.1 workspace persisted locally.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.2 workspace persisted locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -631,7 +689,7 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.1 sovereign bundle...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.2 sovereign bundle...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
@@ -647,7 +705,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'psa_v21_sovereign_archive.json';
+            a.download = 'psa_v22_sovereign_archive.json';
             a.click();
             URL.revokeObjectURL(url);
             
@@ -667,7 +725,7 @@
                 input.value = '';
 
                 if (cmd === 'help') {
-                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: build, export, status, clear, list</p>`;
+                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: build, export, status, clear, list, toggle</p>`;
                 } else if (cmd === 'build') {
                     compileAndRender();
                 } else if (cmd === 'export') {
@@ -678,6 +736,9 @@
                     terminal.innerHTML = `<p>> terminal cleared.</p>`;
                 } else if (cmd === 'list') {
                     terminal.innerHTML += `<p style="color: #f59e0b;">Files: ${Object.keys(files).join(', ')}</p>`;
+                } else if (cmd === 'toggle') {
+                    toggleSidebar();
+                    terminal.innerHTML += `<p style="color: #f59e0b;">> Toggled sidebar visibility.</p>`;
                 } else {
                     terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}. Type 'help'.</p>`;
                 }
@@ -710,14 +771,14 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.1 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.2 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v21_workspace');
+            const saved = localStorage.getItem('psa_v22_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
