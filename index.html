@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v2.7) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v2.7) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with optimized responsive CTAs for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v2.8) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v2.8) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with silky-smooth collapsible file drawer and premium UI for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.7) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.8) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v2.7",
+      "alternateName": "PSA™ v2.8",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -49,6 +49,7 @@
             height: 100vh;
             user-select: none;
             -webkit-user-select: none;
+            overflow: hidden;
         }
         header { 
             border-bottom: 1px solid #27272a; 
@@ -60,7 +61,7 @@
         }
         h1 { font-size: 0.85rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
         .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-        .badge { background: #d97706; color: #050505; padding: 3px 6px; font-size: 0.58rem; border-radius: 4px; font-weight: bold; }
+        .badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050505; padding: 3px 8px; font-size: 0.58rem; border-radius: 4px; font-weight: bold; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
         .nav-btn {
             background: #18181b;
             border: 1px solid #f59e0b;
@@ -71,19 +72,21 @@
             cursor: pointer;
             font-weight: bold;
             min-height: 26px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .nav-btn:active { background: #f59e0b; color: #050505; }
-        .status { color: #10b981; font-size: 0.65rem; white-space: nowrap; }
+        .nav-btn:hover { background: #f59e0b; color: #050505; box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+        .nav-btn:active { transform: scale(0.96); }
+        .status { color: #10b981; font-size: 0.65rem; white-space: nowrap; text-shadow: 0 0 6px rgba(16, 185, 129, 0.4); }
         
         /* Founder & SEO Plaque Banner */
         .founder-plaque {
-            background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
-            border: 1px solid #f59e0b;
+            background: linear-gradient(135deg, #121216 0%, #09090b 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
             border-radius: 6px;
             padding: 6px 10px;
             margin-bottom: 6px;
             text-align: center;
-            box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.08);
+            box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.08), 0 2px 8px rgba(0, 0, 0, 0.5);
         }
         .plaque-title { font-size: 0.58rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
         .plaque-name { font-size: 0.78rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
@@ -99,6 +102,7 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
+            backdrop-filter: blur(4px);
         }
         .modal-box {
             background: #09090b;
@@ -108,7 +112,12 @@
             width: 100%;
             max-width: 320px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
+            animation: modalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes modalPop {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
         .modal-title { font-size: 0.78rem; color: #fff; margin-bottom: 10px; font-weight: bold; letter-spacing: 1px; }
         .modal-btn {
@@ -124,13 +133,16 @@
             margin-bottom: 8px;
             cursor: pointer;
             min-height: 36px;
+            transition: all 0.2s ease;
         }
+        .modal-btn:hover { border-color: #f59e0b; background: #27272a; }
         .modal-btn.danger {
             background: #450a0a;
             border-color: #7f1d1d;
             color: #f87171;
         }
-        .modal-btn:active { opacity: 0.8; }
+        .modal-btn.danger:hover { background: #7f1d1d; color: #fff; }
+        .modal-btn:active { transform: scale(0.98); }
 
         .modal-scroll-content {
             text-align: left;
@@ -156,7 +168,9 @@
             justify-content: space-between;
             align-items: center;
             gap: 8px;
+            transition: border-color 0.2s ease;
         }
+        .plugin-card:hover { border-color: rgba(245, 158, 11, 0.5); }
         .plugin-info { text-align: left; flex: 1; }
         .plugin-name { color: #fff; font-weight: bold; font-size: 0.68rem; }
         .plugin-desc { color: #a1a1aa; font-size: 0.58rem; margin-top: 2px; }
@@ -171,37 +185,53 @@
             font-weight: bold;
             white-space: nowrap;
             min-height: 28px;
+            transition: all 0.2s ease;
         }
         .plugin-toggle-btn.active {
             background: #d97706;
             color: #050505;
             border-color: #f59e0b;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
         }
 
-        /* Main Workspace Layout */
+        /* Main Workspace Layout & Silk-Smooth Collapsible Sidebar */
         .main-layout {
             flex: 1;
             display: flex;
             gap: 6px;
             margin-bottom: 6px;
             min-height: 0;
+            position: relative;
         }
 
         .sidebar {
-            width: 130px;
+            width: 170px;
+            min-width: 170px;
             background: #09090b;
             border: 1px solid #27272a;
             border-radius: 6px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            transition: width 0.2s ease, opacity 0.2s ease;
+            /* Silky smooth transition for width, opacity, margin, and padding */
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.25s ease, 
+                        border-color 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
-        .sidebar.collapsed { width: 0; min-width: 0; border: none; opacity: 0; pointer-events: none; }
+        .sidebar.collapsed {
+            width: 0 !important;
+            min-width: 0 !important;
+            border-color: transparent;
+            opacity: 0;
+            pointer-events: none;
+            margin-right: -6px; /* Compensate for gap */
+        }
 
         .sidebar-header {
             background: #121216;
-            padding: 6px;
+            padding: 6px 8px;
             font-size: 0.6rem;
             color: #a1a1aa;
             border-bottom: 1px solid #27272a;
@@ -211,32 +241,78 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             white-space: nowrap;
+            min-height: 30px;
         }
-        .sidebar-actions { display: flex; gap: 3px; }
-        .new-file-btn { background: #f59e0b; color: #050505; border: none; font-size: 0.6rem; font-weight: bold; padding: 2px 6px; border-radius: 3px; cursor: pointer; }
-        .collapse-btn { background: #18181b; color: #f59e0b; border: 1px solid #27272a; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; cursor: pointer; }
+        .sidebar-actions { display: flex; gap: 4px; align-items: center; }
+        .new-file-btn { 
+            background: #f59e0b; 
+            color: #050505; 
+            border: none; 
+            font-size: 0.6rem; 
+            font-weight: bold; 
+            padding: 3px 7px; 
+            border-radius: 3px; 
+            cursor: pointer; 
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+        .new-file-btn:hover { box-shadow: 0 0 8px rgba(245, 158, 11, 0.5); }
+        .new-file-btn:active { transform: scale(0.95); }
+        
+        .collapse-btn { 
+            background: #18181b; 
+            color: #f59e0b; 
+            border: 1px solid #27272a; 
+            font-size: 0.6rem; 
+            padding: 2px 6px; 
+            border-radius: 3px; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+        .collapse-btn:hover { background: #27272a; border-color: #f59e0b; }
 
         .file-list {
             flex: 1;
             overflow-y: auto;
-            padding: 5px;
+            overflow-x: hidden;
+            padding: 6px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
             white-space: nowrap;
         }
         .file-item {
             background: #121216;
             border: 1px solid #27272a;
             color: #a1a1aa;
-            padding: 5px 7px;
+            padding: 6px 8px;
             font-size: 0.64rem;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .file-item.active { background: #18181b; border-color: #f59e0b; color: #f59e0b; font-weight: bold; }
+        .file-item::before {
+            content: "📄";
+            font-size: 0.58rem;
+        }
+        .file-item:hover {
+            background: #18181b;
+            border-color: rgba(245, 158, 11, 0.5);
+            color: #ffffff;
+            transform: translateX(2px);
+        }
+        .file-item.active { 
+            background: linear-gradient(135deg, #18181b 0%, #121216 100%); 
+            border-color: #f59e0b; 
+            color: #f59e0b; 
+            font-weight: bold;
+            box-shadow: inset 3px 0 0 #f59e0b, 0 2px 6px rgba(245, 158, 11, 0.15);
+        }
+        .file-item.active::before { content: "⚡"; }
 
         .workspace-grid {
             flex: 1;
@@ -244,6 +320,7 @@
             flex-direction: column;
             gap: 6px;
             min-height: 0;
+            min-width: 0;
         }
         
         .pane {
@@ -254,7 +331,11 @@
             border: 1px solid #27272a;
             border-radius: 6px;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.2s ease;
         }
+        .pane:focus-within { border-color: rgba(245, 158, 11, 0.4); }
+        
         .pane-header {
             background: #121216;
             padding: 5px 8px;
@@ -264,15 +345,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            min-height: 30px;
         }
         .pane-header-left { display: flex; align-items: center; gap: 6px; }
-        .toggle-sidebar-trigger { background: #18181b; border: 1px solid #27272a; color: #f59e0b; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; cursor: pointer; min-height: 24px; }
+        .toggle-sidebar-trigger { 
+            background: #18181b; 
+            border: 1px solid #27272a; 
+            color: #f59e0b; 
+            font-size: 0.6rem; 
+            padding: 3px 7px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            min-height: 24px; 
+            font-weight: bold;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .toggle-sidebar-trigger:hover { background: #f59e0b; color: #050505; border-color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+        .toggle-sidebar-trigger:active { transform: scale(0.96); }
 
         /* Flawlessly Spaced Snippet Bar */
         .snippet-bar {
             display: flex;
             gap: 5px;
-            padding: 4px 6px;
+            padding: 5px 8px;
             background: #0f0f13;
             border-bottom: 1px solid #27272a;
             overflow-x: auto;
@@ -289,9 +387,10 @@
             white-space: nowrap;
             min-height: 26px;
             font-weight: bold;
+            transition: all 0.2s ease;
         }
-        .snippet-btn:hover { background: #27272a; }
-        .snippet-btn:active { background: #f59e0b; color: #050505; }
+        .snippet-btn:hover { background: #27272a; border-color: #f59e0b; }
+        .snippet-btn:active { background: #f59e0b; color: #050505; transform: scale(0.96); }
 
         textarea {
             flex: 1;
@@ -311,13 +410,14 @@
 
         .ai-dock {
             background: #09090b;
-            border: 1px solid #d97706;
+            border: 1px solid rgba(217, 119, 6, 0.6);
             border-radius: 6px;
             display: flex;
             flex-direction: column;
             height: 52px;
             margin-bottom: 6px;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
         .ai-output { flex: 1; padding: 4px 8px; font-size: 0.6rem; overflow-y: auto; color: #38bdf8; }
         .ai-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; }
@@ -334,6 +434,7 @@
             height: 58px;
             margin-bottom: 6px;
             overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
         .terminal-logs { flex: 1; padding: 4px 8px; font-size: 0.58rem; overflow-y: auto; color: #10b981; line-height: 1.35; }
         .terminal-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; }
@@ -343,7 +444,7 @@
         /* Flawlessly Spaced Bottom CTA Action Bar */
         .btn-group { display: flex; gap: 6px; margin-top: 2px; }
         .btn { 
-            background: #f59e0b; 
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
             color: #050505; 
             border: none; 
             padding: 8px 10px; 
@@ -357,25 +458,30 @@
             align-items: center;
             justify-content: center;
             letter-spacing: 0.5px;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .btn:hover { box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); transform: translateY(-1px); }
+        .btn:active { transform: translateY(1px) scale(0.99); }
+        
         .btn-secondary {
             background: #18181b;
             color: #f59e0b;
             border: 1px solid #27272a;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
         }
-        .btn-secondary:hover { background: #27272a; }
-        .btn:active { opacity: 0.85; transform: scale(0.99); }
+        .btn-secondary:hover { background: #27272a; border-color: #f59e0b; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.15); }
         p { margin: 2px 0; }
     </style>
 </head>
 <body>
     <header>
-        <h1>PSA™ v2.7 CORE</h1>
+        <h1>PSA™ v2.8 CORE</h1>
         <div class="header-actions">
             <button class="nav-btn" onclick="runFormatter()">[FORMAT]</button>
             <button class="nav-btn" onclick="openPlugins()">[# PLUGINS]</button>
             <button class="nav-btn" onclick="openGuide()">[? GUIDE]</button>
-            <span class="badge">v2.7 CTA PERFECT</span>
+            <span class="badge">v2.8 SILK DRAWER</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -401,11 +507,11 @@
     <!-- Onboarding Guide Modal -->
     <div class="modal-overlay" id="guide-modal" onclick="closeGuideOverlay(event)">
         <div class="modal-box" style="max-width: 300px;">
-            <div class="modal-title">PSA™ v2.7 GUIDE</div>
+            <div class="modal-title">PSA™ v2.8 GUIDE</div>
             <div class="modal-scroll-content">
                 <div class="content-section">
-                    <b>1. Flawless Responsive CTAs</b>
-                    All touch targets, header buttons, snippet injectors, and bottom actions have been precisely spaced for mobile execution.
+                    <b>1. Silk-Smooth Collapsible Files Drawer</b>
+                    Tap the folder toggle or chevron buttons for buttery-smooth animated collapse with zero layout jitter.
                 </div>
                 <div class="content-section">
                     <b>2. Sovereign Formatter ([FORMAT])</b>
@@ -434,14 +540,14 @@
         </div>
     </div>
 
-    <!-- Main Workspace Layout -->
+    <!-- Main Workspace Layout with Silk-Smooth Collapsible Sidebar -->
     <div class="main-layout">
         <div class="sidebar" id="app-sidebar">
             <div class="sidebar-header">
-                <span>Files</span>
+                <span>📁 Files</span>
                 <div class="sidebar-actions">
                     <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
-                    <button class="collapse-btn" onclick="toggleSidebar()">◀</button>
+                    <button class="collapse-btn" onclick="toggleSidebar()" title="Collapse Sidebar">◀</button>
                 </div>
             </div>
             <div class="file-list" id="file-list-container">
@@ -453,7 +559,7 @@
             <div class="pane">
                 <div class="pane-header">
                     <div class="pane-header-left">
-                        <button class="toggle-sidebar-trigger" id="sidebar-toggle-btn" onclick="toggleSidebar()">☰ Files</button>
+                        <button class="toggle-sidebar-trigger" id="sidebar-toggle-btn" onclick="toggleSidebar()">📁 Files Drawer</button>
                         <span id="active-filename">EDITING: index.html</span>
                     </div>
                 </div>
@@ -477,7 +583,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v2.7-cta-perfect: sovereign touch targets initialized for Rean Van Aswegen.</p>
+            <p>> v2.8-silk-drawer: fully animated collapsible file system initialized for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -488,7 +594,7 @@
     <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v2.7 active. Type 'format', 'lint', 'git log', or 'help'.</p>
+            <p>> runtime: v2.8 active. Type 'format', 'lint', 'git log', or 'help'.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
@@ -590,7 +696,7 @@
             
             gitCommits.unshift(commitEntry);
             if (gitCommits.length > 20) gitCommits.pop();
-            localStorage.setItem('psa_v27_commits', JSON.stringify(gitCommits));
+            localStorage.setItem('psa_v28_commits', JSON.stringify(gitCommits));
         }
 
         function openPlugins() {
@@ -649,9 +755,16 @@
 
         function toggleSidebar() {
             const sidebar = document.getElementById('app-sidebar');
+            const toggleTrigger = document.getElementById('sidebar-toggle-btn');
             isSidebarCollapsed = !isSidebarCollapsed;
-            if (isSidebarCollapsed) sidebar.classList.add('collapsed');
-            else sidebar.classList.remove('collapsed');
+            
+            if (isSidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                toggleTrigger.innerHTML = "▶ Show Files";
+            } else {
+                sidebar.classList.remove('collapsed');
+                toggleTrigger.innerHTML = "📁 Files Drawer";
+            }
         }
 
         function renderFileList() {
@@ -775,9 +888,9 @@
             const pos = editor.selectionStart;
             let snippet = '';
             
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.7 Node -->\n</div>\n';
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.8 Node -->\n</div>\n';
             if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.7 Active");\n<\/script>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.8 Active");\n<\/script>\n';
             if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
             if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
 
@@ -788,10 +901,10 @@
         function saveWorkspace() {
             generateGitCommit(`Manual save & commit for ${currentFile}`);
             const payload = { files: files, plugins: plugins, commits: gitCommits };
-            localStorage.setItem('psa_v27_workspace', JSON.stringify(payload));
+            localStorage.setItem('psa_v28_workspace', JSON.stringify(payload));
             
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.7 workspace persisted & local Git commit generated.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.8 workspace persisted & local Git commit generated.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -804,7 +917,7 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.7 sovereign bundle...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.8 sovereign bundle...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
@@ -821,7 +934,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'psa_v27_sovereign_archive.json';
+            a.download = 'psa_v28_sovereign_archive.json';
             a.click();
             URL.revokeObjectURL(url);
             
@@ -867,7 +980,7 @@
                     exportSovereignArchive();
                 } else if (cmd === 'status') {
                     const activeCount = Object.values(plugins).filter(p => p.enabled).length;
-                    terminal.innerHTML += `<p style="color: #10b981;">Node: CTA Perfect Engine | Inventor: Rean Van Aswegen | Active Plugins: ${activeCount} | Commits: ${gitCommits.length}</p>`;
+                    terminal.innerHTML += `<p style="color: #10b981;">Node: Silk Drawer Engine | Inventor: Rean Van Aswegen | Active Plugins: ${activeCount} | Commits: ${gitCommits.length}</p>`;
                 } else if (cmd === 'clear') {
                     terminal.innerHTML = `<p>> terminal cleared.</p>`;
                 } else if (cmd === 'list') {
@@ -904,14 +1017,14 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v2.7 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v2.8 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v27_workspace');
+            const saved = localStorage.getItem('psa_v28_workspace');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
