@@ -303,7 +303,7 @@
         function logMsg(txt) {
             const box = document.getElementById('logs');
             const time = new Date().toLocaleTimeString();
-            box.innerHTML += \`<p>> [\${time}] \${txt}</p>\`;
+            box.innerHTML += '<p>> [' + time + '] ' + txt + '</p>';
             box.scrollTop = box.scrollHeight;
         }
 
@@ -376,14 +376,14 @@
 
                 if (saveRes.ok && commitRes.ok) {
                     showToast("✅ Saved & Git Committed!");
-                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Disk Sync & Git Commit Successful!</p>`;
-                    if (commitData.output) terminal.innerHTML += `<p style="color: #38bdf8;">> ${commitData.output}</p>`;
+                    terminal.innerHTML += '<p style="color: #10b981;">> [' + timestamp + '] Disk Sync & Git Commit Successful!</p>';
+                    if (commitData.output) terminal.innerHTML += '<p style="color: #38bdf8;">> ' + commitData.output + '</p>';
                 } else {
                     throw new Error(commitData.output || "Backend write failed");
                 }
             } catch (err) {
                 showToast("❌ Backend error: " + err.message, true);
-                terminal.innerHTML += `<p style="color: #f87171;">> [${timestamp}] Error: ${err.message}</p>`;
+                terminal.innerHTML += '<p style="color: #f87171;">> [' + timestamp + '] Error: ' + err.message + '</p>';
             }
             terminal.scrollTop = terminal.scrollHeight;
         }
@@ -402,14 +402,14 @@
 
                 if (pushRes.ok) {
                     showToast("✅ Successfully Pushed to Remote!");
-                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Git Push Successful!</p>`;
-                    if (pushData.output) terminal.innerHTML += `<p style="color: #38bdf8;">> ${pushData.output}</p>`;
+                    terminal.innerHTML += '<p style="color: #10b981;">> [' + timestamp + '] Git Push Successful!</p>';
+                    if (pushData.output) terminal.innerHTML += '<p style="color: #38bdf8;">> ' + pushData.output + '</p>';
                 } else {
                     throw new Error(pushData.output || "Git push failed");
                 }
             } catch (err) {
                 showToast("❌ Push error: " + err.message, true);
-                terminal.innerHTML += `<p style="color: #f87171;">> [${timestamp}] Push Error: ${err.message}</p>`;
+                terminal.innerHTML += '<p style="color: #f87171;">> [' + timestamp + '] Push Error: ' + err.message + '</p>';
             }
             terminal.scrollTop = terminal.scrollHeight;
         }
@@ -428,14 +428,14 @@
 
                 if (vercelRes.ok) {
                     showToast("✅ Vercel Production Deployment Live!");
-                    terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] Vercel Deploy Successful!</p>`;
-                    if (vercelData.output) terminal.innerHTML += `<p style="color: #38bdf8;">> ${vercelData.output}</p>`;
+                    terminal.innerHTML += '<p style="color: #10b981;">> [' + timestamp + '] Vercel Deploy Successful!</p>';
+                    if (vercelData.output) terminal.innerHTML += '<p style="color: #38bdf8;">> ' + vercelData.output + '</p>';
                 } else {
                     throw new Error(vercelData.output || "Vercel deployment failed");
                 }
             } catch (err) {
                 showToast("❌ Vercel error: " + err.message, true);
-                terminal.innerHTML += `<p style="color: #f87171;">> [${timestamp}] Vercel Error: ${err.message}</p>`;
+                terminal.innerHTML += '<p style="color: #f87171;">> [' + timestamp + '] Vercel Error: ' + err.message + '</p>';
             }
             terminal.scrollTop = terminal.scrollHeight;
         }
@@ -455,12 +455,12 @@
                 const cmd = input.value.trim().toLowerCase();
                 const terminal = document.getElementById('terminal-logs');
                 if (!cmd) return;
-                terminal.innerHTML += `<p style="color: #fff;">> psa$ ${cmd}</p>`;
+                terminal.innerHTML += '<p style="color: #fff;">> psa$ ' + cmd + '</p>';
                 input.value = '';
 
                 if (cmd === 'build') {
                     compileAndRender();
-                    terminal.innerHTML += `<p style="color: #10b981;">> BUILD SUCCESS.</p>`;
+                    terminal.innerHTML += '<p style="color: #10b981;">> BUILD SUCCESS.</p>';
                 } else if (cmd === 'git push') {
                     pushToGit();
                 } else if (cmd === 'vercel' || cmd === 'deploy') {
@@ -468,7 +468,7 @@
                 } else if (cmd === 'clear') {
                     terminal.innerHTML = '';
                 } else {
-                    terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}</p>`;
+                    terminal.innerHTML += '<p style="color: #f87171;">Unknown command: ' + cmd + '</p>';
                 }
                 terminal.scrollTop = terminal.scrollHeight;
             }
