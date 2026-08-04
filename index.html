@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v2.4) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v2.4) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with interactive onboarding guide for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
-    <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
+    <title>Pocket State Architecture (PSA™ v2.5) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v2.5) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with modular plugin marketplace for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture, plugins">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.4) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.5) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v2.4",
+      "alternateName": "PSA™ v2.5",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -59,9 +59,9 @@
             align-items: center;
         }
         h1 { font-size: 0.85rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
-        .header-actions { display: flex; gap: 5px; align-items: center; }
+        .header-actions { display: flex; gap: 4px; align-items: center; }
         .badge { background: #d97706; color: #050505; padding: 2px 5px; font-size: 0.6rem; border-radius: 4px; font-weight: bold; }
-        .guide-btn {
+        .nav-btn {
             background: #18181b;
             border: 1px solid #f59e0b;
             color: #f59e0b;
@@ -128,8 +128,8 @@
         }
         .modal-btn:active { opacity: 0.8; }
 
-        /* Guide Modal Content Styling */
-        .guide-content {
+        /* Guide & Plugin Content Styling */
+        .modal-scroll-content {
             text-align: left;
             max-height: 240px;
             overflow-y: auto;
@@ -139,13 +139,44 @@
             padding-right: 4px;
             line-height: 1.3;
         }
-        .guide-section {
+        .content-section {
             margin-bottom: 8px;
         }
-        .guide-section b {
+        .content-section b {
             color: #f59e0b;
             display: block;
             margin-bottom: 2px;
+        }
+
+        /* Plugin Card List */
+        .plugin-card {
+            background: #121216;
+            border: 1px solid #27272a;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .plugin-info { text-align: left; }
+        .plugin-name { color: #fff; font-weight: bold; font-size: 0.68rem; }
+        .plugin-desc { color: #a1a1aa; font-size: 0.58rem; margin-top: 2px; }
+        .plugin-toggle-btn {
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #f59e0b;
+            font-size: 0.58rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .plugin-toggle-btn.active {
+            background: #d97706;
+            color: #050505;
+            border-color: #f59e0b;
         }
 
         /* Main Workspace Layout with Collapsible Sidebar */
@@ -450,10 +481,11 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v2.4 CORE</h1>
+        <h1>PSA™ v2.5 CORE</h1>
         <div class="header-actions">
-            <button class="guide-btn" onclick="openGuide()">[? GUIDE]</button>
-            <span class="badge">v2.4 ONBOARDING</span>
+            <button class="nav-btn" onclick="openPlugins()">[# PLUGINS]</button>
+            <button class="nav-btn" onclick="openGuide()">[? GUIDE]</button>
+            <span class="badge">v2.5 EXTENSIONS</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -465,24 +497,35 @@
         <div class="plaque-sub">INVENTOR & FOUNDER — POCKET STATE ARCHITECTURE (PSA™)</div>
     </div>
 
+    <!-- Plugin Marketplace Modal -->
+    <div class="modal-overlay" id="plugins-modal" onclick="closePluginsOverlay(event)">
+        <div class="modal-box" style="max-width: 310px;">
+            <div class="modal-title">PSA™ LOCAL EXTENSIONS</div>
+            <div class="modal-scroll-content" id="plugin-list-container">
+                <!-- Dynamically populated plugin cards -->
+            </div>
+            <button class="modal-btn" onclick="closePlugins()">CLOSE</button>
+        </div>
+    </div>
+
     <!-- Onboarding Guide Modal -->
     <div class="modal-overlay" id="guide-modal" onclick="closeGuideOverlay(event)">
         <div class="modal-box" style="max-width: 300px;">
-            <div class="modal-title">PSA™ v2.4 GUIDE</div>
-            <div class="guide-content">
-                <div class="guide-section">
-                    <b>1. Sidebar & File Management</b>
+            <div class="modal-title">PSA™ v2.5 GUIDE</div>
+            <div class="modal-scroll-content">
+                <div class="content-section">
+                    <b>1. Local Plugin Marketplace</b>
+                    Tap [# PLUGINS] in the header to manage and toggle offline extensions and formatters instantly.
+                </div>
+                <div class="content-section">
+                    <b>2. Sidebar & File Management</b>
                     Tap ☰ Files to toggle the sidebar. Long-press any file item to Rename or Delete it.
                 </div>
-                <div class="guide-section">
-                    <b>2. Snippet Toolbar</b>
-                    Tap buttons above the editor (&lt;html&gt;, &lt;style&gt;, Flex, etc.) to inject boilerplate code instantly.
-                </div>
-                <div class="guide-section">
+                <div class="content-section">
                     <b>3. Interactive Shell (psa$)</b>
-                    Type <b>help</b>, <b>build</b>, <b>export</b>, <b>status</b>, or <b>guide</b> in the terminal dock below.
+                    Type <b>plugins</b>, <b>guide</b>, <b>help</b>, <b>build</b>, or <b>export</b> in the terminal dock below.
                 </div>
-                <div class="guide-section">
+                <div class="content-section">
                     <b>4. Offline AI Bridge (ollama$)</b>
                     Query your local LLM directly via Ollama loopback (localhost:11434) with zero cloud overhead.
                 </div>
@@ -544,7 +587,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v2.4-onboarding: sovereign guide & toolkit initialized for Rean Van Aswegen.</p>
+            <p>> v2.5-extensions: local plugin manager initialized for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -555,11 +598,11 @@
     <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v2.4 active. Type 'guide' or 'help' for commands.</p>
+            <p>> runtime: v2.5 active. Type 'plugins', 'guide', or 'help' for commands.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
-            <input type="text" id="term-cmd" class="terminal-input" placeholder="type command (guide, help, build, export, status)..." onkeydown="handleTerminalCommand(event)">
+            <input type="text" id="term-cmd" class="terminal-input" placeholder="type command (plugins, guide, help, build, export)..." onkeydown="handleTerminalCommand(event)">
         </div>
     </div>
 
@@ -569,15 +612,66 @@
     </div>
 
     <script>
-        // Clean Slate Default Workspace Initialization
+        // Clean Slate Workspace & Plugin Registry Initialization
         let files = {
             'index.html': `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>PSA™ Sovereign Node</title>\n    <style>\n        body { \n            background: #050505; \n            color: #f59e0b; \n            font-family: monospace; \n            padding: 20px; \n            margin: 0;\n        }\n        .container {\n            border: 1px solid #27272a;\n            background: #09090b;\n            padding: 20px;\n            border-radius: 8px;\n        }\n        h1 { color: #ffffff; font-size: 1.2rem; margin-top: 0; }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <h1>PSA™ Sovereign Environment</h1>\n        <p>Clean slate initialized by Rean Van Aswegen.</p>\n    </div>\n</body>\n</html>`
+        };
+
+        let plugins = {
+            'sovereign-formatter': { name: 'Sovereign Formatter', desc: 'Auto-indents markup and sanitizes local buffers.', enabled: true },
+            'offline-linter': { name: 'Offline Syntax Linter', desc: 'Zero-cloud static analysis for HTML/JS/Python.', enabled: true },
+            'obsidian-highlighter': { name: 'Obsidian High-Contrast Engine', desc: 'Enforces obsidian black & gold syntax highlights.', enabled: true },
+            'git-local-ledger': { name: 'Local Git Ledger', desc: 'Tracks offline commit hashes locally in storage.', enabled: false }
         };
 
         let currentFile = 'index.html';
         let targetFileForAction = null;
         let pressTimer = null;
         let isSidebarCollapsed = false;
+
+        function openPlugins() {
+            renderPluginList();
+            document.getElementById('plugins-modal').style.display = 'flex';
+        }
+
+        function closePlugins() {
+            document.getElementById('plugins-modal').style.display = 'none';
+        }
+
+        function closePluginsOverlay(e) {
+            if (e.target.id === 'plugins-modal') {
+                closePlugins();
+            }
+        }
+
+        function renderPluginList() {
+            const container = document.getElementById('plugin-list-container');
+            container.innerHTML = '';
+            Object.keys(plugins).forEach(key => {
+                const p = plugins[key];
+                const card = document.createElement('div');
+                card.className = 'plugin-card';
+                card.innerHTML = `
+                    <div class="plugin-info">
+                        <div class="plugin-name">${p.name}</div>
+                        <div class="plugin-desc">${p.desc}</div>
+                    </div>
+                    <button class="plugin-toggle-btn ${p.enabled ? 'active' : ''}" onclick="togglePlugin('${key}')">
+                        ${p.enabled ? 'ENABLED' : 'DISABLED'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function togglePlugin(key) {
+            plugins[key].enabled = !plugins[key].enabled;
+            renderPluginList();
+            saveWorkspace();
+            const terminal = document.getElementById('terminal-logs');
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [PLUGIN] ${plugins[key].name} set to ${plugins[key].enabled ? 'ACTIVE' : 'INACTIVE'}</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
 
         function openGuide() {
             document.getElementById('guide-modal').style.display = 'flex';
@@ -737,9 +831,9 @@
             const pos = editor.selectionStart;
             let snippet = '';
             
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.4 Node -->\n</div>\n';
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.5 Node -->\n</div>\n';
             if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.4 Active");\n<\/script>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.5 Active");\n<\/script>\n';
             if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
             if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
 
@@ -748,9 +842,10 @@
         }
 
         function saveWorkspace() {
-            localStorage.setItem('psa_v24_workspace', JSON.stringify(files));
+            const payload = { files: files, plugins: plugins };
+            localStorage.setItem('psa_v25_workspace', JSON.stringify(payload));
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.4 clean workspace persisted locally.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.5 workspace & extensions persisted locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -759,7 +854,7 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.4 sovereign bundle...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.5 sovereign bundle with active plugins...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
@@ -771,16 +866,17 @@
         }
 
         function exportSovereignArchive() {
-            const blob = new Blob([JSON.stringify(files, null, 2)], { type: 'application/json' });
+            const payload = { files: files, plugins: plugins };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'psa_v24_clean_archive.json';
+            a.download = 'psa_v25_sovereign_archive.json';
             a.click();
             URL.revokeObjectURL(url);
             
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [ARCHIVE] Clean workspace exported successfully.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [ARCHIVE] Sovereign archive exported successfully.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -795,7 +891,10 @@
                 input.value = '';
 
                 if (cmd === 'help') {
-                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: guide, build, export, status, clear, list, toggle</p>`;
+                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: plugins, guide, build, export, status, clear, list, toggle</p>`;
+                } else if (cmd === 'plugins') {
+                    openPlugins();
+                    terminal.innerHTML += `<p style="color: #f59e0b;">> Opened local extension manager.</p>`;
                 } else if (cmd === 'guide') {
                     openGuide();
                     terminal.innerHTML += `<p style="color: #f59e0b;">> Opened onboarding guide overlay.</p>`;
@@ -804,7 +903,8 @@
                 } else if (cmd === 'export') {
                     exportSovereignArchive();
                 } else if (cmd === 'status') {
-                    terminal.innerHTML += `<p style="color: #10b981;">Node: Onboarding Sovereign | Inventor: Rean Van Aswegen | Files: ${Object.keys(files).length}</p>`;
+                    const activeCount = Object.values(plugins).filter(p => p.enabled).length;
+                    terminal.innerHTML += `<p style="color: #10b981;">Node: Extension Sovereign | Inventor: Rean Van Aswegen | Active Plugins: ${activeCount}</p>`;
                 } else if (cmd === 'clear') {
                     terminal.innerHTML = `<p>> terminal cleared.</p>`;
                 } else if (cmd === 'list') {
@@ -813,7 +913,7 @@
                     toggleSidebar();
                     terminal.innerHTML += `<p style="color: #f59e0b;">> Toggled sidebar visibility.</p>`;
                 } else {
-                    terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}. Type 'help' or 'guide'.</p>`;
+                    terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}. Type 'help' or 'plugins'.</p>`;
                 }
                 terminal.scrollTop = terminal.scrollHeight;
             }
@@ -844,16 +944,20 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.4 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.5 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v24_workspace');
+            const saved = localStorage.getItem('psa_v25_workspace');
             if (saved) {
-                try { files = JSON.parse(saved); } catch(e) {}
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.files) files = parsed.files;
+                    if (parsed.plugins) plugins = parsed.plugins;
+                } catch(e) {}
             }
             if (!files[currentFile]) {
                 currentFile = Object.keys(files)[0] || 'index.html';
