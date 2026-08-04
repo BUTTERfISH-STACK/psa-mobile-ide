@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v1.8) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v1.8) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node for Pocket State Architecture (PSA™), engineered and founded by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v1.9) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v1.9) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with dynamic file explorer for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph / Social Discovery Meta Tags -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v1.8) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v1.9) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v1.8",
+      "alternateName": "PSA™ v1.9",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -74,23 +74,72 @@
         .plaque-name { font-size: 0.8rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
         .plaque-sub { font-size: 0.62rem; color: #f59e0b; margin-top: 2px; font-weight: bold; }
 
-        .file-tabs {
+        /* Main Workspace Layout with Sidebar */
+        .main-layout {
+            flex: 1;
             display: flex;
-            gap: 4px;
-            margin-bottom: 4px;
-            overflow-x: auto;
-            padding-bottom: 2px;
+            gap: 5px;
+            margin-bottom: 5px;
+            min-height: 0;
         }
-        .tab {
+
+        .sidebar {
+            width: 130px;
+            background: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            background: #121216;
+            padding: 5px;
+            font-size: 0.6rem;
+            color: #a1a1aa;
+            border-bottom: 1px solid #27272a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .new-file-btn {
+            background: #f59e0b;
+            color: #050505;
+            border: none;
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .file-item {
             background: #121216;
             border: 1px solid #27272a;
             color: #a1a1aa;
-            padding: 3px 8px;
-            font-size: 0.68rem;
+            padding: 4px 6px;
+            font-size: 0.65rem;
             border-radius: 4px;
             cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .tab.active {
+
+        .file-item.active {
             background: #18181b;
             border-color: #f59e0b;
             color: #f59e0b;
@@ -102,7 +151,6 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
-            margin-bottom: 5px;
             min-height: 0;
         }
         
@@ -151,7 +199,7 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 65px;
+            height: 60px;
             margin-bottom: 5px;
             overflow: hidden;
         }
@@ -194,7 +242,7 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 50px;
+            height: 45px;
             margin-bottom: 5px;
             overflow: hidden;
         }
@@ -216,12 +264,12 @@
             background: #f59e0b; 
             color: #050505; 
             border: none; 
-            padding: 7px; 
+            padding: 6px; 
             font-weight: bold; 
             flex: 1; 
             border-radius: 6px; 
             cursor: pointer; 
-            font-size: 0.72rem;
+            font-size: 0.7rem;
         }
         .btn-secondary {
             background: #18181b;
@@ -234,10 +282,10 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v1.8 CORE</h1>
+        <h1>PSA™ v1.9 CORE</h1>
         <div>
-            <span class="badge">v1.8 PERSISTENT</span>
-            <span class="status">● SECURE</span>
+            <span class="badge">v1.9 EXPLORER</span>
+            <span class="status">● ACTIVE</span>
         </div>
     </header>
 
@@ -248,29 +296,35 @@
         <div class="plaque-sub">INVENTOR & FOUNDER — POCKET STATE ARCHITECTURE (PSA™)</div>
     </div>
 
-    <div class="file-tabs">
-        <div class="tab active" onclick="switchFile('index.html')">index.html</div>
-        <div class="tab" onclick="switchFile('app.py')">app.py</div>
-        <div class="tab" onclick="switchFile('runtime.sh')">runtime.sh</div>
-        <div class="tab" onclick="switchFile('psa_core.js')">psa_core.js</div>
-    </div>
-    
-    <div class="workspace-grid">
-        <div class="pane">
-            <div class="pane-header"><span id="active-filename">EDITING: index.html</span></div>
-            <textarea id="code-editor" oninput="updateActiveFile()"></textarea>
+    <!-- Main Workspace Layout with VS Code-style Sidebar -->
+    <div class="main-layout">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span>Files</span>
+                <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
+            </div>
+            <div class="file-list" id="file-list-container">
+                <!-- Dynamically populated file items -->
+            </div>
         </div>
 
-        <div class="pane">
-            <div class="pane-header"><span>LIVE EDGE PREVIEW</span></div>
-            <iframe id="preview-frame"></iframe>
+        <div class="workspace-grid">
+            <div class="pane">
+                <div class="pane-header"><span id="active-filename">EDITING: index.html</span></div>
+                <textarea id="code-editor" oninput="updateActiveFile()"></textarea>
+            </div>
+
+            <div class="pane">
+                <div class="pane-header"><span>LIVE EDGE PREVIEW</span></div>
+                <iframe id="preview-frame"></iframe>
+            </div>
         </div>
     </div>
 
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v1.8-persistence: active storage layer online for Rean Van Aswegen.</p>
+            <p>> v1.9-explorer: dynamic file controller initialized for Rean Van Aswegen.</p>
             <p>> ollama-bridge: http://localhost:11434 online.</p>
         </div>
         <div class="ai-input-row">
@@ -281,7 +335,7 @@
 
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v1.8 persistence layer operational.</p>
+            <p>> runtime: v1.9 explorer operational.</p>
         </div>
     </div>
 
@@ -292,18 +346,29 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v1.8 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Persistence Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v1.8 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.8 State verified for Rean Van Aswegen.");\n            alert("PSA™ v1.8 Persistence Active!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine - v1.8 Persistence\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v1.8 persistent state engine active.")\n\nif __name__ == '__main__':\n    run()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v1.8 Persistence\necho "Starting v1.8 localized environment..."\npython3 -m http.server 8080`,
-            'psa_core.js': `// PSA State Management Core v1.8\nconsole.log("PSA Core v1.8 loaded for Rean Van Aswegen.");\nfunction getSystemStatus() { return { status: 'SOVEREIGN', author: 'Rean Van Aswegen' }; }`
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v1.9 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Explorer Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify Explorer State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.9 File Explorer verified for Rean Van Aswegen.");\n            alert("PSA™ v1.9 Dynamic File Active!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine - v1.9 Explorer\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v1.9 dynamic explorer engine active.")\n\nif __name__ == '__main__':\n    run()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v1.9 Explorer\necho "Starting v1.9 dynamic workspace..."\npython3 -m http.server 8080`,
+            'psa_core.js': `// PSA State Management Core v1.9\nconsole.log("PSA Explorer Core v1.9 loaded for Rean Van Aswegen.");`
         };
 
         let currentFile = 'index.html';
 
+        function renderFileList() {
+            const container = document.getElementById('file-list-container');
+            container.innerHTML = '';
+            Object.keys(files).forEach(filename => {
+                const item = document.createElement('div');
+                item.className = 'file-item' + (filename === currentFile ? ' active' : '');
+                item.innerText = filename;
+                item.onclick = () => switchFile(filename);
+                container.appendChild(item);
+            });
+        }
+
         function switchFile(filename) {
             currentFile = filename;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
+            renderFileList();
             document.getElementById('active-filename').innerText = "EDITING: " + filename;
             document.getElementById('code-editor').value = files[filename];
         }
@@ -312,10 +377,26 @@
             files[currentFile] = document.getElementById('code-editor').value;
         }
 
+        function createNewFile() {
+            const filename = prompt("Enter new module filename (e.g., style.css, utils.py):");
+            if (!filename) return;
+            const trimmed = filename.trim();
+            if (files[trimmed]) {
+                alert("File already exists.");
+                return;
+            }
+            files[trimmed] = `// New module: ${trimmed}\n// Inventor & Founder: Rean Van Aswegen\n`;
+            switchFile(trimmed);
+            saveWorkspace();
+            const terminal = document.getElementById('terminal-logs');
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [EXPLORER] Created new file: ${trimmed}</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
         function saveWorkspace() {
             const terminal = document.getElementById('terminal-logs');
-            localStorage.setItem('psa_v18_workspace', JSON.stringify(files));
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v1.8 workspace persisted locally.</p>`;
+            localStorage.setItem('psa_v19_workspace', JSON.stringify(files));
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v1.9 workspace saved locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -324,14 +405,14 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v1.8 persistent modules...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v1.9 explorer state...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
-            doc.write(files['index.html']);
+            doc.write(files['index.html'] || '<div>No index.html found</div>');
             doc.close();
 
-            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: v1.8 active.</p>`;
+            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Explorer active.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -360,17 +441,21 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v1.8 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v1.9 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v18_workspace');
+            const saved = localStorage.getItem('psa_v19_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
+            if (!files[currentFile]) {
+                currentFile = Object.keys(files)[0] || 'index.html';
+            }
+            renderFileList();
             document.getElementById('code-editor').value = files[currentFile];
             compileAndRender();
         };
