@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v2.2) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v2.2) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with collapsible sidebar for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v2.3) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v2.3) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with clean slate initialization for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.2) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.3) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v2.2",
+      "alternateName": "PSA™ v2.3",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -419,9 +419,9 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v2.2 CORE</h1>
+        <h1>PSA™ v2.3 CORE</h1>
         <div>
-            <span class="badge">v2.2 COLLAPSIBLE</span>
+            <span class="badge">v2.3 CLEAN SLATE</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -486,7 +486,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v2.2-core: collapsible sidebar & sovereign toolkit initialized for Rean Van Aswegen.</p>
+            <p>> v2.3-clean: sovereign workspace initialized for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -497,7 +497,7 @@
     <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v2.2 active. Type 'help' for commands.</p>
+            <p>> runtime: v2.3 clean slate active. Type 'help' for commands.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
@@ -511,11 +511,9 @@
     </div>
 
     <script>
+        // Clean Slate Default Workspace Initialization (No Simulation Bloat)
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v2.2 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Collapsible Core)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v2.2 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v2.2 Collapsible verified for Rean Van Aswegen.");\n            alert("PSA™ v2.2 Sidebar Toggle Active!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine - v2.2\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v2.2 collapsible sovereign core active.")\n\nif __name__ == '__main__':\n    run()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v2.2\necho "Starting v2.2 collapsible workspace..."\npython3 -m http.server 8080`,
-            'psa_core.js': `// PSA State Management Core v2.2\nconsole.log("PSA Collapsible Core v2.2 loaded for Rean Van Aswegen.");`
+            'index.html': `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>PSA™ Sovereign Node</title>\n    <style>\n        body { \n            background: #050505; \n            color: #f59e0b; \n            font-family: monospace; \n            padding: 20px; \n            margin: 0;\n        }\n        .container {\n            border: 1px solid #27272a;\n            background: #09090b;\n            padding: 20px;\n            border-radius: 8px;\n        }\n        h1 { color: #ffffff; font-size: 1.2rem; margin-top: 0; }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <h1>PSA™ Sovereign Environment</h1>\n        <p>Clean slate initialized by Rean Van Aswegen.</p>\n    </div>\n</body>\n</html>`
         };
 
         let currentFile = 'index.html';
@@ -657,7 +655,7 @@
                 alert("File already exists.");
                 return;
             }
-            files[trimmed] = `// Module: ${trimmed}\n// Inventor & Founder: Rean Van Aswegen\n`;
+            files[trimmed] = `<!-- Module: ${trimmed} -->\n<!-- Inventor & Founder: Rean Van Aswegen -->\n`;
             switchFile(trimmed);
             saveWorkspace();
         }
@@ -667,9 +665,9 @@
             const pos = editor.selectionStart;
             let snippet = '';
             
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.2 Node -->\n</div>\n';
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.3 Node -->\n</div>\n';
             if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.2 Active");\n<\/script>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.3 Active");\n<\/script>\n';
             if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
             if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
 
@@ -678,9 +676,9 @@
         }
 
         function saveWorkspace() {
-            localStorage.setItem('psa_v22_workspace', JSON.stringify(files));
+            localStorage.setItem('psa_v23_workspace', JSON.stringify(files));
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.2 workspace persisted locally.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.3 clean workspace persisted locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -689,7 +687,7 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.2 sovereign bundle...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.3 sovereign bundle...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
@@ -705,12 +703,12 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'psa_v22_sovereign_archive.json';
+            a.download = 'psa_v23_clean_archive.json';
             a.click();
             URL.revokeObjectURL(url);
             
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [ARCHIVE] Workspace exported successfully.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [ARCHIVE] Clean workspace exported successfully.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -731,7 +729,7 @@
                 } else if (cmd === 'export') {
                     exportSovereignArchive();
                 } else if (cmd === 'status') {
-                    terminal.innerHTML += `<p style="color: #10b981;">Node: Sovereign | Inventor: Rean Van Aswegen | Files: ${Object.keys(files).length}</p>`;
+                    terminal.innerHTML += `<p style="color: #10b981;">Node: Clean Sovereign | Inventor: Rean Van Aswegen | Files: ${Object.keys(files).length}</p>`;
                 } else if (cmd === 'clear') {
                     terminal.innerHTML = `<p>> terminal cleared.</p>`;
                 } else if (cmd === 'list') {
@@ -771,14 +769,14 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.2 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.3 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v22_workspace');
+            const saved = localStorage.getItem('psa_v23_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
