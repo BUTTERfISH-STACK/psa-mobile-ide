@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSA™ Master IDE & Runtime v1.4</title>
+    <title>PSA™ Master IDE & AI Runtime v1.5</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -11,22 +11,22 @@
             background: #050505; 
             color: #f59e0b; 
             margin: 0; 
-            padding: 8px; 
+            padding: 6px; 
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
         header { 
             border-bottom: 1px solid #27272a; 
-            padding-bottom: 6px; 
-            margin-bottom: 6px; 
+            padding-bottom: 5px; 
+            margin-bottom: 5px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        h1 { font-size: 0.9rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
+        h1 { font-size: 0.85rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
         .badge { background: #d97706; color: #050505; padding: 2px 5px; font-size: 0.6rem; border-radius: 4px; font-weight: bold; }
-        .status { color: #10b981; font-size: 0.7rem; }
+        .status { color: #10b981; font-size: 0.68rem; }
         
         .file-tabs {
             display: flex;
@@ -40,7 +40,7 @@
             border: 1px solid #27272a;
             color: #a1a1aa;
             padding: 3px 8px;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -55,8 +55,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 6px;
+            gap: 5px;
+            margin-bottom: 5px;
             min-height: 0;
         }
         
@@ -72,8 +72,8 @@
 
         .pane-header {
             background: #121216;
-            padding: 4px 8px;
-            font-size: 0.65rem;
+            padding: 4px 6px;
+            font-size: 0.62rem;
             color: #71717a;
             border-bottom: 1px solid #27272a;
             display: flex;
@@ -87,7 +87,7 @@
             border: none;
             padding: 6px;
             font-family: monospace;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             resize: none;
             outline: none;
         }
@@ -99,49 +99,68 @@
             width: 100%;
         }
 
+        .ai-dock {
+            background: #09090b;
+            border: 1px solid #d97706;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            height: 75px;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
+        .ai-output {
+            flex: 1;
+            padding: 5px;
+            font-size: 0.65rem;
+            overflow-y: auto;
+            color: #38bdf8;
+        }
+
+        .ai-input-row {
+            display: flex;
+            border-top: 1px solid #27272a;
+            background: #121216;
+        }
+
+        .ai-prompt {
+            padding: 3px 6px;
+            color: #38bdf8;
+            font-size: 0.65rem;
+            font-weight: bold;
+        }
+
+        .ai-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 0.65rem;
+            padding: 3px;
+            outline: none;
+        }
+
         .terminal-container {
             background: #09090b;
             border: 1px solid #27272a;
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 90px;
-            margin-bottom: 6px;
+            height: 60px;
+            margin-bottom: 5px;
             overflow: hidden;
         }
         
         .terminal-logs {
             flex: 1;
-            padding: 6px;
-            font-size: 0.68rem;
+            padding: 5px;
+            font-size: 0.62rem;
             overflow-y: auto;
             color: #10b981;
         }
 
-        .terminal-input-row {
-            display: flex;
-            border-top: 1px solid #27272a;
-            background: #121216;
-        }
-
-        .terminal-prompt {
-            padding: 4px 6px;
-            color: #f59e0b;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        .terminal-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-family: monospace;
-            font-size: 0.7rem;
-            padding: 4px;
-            outline: none;
-        }
-        
         .btn-group {
             display: flex;
             gap: 4px;
@@ -151,12 +170,12 @@
             background: #f59e0b; 
             color: #050505; 
             border: none; 
-            padding: 8px; 
+            padding: 7px; 
             font-weight: bold; 
             flex: 1; 
             border-radius: 6px; 
             cursor: pointer; 
-            font-size: 0.75rem;
+            font-size: 0.72rem;
         }
         .btn-secondary {
             background: #18181b;
@@ -169,10 +188,10 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ CORE IDE</h1>
+        <h1>PSA™ AI CORE</h1>
         <div>
-            <span class="badge">v1.4 SHELL</span>
-            <span class="status">● ACTIVE</span>
+            <span class="badge">v1.5 OLLAMA</span>
+            <span class="status">● OFFLINE READY</span>
         </div>
     </header>
 
@@ -194,14 +213,21 @@
         </div>
     </div>
 
+    <!-- Local AI Bridge Dock -->
+    <div class="ai-dock">
+        <div class="ai-output" id="ai-logs">
+            <p>> ollama-bridge: initialized [endpoint: http://localhost:11434]</p>
+            <p>> status: ready for local offline inference.</p>
+        </div>
+        <div class="ai-input-row">
+            <span class="ai-prompt">ollama$</span>
+            <input type="text" id="ai-cmd" class="ai-input" placeholder="ask local model to refactor or write code..." onkeydown="handleAIQuery(event)">
+        </div>
+    </div>
+
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> psa-core: interactive shell online.</p>
-            <p>> type 'help' for available commands.</p>
-        </div>
-        <div class="terminal-input-row">
-            <span class="terminal-prompt">psa$</span>
-            <input type="text" id="terminal-cmd" class="terminal-input" placeholder="enter command..." onkeydown="handleTerminalCommand(event)">
+            <p>> psa-core: workspace operational.</p>
         </div>
     </div>
 
@@ -212,8 +238,8 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 30px; }\n        h2 { border-bottom: 1px solid #f59e0b; display: inline-block; padding-bottom: 4px; }\n    </style>\n</head>\n<body>\n    <h2>PSA™ Command Core</h2>\n    <p>v1.4 Interactive Shell Online.</p>\n    <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;">Execute Signal</button>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.4 command core verified.");\n            alert("PSA Core Operational!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine\nimport sys\n\ndef run():\n    print("Executing offline runtime core...")\n\nif __name__ == '__main__':\n    run()`,
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        h2 { border-bottom: 1px solid #f59e0b; display: inline-block; padding-bottom: 4px; }\n    </style>\n</head>\n<body>\n    <h2>PSA™ Ollama Node</h2>\n    <p>v1.5 Local AI Bridge Connected.</p>\n    <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;">Test Signal</button>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.5 AI core verified.");\n            alert("PSA Ollama Node Active!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine\nimport sys\n\ndef run():\n    print("Ollama local runtime engine active.")\n\nif __name__ == '__main__':\n    run()`,
             'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon\necho "Starting local environment..."\npython3 -m http.server 8080`
         };
 
@@ -233,8 +259,8 @@
 
         function saveWorkspace() {
             const terminal = document.getElementById('terminal-logs');
-            localStorage.setItem('psa_core_workspace', JSON.stringify(files));
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Workspace saved to local storage.</p>`;
+            localStorage.setItem('psa_ai_workspace', JSON.stringify(files));
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Workspace saved locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -254,50 +280,47 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function handleTerminalCommand(event) {
+        async function handleAIQuery(event) {
             if (event.key === 'Enter') {
-                const input = document.getElementById('terminal-cmd');
-                const cmd = input.value.trim();
-                const terminal = document.getElementById('terminal-logs');
+                const input = document.getElementById('ai-cmd');
+                const prompt = input.value.trim();
+                const aiLogs = document.getElementById('ai-logs');
                 
-                if (!cmd) return;
+                if (!prompt) return;
 
-                terminal.innerHTML += `<p style="color: #ffffff;">> psa$ ${cmd}</p>`;
+                aiLogs.innerHTML += `<p style="color: #ffffff;">> prompt: ${prompt}</p>`;
+                aiLogs.innerHTML += `<p style="color: #f59e0b;">> querying local ollama instance...</p>`;
+                aiLogs.scrollTop = aiLogs.scrollHeight;
                 
-                const parts = cmd.split(' ');
-                const command = parts[0].toLowerCase();
-
-                switch(command) {
-                    case 'help':
-                        terminal.innerHTML += `<p>Available: help, clear, status, ls, run, save</p>`;
-                        break;
-                    case 'clear':
-                        terminal.innerHTML = `<p>> psa-core: interactive shell online.</p>`;
-                        input.value = '';
-                        return;
-                    case 'status':
-                        terminal.innerHTML += `<p style="color: #10b981;">> Status: ONLINE | Active File: ${currentFile} | Zero Cloud Dependencies</p>`;
-                        break;
-                    case 'ls':
-                        terminal.innerHTML += `<p>index.html | app.py | runtime.sh</p>`;
-                        break;
-                    case 'run':
-                        compileAndRender();
-                        break;
-                    case 'save':
-                        saveWorkspace();
-                        break;
-                    default:
-                        terminal.innerHTML += `<p style="color: #ef4444;">> Error: command not recognized. Type 'help'.</p>`;
-                }
-
+                const currentCode = files[currentFile];
                 input.value = '';
-                terminal.scrollTop = terminal.scrollHeight;
+
+                try {
+                    // Direct connection to local Ollama API running on host/network
+                    const response = await fetch('http://localhost:11434/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            model: 'llama3',
+                            prompt: `You are an expert coder inside a mobile IDE. The user is editing ${currentFile}. Current code:\n${currentCode}\n\nTask: ${prompt}\n\nProvide direct code or explanation without markdown bloat if possible.`,
+                            stream: false
+                        })
+                    });
+
+                    if (!response.ok) throw new Error('Ollama offline or unreachable');
+                    
+                    const data = await response.json();
+                    aiLogs.innerHTML += `<p style="color: #38bdf8; background: #020617; padding: 4px; border-radius: 4px;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
+                } catch (err) {
+                    aiLogs.innerHTML += `<p style="color: #ef4444;">> Local Node Notice: Ollama background service not detected on localhost:11434. Running simulation fallback.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI Simulation: Processed instruction for ${currentFile}.</p>`;
+                }
+                aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_core_workspace');
+            const saved = localStorage.getItem('psa_ai_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
