@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v2.0) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v2.0) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with long-press context file management for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v2.1) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v2.1) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with interactive shell and toolkit for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.0) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.1) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v2.0",
+      "alternateName": "PSA™ v2.1",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -75,6 +75,47 @@
         .plaque-title { font-size: 0.6rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
         .plaque-name { font-size: 0.8rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
         .plaque-sub { font-size: 0.62rem; color: #f59e0b; margin-top: 2px; font-weight: bold; }
+
+        /* Context Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: #09090b;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 12px;
+            width: 80%;
+            max-width: 260px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+        }
+        .modal-title { font-size: 0.75rem; color: #fff; margin-bottom: 10px; font-weight: bold; }
+        .modal-btn {
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #f59e0b;
+            padding: 8px;
+            width: 100%;
+            font-family: monospace;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+        .modal-btn.danger {
+            background: #450a0a;
+            border-color: #7f1d1d;
+            color: #f87171;
+        }
+        .modal-btn:active { opacity: 0.8; }
 
         /* Main Workspace Layout with Sidebar */
         .main-layout {
@@ -139,7 +180,6 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            position: relative;
         }
 
         .file-item.active {
@@ -148,47 +188,6 @@
             color: #f59e0b;
             font-weight: bold;
         }
-
-        /* Context Modal Overlay */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.85);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-box {
-            background: #09090b;
-            border: 1px solid #f59e0b;
-            border-radius: 8px;
-            padding: 12px;
-            width: 80%;
-            max-width: 260px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
-        }
-        .modal-title { font-size: 0.75rem; color: #fff; margin-bottom: 10px; font-weight: bold; }
-        .modal-btn {
-            background: #18181b;
-            border: 1px solid #27272a;
-            color: #f59e0b;
-            padding: 8px;
-            width: 100%;
-            font-family: monospace;
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 4px;
-            margin-bottom: 6px;
-            cursor: pointer;
-        }
-        .modal-btn.danger {
-            background: #450a0a;
-            border-color: #7f1d1d;
-            color: #f87171;
-        }
-        .modal-btn:active { opacity: 0.8; }
 
         .workspace-grid {
             flex: 1;
@@ -216,7 +215,29 @@
             border-bottom: 1px solid #27272a;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
+
+        /* Snippet Injector Toolbar */
+        .snippet-bar {
+            display: flex;
+            gap: 3px;
+            padding: 2px 4px;
+            background: #0f0f13;
+            border-bottom: 1px solid #27272a;
+            overflow-x: auto;
+        }
+        .snippet-btn {
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: #f59e0b;
+            font-size: 0.55rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .snippet-btn:hover { background: #27272a; }
 
         textarea {
             flex: 1;
@@ -245,15 +266,15 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 55px;
-            margin-bottom: 5px;
+            height: 50px;
+            margin-bottom: 4px;
             overflow: hidden;
         }
 
         .ai-output {
             flex: 1;
-            padding: 4px 6px;
-            font-size: 0.62rem;
+            padding: 3px 6px;
+            font-size: 0.6rem;
             overflow-y: auto;
             color: #38bdf8;
         }
@@ -265,9 +286,9 @@
         }
 
         .ai-prompt {
-            padding: 3px 6px;
+            padding: 2px 6px;
             color: #38bdf8;
-            font-size: 0.62rem;
+            font-size: 0.6rem;
             font-weight: bold;
         }
 
@@ -277,30 +298,57 @@
             border: none;
             color: #ffffff;
             font-family: monospace;
-            font-size: 0.62rem;
-            padding: 3px;
+            font-size: 0.6rem;
+            padding: 2px;
             outline: none;
             user-select: text;
             -webkit-user-select: text;
         }
 
+        /* Interactive Terminal Runner */
         .terminal-container {
             background: #09090b;
             border: 1px solid #27272a;
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 40px;
-            margin-bottom: 5px;
+            height: 55px;
+            margin-bottom: 4px;
             overflow: hidden;
         }
         
         .terminal-logs {
             flex: 1;
-            padding: 4px 6px;
-            font-size: 0.6rem;
+            padding: 3px 6px;
+            font-size: 0.58rem;
             overflow-y: auto;
             color: #10b981;
+        }
+
+        .terminal-input-row {
+            display: flex;
+            border-top: 1px solid #27272a;
+            background: #121216;
+        }
+
+        .terminal-prompt {
+            padding: 2px 6px;
+            color: #10b981;
+            font-size: 0.58rem;
+            font-weight: bold;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 0.58rem;
+            padding: 2px;
+            outline: none;
+            user-select: text;
+            -webkit-user-select: text;
         }
 
         .btn-group {
@@ -330,9 +378,9 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v2.0 CORE</h1>
+        <h1>PSA™ v2.1 CORE</h1>
         <div>
-            <span class="badge">v2.0 CONTEXT</span>
+            <span class="badge">v2.1 TOOLKIT</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -362,13 +410,22 @@
                 <button class="new-file-btn" onclick="createNewFile()">+ NEW</button>
             </div>
             <div class="file-list" id="file-list-container">
-                <!-- Dynamically populated file items with long-press support -->
+                <!-- Dynamically populated file items -->
             </div>
         </div>
 
         <div class="workspace-grid">
             <div class="pane">
-                <div class="pane-header"><span id="active-filename">EDITING: index.html</span></div>
+                <div class="pane-header">
+                    <span id="active-filename">EDITING: index.html</span>
+                </div>
+                <div class="snippet-bar">
+                    <button class="snippet-btn" onclick="insertSnippet('html')">&lt;html&gt;</button>
+                    <button class="snippet-btn" onclick="insertSnippet('style')">&lt;style&gt;</button>
+                    <button class="snippet-btn" onclick="insertSnippet('script')">&lt;script&gt;</button>
+                    <button class="snippet-btn" onclick="insertSnippet('flex')">Flex Layout</button>
+                    <button class="snippet-btn" onclick="insertSnippet('python')">Py Core</button>
+                </div>
                 <textarea id="code-editor" oninput="updateActiveFile()"></textarea>
             </div>
 
@@ -382,8 +439,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v2.0-context: sovereign file engine initialized for Rean Van Aswegen.</p>
-            <p>> ollama-bridge: http://localhost:11434 online.</p>
+            <p>> v2.1-toolkit: sovereign shell & snippets initialized for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -391,9 +447,14 @@
         </div>
     </div>
 
+    <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v2.0 context engine operational.</p>
+            <p>> runtime: v2.1 active. Type 'help' for commands.</p>
+        </div>
+        <div class="terminal-input-row">
+            <span class="terminal-prompt">psa$</span>
+            <input type="text" id="term-cmd" class="terminal-input" placeholder="type command (help, build, export, status)..." onkeydown="handleTerminalCommand(event)">
         </div>
     </div>
 
@@ -404,10 +465,10 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v2.0 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Context Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v2.0 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v2.0 Context verified for Rean Van Aswegen.");\n            alert("PSA™ v2.0 Long-Press Active!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine - v2.0\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v2.0 sovereign context engine active.")\n\nif __name__ == '__main__':\n    run()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v2.0\necho "Starting v2.0 sovereign workspace..."\npython3 -m http.server 8080`,
-            'psa_core.js': `// PSA State Management Core v2.0\nconsole.log("PSA Context Core v2.0 loaded for Rean Van Aswegen.");`
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ v2.1 Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ (Toolkit Engine)</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify v2.1 State</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v2.1 Toolkit verified for Rean Van Aswegen.");\n            alert("PSA™ v2.1 Sovereign Shell Active!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine - v2.1\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("v2.1 sovereign toolkit engine active.")\n\nif __name__ == '__main__':\n    run()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - v2.1\necho "Starting v2.1 toolkit workspace..."\npython3 -m http.server 8080`,
+            'psa_core.js': `// PSA State Management Core v2.1\nconsole.log("PSA Toolkit Core v2.1 loaded for Rean Van Aswegen.");`
         };
 
         let currentFile = 'index.html';
@@ -422,10 +483,8 @@
                 item.className = 'file-item' + (filename === currentFile ? ' active' : '');
                 item.innerText = filename;
                 
-                // Click to switch file
                 item.onclick = () => switchFile(filename);
 
-                // Long-press detection (Touch & Mouse support)
                 item.onmousedown = (e) => startLongPress(e, filename);
                 item.ontouchstart = (e) => startLongPress(e, filename);
                 
@@ -443,7 +502,7 @@
                 targetFileForAction = filename;
                 document.getElementById('modal-filename-label').innerText = "FILE: " + filename;
                 document.getElementById('context-modal').style.display = 'flex';
-            }, 600); // 600ms hold time
+            }, 600);
         }
 
         function clearLongPress() {
@@ -490,7 +549,7 @@
             saveWorkspace();
 
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [CONTEXT] Renamed ${oldName} to ${trimmed}</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> Renamed ${oldName} to ${trimmed}</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -504,7 +563,7 @@
                 return;
             }
 
-            if (!confirm(`Are you sure you want to delete "${fileToDelete}"?`)) return;
+            if (!confirm(`Delete "${fileToDelete}"?`)) return;
 
             delete files[fileToDelete];
 
@@ -517,7 +576,7 @@
             saveWorkspace();
 
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f87171;">> [CONTEXT] Deleted file: ${fileToDelete}</p>`;
+            terminal.innerHTML += `<p style="color: #f87171;">> Deleted file: ${fileToDelete}</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -533,25 +592,37 @@
         }
 
         function createNewFile() {
-            const filename = prompt("Enter new module filename (e.g., style.css, utils.py):");
+            const filename = prompt("Enter new module filename:");
             if (!filename) return;
             const trimmed = filename.trim();
             if (files[trimmed]) {
                 alert("File already exists.");
                 return;
             }
-            files[trimmed] = `// New module: ${trimmed}\n// Inventor & Founder: Rean Van Aswegen\n`;
+            files[trimmed] = `// Module: ${trimmed}\n// Inventor & Founder: Rean Van Aswegen\n`;
             switchFile(trimmed);
             saveWorkspace();
-            const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [EXPLORER] Created new file: ${trimmed}</p>`;
-            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function insertSnippet(type) {
+            const editor = document.getElementById('code-editor');
+            const pos = editor.selectionStart;
+            let snippet = '';
+            
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.1 Node -->\n</div>\n';
+            if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.1 Active");\n<\/script>\n';
+            if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
+            if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
+
+            editor.value = editor.value.substring(0, pos) + snippet + editor.value.substring(editor.selectionEnd);
+            updateActiveFile();
         }
 
         function saveWorkspace() {
+            localStorage.setItem('psa_v21_workspace', JSON.stringify(files));
             const terminal = document.getElementById('terminal-logs');
-            localStorage.setItem('psa_v20_workspace', JSON.stringify(files));
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.0 workspace saved locally.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.1 workspace persisted locally.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -560,15 +631,58 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.0 sovereign context state...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.1 sovereign bundle...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
             doc.write(files['index.html'] || '<div>No index.html found</div>');
             doc.close();
 
-            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Context engine active.</p>`;
+            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function exportSovereignArchive() {
+            const blob = new Blob([JSON.stringify(files, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'psa_v21_sovereign_archive.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            const terminal = document.getElementById('terminal-logs');
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [ARCHIVE] Workspace exported successfully.</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function handleTerminalCommand(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('term-cmd');
+                const cmd = input.value.trim().toLowerCase();
+                const terminal = document.getElementById('terminal-logs');
+                
+                if (!cmd) return;
+                terminal.innerHTML += `<p style="color: #ffffff;">> psa$ ${cmd}</p>`;
+                input.value = '';
+
+                if (cmd === 'help') {
+                    terminal.innerHTML += `<p style="color: #38bdf8;">Commands: build, export, status, clear, list</p>`;
+                } else if (cmd === 'build') {
+                    compileAndRender();
+                } else if (cmd === 'export') {
+                    exportSovereignArchive();
+                } else if (cmd === 'status') {
+                    terminal.innerHTML += `<p style="color: #10b981;">Node: Sovereign | Inventor: Rean Van Aswegen | Files: ${Object.keys(files).length}</p>`;
+                } else if (cmd === 'clear') {
+                    terminal.innerHTML = `<p>> terminal cleared.</p>`;
+                } else if (cmd === 'list') {
+                    terminal.innerHTML += `<p style="color: #f59e0b;">Files: ${Object.keys(files).join(', ')}</p>`;
+                } else {
+                    terminal.innerHTML += `<p style="color: #f87171;">Unknown command: ${cmd}. Type 'help'.</p>`;
+                }
+                terminal.scrollTop = terminal.scrollHeight;
+            }
         }
 
         async function handleAIQuery(event) {
@@ -596,14 +710,14 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.0 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Processed v2.1 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v20_workspace');
+            const saved = localStorage.getItem('psa_v21_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
