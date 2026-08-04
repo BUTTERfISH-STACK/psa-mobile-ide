@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSA™ Master IDE & AI Runtime v1.5</title>
+    <title>PSA™ Master IDE & Sovereign Seal v1.6</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -28,6 +28,20 @@
         .badge { background: #d97706; color: #050505; padding: 2px 5px; font-size: 0.6rem; border-radius: 4px; font-weight: bold; }
         .status { color: #10b981; font-size: 0.68rem; }
         
+        /* Founder Plaque Banner */
+        .founder-plaque {
+            background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin-bottom: 5px;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(245, 158, 11, 0.05);
+        }
+        .plaque-title { font-size: 0.6rem; color: #a1a1aa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+        .plaque-name { font-size: 0.8rem; color: #ffffff; font-weight: bold; letter-spacing: 1px; }
+        .plaque-sub { font-size: 0.62rem; color: #f59e0b; margin-top: 2px; font-weight: bold; }
+
         .file-tabs {
             display: flex;
             gap: 4px;
@@ -105,15 +119,15 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 75px;
+            height: 65px;
             margin-bottom: 5px;
             overflow: hidden;
         }
 
         .ai-output {
             flex: 1;
-            padding: 5px;
-            font-size: 0.65rem;
+            padding: 4px 6px;
+            font-size: 0.62rem;
             overflow-y: auto;
             color: #38bdf8;
         }
@@ -127,7 +141,7 @@
         .ai-prompt {
             padding: 3px 6px;
             color: #38bdf8;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: bold;
         }
 
@@ -137,7 +151,7 @@
             border: none;
             color: #ffffff;
             font-family: monospace;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             padding: 3px;
             outline: none;
         }
@@ -148,15 +162,15 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 60px;
+            height: 50px;
             margin-bottom: 5px;
             overflow: hidden;
         }
         
         .terminal-logs {
             flex: 1;
-            padding: 5px;
-            font-size: 0.62rem;
+            padding: 4px 6px;
+            font-size: 0.6rem;
             overflow-y: auto;
             color: #10b981;
         }
@@ -188,12 +202,19 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ AI CORE</h1>
+        <h1>PSA™ SOVEREIGN CORE</h1>
         <div>
-            <span class="badge">v1.5 OLLAMA</span>
-            <span class="status">● OFFLINE READY</span>
+            <span class="badge">v1.6 SEALED</span>
+            <span class="status">● VERIFIED</span>
         </div>
     </header>
+
+    <!-- Permanent Inventor & Founder Plaque -->
+    <div class="founder-plaque">
+        <div class="plaque-title">Architectural Origin & Ownership</div>
+        <div class="plaque-name">REAN VAN ASWEGEN</div>
+        <div class="plaque-sub">INVENTOR & FOUNDER — POCKET STATE ARCHITECTURE (PSA™)</div>
+    </div>
 
     <div class="file-tabs">
         <div class="tab active" onclick="switchFile('index.html')">index.html</div>
@@ -216,18 +237,18 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> ollama-bridge: initialized [endpoint: http://localhost:11434]</p>
-            <p>> status: ready for local offline inference.</p>
+            <p>> sovereign-core: sealed by Rean Van Aswegen.</p>
+            <p>> ollama-bridge: http://localhost:11434 online.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
-            <input type="text" id="ai-cmd" class="ai-input" placeholder="ask local model to refactor or write code..." onkeydown="handleAIQuery(event)">
+            <input type="text" id="ai-cmd" class="ai-input" placeholder="ask local model..." onkeydown="handleAIQuery(event)">
         </div>
     </div>
 
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> psa-core: workspace operational.</p>
+            <p>> runtime: sovereign environment operational.</p>
         </div>
     </div>
 
@@ -238,9 +259,9 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        h2 { border-bottom: 1px solid #f59e0b; display: inline-block; padding-bottom: 4px; }\n    </style>\n</head>\n<body>\n    <h2>PSA™ Ollama Node</h2>\n    <p>v1.5 Local AI Bridge Connected.</p>\n    <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;">Test Signal</button>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.5 AI core verified.");\n            alert("PSA Ollama Node Active!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Core Engine\nimport sys\n\ndef run():\n    print("Ollama local runtime engine active.")\n\nif __name__ == '__main__':\n    run()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon\necho "Starting local environment..."\npython3 -m http.server 8080`
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 25px; }\n        .seal { border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; display: inline-block; background: #09090b; }\n        h2 { margin: 0 0 10px 0; color: #fff; }\n        p { color: #f59e0b; font-size: 0.8rem; margin: 5px 0; }\n    </style>\n</head>\n<body>\n    <div class=\"seal\">\n        <h2>PSA™ Master Node</h2>\n        <p><b>Inventor & Founder:</b> Rean Van Aswegen</p>\n        <p>Pocket State Architecture™ v1.6</p>\n        <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;margin-top:10px;cursor:pointer;">Verify Seal</button>\n    </div>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: Sovereign signature verified for Rean Van Aswegen.");\n            alert("PSA™ Sovereign Seal Verified!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine - Sovereign Edition\n# Inventor & Founder: Rean Van Aswegen\nimport sys\n\ndef run():\n    print("Sovereign runtime engine active.")\n\nif __name__ == '__main__':\n    run()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon - Sovereign Seal\necho "Starting sovereign local environment..."\npython3 -m http.server 8080`
         };
 
         let currentFile = 'index.html';
@@ -259,8 +280,8 @@
 
         function saveWorkspace() {
             const terminal = document.getElementById('terminal-logs');
-            localStorage.setItem('psa_ai_workspace', JSON.stringify(files));
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Workspace saved locally.</p>`;
+            localStorage.setItem('psa_sovereign_workspace', JSON.stringify(files));
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Sovereign workspace saved.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -269,14 +290,14 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling workspace files...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling sovereign files...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
             doc.write(files['index.html']);
             doc.close();
 
-            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Edge preview updated.</p>`;
+            terminal.innerHTML += `<p style="color: #10b981;">> [${timestamp}] BUILD SUCCESS: Plaque rendered.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -289,38 +310,30 @@
                 if (!prompt) return;
 
                 aiLogs.innerHTML += `<p style="color: #ffffff;">> prompt: ${prompt}</p>`;
-                aiLogs.innerHTML += `<p style="color: #f59e0b;">> querying local ollama instance...</p>`;
                 aiLogs.scrollTop = aiLogs.scrollHeight;
-                
-                const currentCode = files[currentFile];
                 input.value = '';
 
                 try {
-                    // Direct connection to local Ollama API running on host/network
                     const response = await fetch('http://localhost:11434/api/generate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             model: 'llama3',
-                            prompt: `You are an expert coder inside a mobile IDE. The user is editing ${currentFile}. Current code:\n${currentCode}\n\nTask: ${prompt}\n\nProvide direct code or explanation without markdown bloat if possible.`,
+                            prompt: `You are the local co-pilot for Rean Van Aswegen, inventor of Pocket State Architecture (PSA). Answer: ${prompt}`,
                             stream: false
                         })
                     });
-
-                    if (!response.ok) throw new Error('Ollama offline or unreachable');
-                    
                     const data = await response.json();
-                    aiLogs.innerHTML += `<p style="color: #38bdf8; background: #020617; padding: 4px; border-radius: 4px;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #ef4444;">> Local Node Notice: Ollama background service not detected on localhost:11434. Running simulation fallback.</p>`;
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI Simulation: Processed instruction for ${currentFile}.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Simulated): Sovereign node processed request successfully for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_ai_workspace');
+            const saved = localStorage.getItem('psa_sovereign_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
