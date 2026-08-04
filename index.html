@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSA™ Master IDE & Runtime</title>
+    <title>PSA™ Master IDE & Runtime v1.4</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -11,27 +11,27 @@
             background: #050505; 
             color: #f59e0b; 
             margin: 0; 
-            padding: 10px; 
+            padding: 8px; 
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
         header { 
             border-bottom: 1px solid #27272a; 
-            padding-bottom: 8px; 
-            margin-bottom: 8px; 
+            padding-bottom: 6px; 
+            margin-bottom: 6px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        h1 { font-size: 0.95rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
-        .badge { background: #d97706; color: #050505; padding: 2px 6px; font-size: 0.65rem; border-radius: 4px; font-weight: bold; }
-        .status { color: #10b981; font-size: 0.75rem; }
+        h1 { font-size: 0.9rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
+        .badge { background: #d97706; color: #050505; padding: 2px 5px; font-size: 0.6rem; border-radius: 4px; font-weight: bold; }
+        .status { color: #10b981; font-size: 0.7rem; }
         
         .file-tabs {
             display: flex;
             gap: 4px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             overflow-x: auto;
             padding-bottom: 2px;
         }
@@ -39,8 +39,8 @@
             background: #121216;
             border: 1px solid #27272a;
             color: #a1a1aa;
-            padding: 4px 10px;
-            font-size: 0.75rem;
+            padding: 3px 8px;
+            font-size: 0.7rem;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -55,8 +55,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 6px;
+            margin-bottom: 6px;
             min-height: 0;
         }
         
@@ -72,8 +72,8 @@
 
         .pane-header {
             background: #121216;
-            padding: 5px 8px;
-            font-size: 0.7rem;
+            padding: 4px 8px;
+            font-size: 0.65rem;
             color: #71717a;
             border-bottom: 1px solid #27272a;
             display: flex;
@@ -85,9 +85,9 @@
             background: transparent;
             color: #f59e0b;
             border: none;
-            padding: 8px;
+            padding: 6px;
             font-family: monospace;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             resize: none;
             outline: none;
         }
@@ -99,33 +99,64 @@
             width: 100%;
         }
 
-        .terminal { 
-            background: #09090b; 
-            border: 1px solid #27272a; 
-            padding: 6px 8px; 
-            border-radius: 6px; 
-            font-size: 0.7rem;
-            height: 70px;
+        .terminal-container {
+            background: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            height: 90px;
+            margin-bottom: 6px;
+            overflow: hidden;
+        }
+        
+        .terminal-logs {
+            flex: 1;
+            padding: 6px;
+            font-size: 0.68rem;
             overflow-y: auto;
-            margin-bottom: 8px;
             color: #10b981;
+        }
+
+        .terminal-input-row {
+            display: flex;
+            border-top: 1px solid #27272a;
+            background: #121216;
+        }
+
+        .terminal-prompt {
+            padding: 4px 6px;
+            color: #f59e0b;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: monospace;
+            font-size: 0.7rem;
+            padding: 4px;
+            outline: none;
         }
         
         .btn-group {
             display: flex;
-            gap: 6px;
+            gap: 4px;
         }
         
         .btn { 
             background: #f59e0b; 
             color: #050505; 
             border: none; 
-            padding: 10px; 
+            padding: 8px; 
             font-weight: bold; 
             flex: 1; 
             border-radius: 6px; 
             cursor: pointer; 
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .btn-secondary {
             background: #18181b;
@@ -138,10 +169,10 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ MASTER IDE</h1>
+        <h1>PSA™ CORE IDE</h1>
         <div>
-            <span class="badge">v1.3 PRO</span>
-            <span class="status">● SECURE</span>
+            <span class="badge">v1.4 SHELL</span>
+            <span class="status">● ACTIVE</span>
         </div>
     </header>
 
@@ -163,21 +194,27 @@
         </div>
     </div>
 
-    <div class="terminal" id="terminal-logs">
-        <p>> psa-master: core daemon online.</p>
-        <p>> status: multi-file workspace ready.</p>
+    <div class="terminal-container">
+        <div class="terminal-logs" id="terminal-logs">
+            <p>> psa-core: interactive shell online.</p>
+            <p>> type 'help' for available commands.</p>
+        </div>
+        <div class="terminal-input-row">
+            <span class="terminal-prompt">psa$</span>
+            <input type="text" id="terminal-cmd" class="terminal-input" placeholder="enter command..." onkeydown="handleTerminalCommand(event)">
+        </div>
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-secondary" onclick="saveWorkspace()">SAVE STATE</button>
+        <button class="btn btn-secondary" onclick="saveWorkspace()">SAVE</button>
         <button class="btn" onclick="compileAndRender()">COMPILE & RUN</button>
     </div>
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #09090b; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 30px; }\n        h2 { border-bottom: 1px solid #f59e0b; display: inline-block; padding-bottom: 4px; }\n    </style>\n</head>\n<body>\n    <h2>PSA™ Obsidian Node</h2>\n    <p>Multi-file runtime fully operational.</p>\n    <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;">Fire Signal</button>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: Master runtime signal emitted.");\n            alert("PSA Master Node Verified!");\n        }\n    <\/script>\n</body>\n</html>`,
-            'app.py': `# PSA Python Edge Engine\nimport sys\n\ndef init_node():\n    print("[+] Initializing Python kernel...")\n    return True\n\nif __name__ == "__main__":\n    init_node()`,
-            'runtime.sh': `#!/bin/bash\n# PSA Shell Runtime Daemon\necho "Starting local edge container..."\npython3 -m http.server 8080`
+            'index.html': `<!DOCTYPE html>\n<html>\n<head>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; text-align: center; padding-top: 30px; }\n        h2 { border-bottom: 1px solid #f59e0b; display: inline-block; padding-bottom: 4px; }\n    </style>\n</head>\n<body>\n    <h2>PSA™ Command Core</h2>\n    <p>v1.4 Interactive Shell Online.</p>\n    <button onclick="testLog()" style="background:#f59e0b;color:#000;border:none;padding:8px 14px;font-weight:bold;border-radius:4px;">Execute Signal</button>\n    <script>\n        function testLog() {\n            console.log("SUCCESS: v1.4 command core verified.");\n            alert("PSA Core Operational!");\n        }\n    <\/script>\n</body>\n</html>`,
+            'app.py': `# PSA Python Core Engine\nimport sys\n\ndef run():\n    print("Executing offline runtime core...")\n\nif __name__ == '__main__':\n    run()`,
+            'runtime.sh': `#!/bin/bash\n# PSA Shell Daemon\necho "Starting local environment..."\npython3 -m http.server 8080`
         };
 
         let currentFile = 'index.html';
@@ -196,8 +233,8 @@
 
         function saveWorkspace() {
             const terminal = document.getElementById('terminal-logs');
-            localStorage.setItem('psa_master_workspace', JSON.stringify(files));
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] All workspace files saved to local mobile storage.</p>`;
+            localStorage.setItem('psa_core_workspace', JSON.stringify(files));
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] Workspace saved to local storage.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -206,7 +243,7 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling multi-file workspace...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling workspace files...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
@@ -217,8 +254,50 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
+        function handleTerminalCommand(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('terminal-cmd');
+                const cmd = input.value.trim();
+                const terminal = document.getElementById('terminal-logs');
+                
+                if (!cmd) return;
+
+                terminal.innerHTML += `<p style="color: #ffffff;">> psa$ ${cmd}</p>`;
+                
+                const parts = cmd.split(' ');
+                const command = parts[0].toLowerCase();
+
+                switch(command) {
+                    case 'help':
+                        terminal.innerHTML += `<p>Available: help, clear, status, ls, run, save</p>`;
+                        break;
+                    case 'clear':
+                        terminal.innerHTML = `<p>> psa-core: interactive shell online.</p>`;
+                        input.value = '';
+                        return;
+                    case 'status':
+                        terminal.innerHTML += `<p style="color: #10b981;">> Status: ONLINE | Active File: ${currentFile} | Zero Cloud Dependencies</p>`;
+                        break;
+                    case 'ls':
+                        terminal.innerHTML += `<p>index.html | app.py | runtime.sh</p>`;
+                        break;
+                    case 'run':
+                        compileAndRender();
+                        break;
+                    case 'save':
+                        saveWorkspace();
+                        break;
+                    default:
+                        terminal.innerHTML += `<p style="color: #ef4444;">> Error: command not recognized. Type 'help'.</p>`;
+                }
+
+                input.value = '';
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+        }
+
         window.onload = () => {
-            const saved = localStorage.getItem('psa_master_workspace');
+            const saved = localStorage.getItem('psa_core_workspace');
             if (saved) {
                 try { files = JSON.parse(saved); } catch(e) {}
             }
