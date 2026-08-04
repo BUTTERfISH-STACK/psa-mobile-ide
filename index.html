@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
-    <title>Pocket State Architecture (PSA™ v2.9) — Inventor: Rean Van Aswegen</title>
-    <meta name="title" content="Pocket State Architecture (PSA™ v2.9) — Inventor: Rean Van Aswegen">
-    <meta name="description" content="Official sovereign development node with bulletproof collapsible file drawer and premium UI for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
+    <title>Pocket State Architecture (PSA™ v3.0) — Inventor: Rean Van Aswegen</title>
+    <meta name="title" content="Pocket State Architecture (PSA™ v3.0) — Inventor: Rean Van Aswegen">
+    <meta name="description" content="Official sovereign development node with full document scrolling and premium UI for Pocket State Architecture (PSA™), engineered by Rean Van Aswegen.">
     <meta name="keywords" content="Pocket State Architecture, PSA, Rean Van Aswegen, mobile-native IDE, sovereign software, offline-first architecture">
     <meta name="author" content="Rean Van Aswegen">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Pocket State Architecture (PSA™ v2.9) | Rean Van Aswegen">
+    <meta property="og:title" content="Pocket State Architecture (PSA™ v3.0) | Rean Van Aswegen">
     <meta property="og:description" content="Zero-cloud, mobile-native sovereign software architecture engineered by Rean Van Aswegen.">
     <meta property="og:site_name" content="PSA™ Sovereign Ecosystem">
 
@@ -24,7 +24,7 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Pocket State Architecture",
-      "alternateName": "PSA™ v2.9",
+      "alternateName": "PSA™ v3.0",
       "author": {
         "@type": "Person",
         "name": "Rean Van Aswegen",
@@ -43,21 +43,22 @@
             background: #050505; 
             color: #f59e0b; 
             margin: 0; 
-            padding: 6px; 
+            padding: 8px; 
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
-            overflow: hidden;
+            overflow-y: auto; /* Fully enables main document scrolling */
         }
         header { 
             border-bottom: 1px solid #27272a; 
-            padding-bottom: 6px; 
-            margin-bottom: 6px; 
+            padding-bottom: 8px; 
+            margin-bottom: 8px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
         }
         h1 { font-size: 0.85rem; margin: 0; color: #ffffff; letter-spacing: 1px; }
         .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
@@ -84,7 +85,7 @@
             border: 1px solid rgba(245, 158, 11, 0.4);
             border-radius: 6px;
             padding: 6px 10px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             text-align: center;
             box-shadow: inset 0 0 12px rgba(245, 158, 11, 0.08), 0 2px 8px rgba(0, 0, 0, 0.5);
             flex-shrink: 0;
@@ -197,13 +198,10 @@
 
         /* Main Workspace Layout & Flawless Collapsible Sidebar */
         .main-layout {
-            flex: 1;
             display: flex;
-            gap: 6px;
-            margin-bottom: 6px;
-            min-height: 0;
+            gap: 8px;
+            margin-bottom: 8px;
             position: relative;
-            overflow: hidden;
         }
 
         .sidebar {
@@ -217,7 +215,6 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            /* Silky smooth transition with explicit hardware acceleration */
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                         min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                         max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -234,7 +231,7 @@
             border-color: transparent;
             opacity: 0;
             pointer-events: none;
-            margin-right: -6px; /* Compensate for gap */
+            margin-right: -8px;
             transform: translateX(-10px);
         }
 
@@ -281,7 +278,7 @@
         .collapse-btn:hover { background: #27272a; border-color: #f59e0b; }
 
         .file-list {
-            flex: 1;
+            max-height: 380px;
             overflow-y: auto;
             overflow-x: hidden;
             padding: 6px;
@@ -329,13 +326,11 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            min-height: 0;
+            gap: 8px;
             min-width: 0;
         }
         
         .pane {
-            flex: 1;
             display: flex;
             flex-direction: column;
             background: #09090b;
@@ -344,20 +339,19 @@
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             transition: border-color 0.2s ease;
-            min-height: 0;
         }
         .pane:focus-within { border-color: rgba(245, 158, 11, 0.4); }
         
         .pane-header {
             background: #121216;
-            padding: 5px 8px;
+            padding: 6px 8px;
             font-size: 0.62rem;
             color: #71717a;
             border-bottom: 1px solid #27272a;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 30px;
+            min-height: 32px;
             flex-shrink: 0;
         }
         .pane-header-left { display: flex; align-items: center; gap: 6px; }
@@ -383,7 +377,7 @@
         .snippet-bar {
             display: flex;
             gap: 5px;
-            padding: 5px 8px;
+            padding: 6px 8px;
             background: #0f0f13;
             border-bottom: 1px solid #27272a;
             overflow-x: auto;
@@ -407,21 +401,21 @@
         .snippet-btn:active { background: #f59e0b; color: #050505; transform: scale(0.96); }
 
         textarea {
-            flex: 1;
+            width: 100%;
+            height: 240px;
             background: transparent;
             color: #f59e0b;
             border: none;
-            padding: 8px;
+            padding: 10px;
             font-family: monospace;
             font-size: 0.72rem;
-            resize: none;
+            resize: vertical;
             outline: none;
             user-select: text;
             -webkit-user-select: text;
-            line-height: 1.35;
-            min-height: 0;
+            line-height: 1.4;
         }
-        iframe { flex: 1; background: #ffffff; border: none; width: 100%; min-height: 0; }
+        iframe { width: 100%; height: 260px; background: #ffffff; border: none; }
 
         .ai-dock {
             background: #09090b;
@@ -429,16 +423,15 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 52px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             flex-shrink: 0;
         }
-        .ai-output { flex: 1; padding: 4px 8px; font-size: 0.6rem; overflow-y: auto; color: #38bdf8; }
+        .ai-output { max-height: 80px; padding: 6px 10px; font-size: 0.6rem; overflow-y: auto; color: #38bdf8; }
         .ai-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; flex-shrink: 0; }
-        .ai-prompt { padding: 3px 8px; color: #38bdf8; font-size: 0.6rem; font-weight: bold; }
-        .ai-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.6rem; padding: 4px; outline: none; user-select: text; -webkit-user-select: text; }
+        .ai-prompt { padding: 4px 10px; color: #38bdf8; font-size: 0.6rem; font-weight: bold; }
+        .ai-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.6rem; padding: 6px; outline: none; user-select: text; -webkit-user-select: text; }
 
         /* Interactive Terminal Runner */
         .terminal-container {
@@ -447,30 +440,29 @@
             border-radius: 6px;
             display: flex;
             flex-direction: column;
-            height: 58px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             flex-shrink: 0;
         }
-        .terminal-logs { flex: 1; padding: 4px 8px; font-size: 0.58rem; overflow-y: auto; color: #10b981; line-height: 1.35; }
+        .terminal-logs { max-height: 90px; padding: 6px 10px; font-size: 0.58rem; overflow-y: auto; color: #10b981; line-height: 1.4; }
         .terminal-input-row { display: flex; border-top: 1px solid #27272a; background: #121216; align-items: center; flex-shrink: 0; }
-        .terminal-prompt { padding: 3px 8px; color: #10b981; font-size: 0.58rem; font-weight: bold; }
-        .terminal-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.58rem; padding: 4px; outline: none; user-select: text; -webkit-user-select: text; }
+        .terminal-prompt { padding: 4px 10px; color: #10b981; font-size: 0.58rem; font-weight: bold; }
+        .terminal-input { flex: 1; background: transparent; border: none; color: #ffffff; font-family: monospace; font-size: 0.58rem; padding: 6px; outline: none; user-select: text; -webkit-user-select: text; }
 
         /* Flawlessly Spaced Bottom CTA Action Bar */
-        .btn-group { display: flex; gap: 6px; margin-top: 2px; flex-shrink: 0; }
+        .btn-group { display: flex; gap: 8px; margin-top: 4px; margin-bottom: 12px; flex-shrink: 0; }
         .btn { 
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
             color: #050505; 
             border: none; 
-            padding: 8px 10px; 
+            padding: 10px 12px; 
             font-weight: bold; 
             flex: 1; 
             border-radius: 6px; 
             cursor: pointer; 
             font-size: 0.72rem;
-            min-height: 38px;
+            min-height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -493,12 +485,12 @@
 </head>
 <body>
     <header>
-        <h1>PSA™ v2.9 CORE</h1>
+        <h1>PSA™ v3.0 CORE</h1>
         <div class="header-actions">
             <button class="nav-btn" onclick="runFormatter()">[FORMAT]</button>
             <button class="nav-btn" onclick="openPlugins()">[# PLUGINS]</button>
             <button class="nav-btn" onclick="openGuide()">[? GUIDE]</button>
-            <span class="badge">v2.9 FLEX-FIX</span>
+            <span class="badge">v3.0 FULL SCROLL</span>
             <span class="status">● ACTIVE</span>
         </div>
     </header>
@@ -524,11 +516,11 @@
     <!-- Onboarding Guide Modal -->
     <div class="modal-overlay" id="guide-modal" onclick="closeGuideOverlay(event)">
         <div class="modal-box" style="max-width: 300px;">
-            <div class="modal-title">PSA™ v2.9 GUIDE</div>
+            <div class="modal-title">PSA™ v3.0 GUIDE</div>
             <div class="modal-scroll-content">
                 <div class="content-section">
-                    <b>1. Flawless Collapsible Files Drawer</b>
-                    Fixed flex-shrink sizing ensuring zero cutoff or layout jitter when opening and closing.
+                    <b>1. Full Document Scrolling</b>
+                    Viewport-locking removed; smooth main page scrolling lets you navigate all tools without cutoff.
                 </div>
                 <div class="content-section">
                     <b>2. Sovereign Formatter ([FORMAT])</b>
@@ -600,7 +592,7 @@
     <!-- Local AI Bridge Dock -->
     <div class="ai-dock">
         <div class="ai-output" id="ai-logs">
-            <p>> v2.9-flex-fix: file drawer layout corrected with zero cutoff for Rean Van Aswegen.</p>
+            <p>> v3.0-scroll-fix: full document scrolling enabled for Rean Van Aswegen.</p>
         </div>
         <div class="ai-input-row">
             <span class="ai-prompt">ollama$</span>
@@ -611,7 +603,7 @@
     <!-- Interactive Terminal Runner -->
     <div class="terminal-container">
         <div class="terminal-logs" id="terminal-logs">
-            <p>> runtime: v2.9 active. Type 'format', 'lint', 'git log', or 'help'.</p>
+            <p>> runtime: v3.0 active. Type 'format', 'lint', 'git log', or 'help'.</p>
         </div>
         <div class="terminal-input-row">
             <span class="terminal-prompt">psa$</span>
@@ -713,7 +705,7 @@
             
             gitCommits.unshift(commitEntry);
             if (gitCommits.length > 20) gitCommits.pop();
-            localStorage.setItem('psa_v29_commits', JSON.stringify(gitCommits));
+            localStorage.setItem('psa_v30_commits', JSON.stringify(gitCommits));
         }
 
         function openPlugins() {
@@ -905,9 +897,9 @@
             const pos = editor.selectionStart;
             let snippet = '';
             
-            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v2.9 Node -->\n</div>\n';
+            if (type === 'html') snippet = '<div class="container">\n    <!-- PSA v3.0 Node -->\n</div>\n';
             if (type === 'style') snippet = '<style>\n    body { background: #050505; color: #f59e0b; font-family: monospace; }\n</style>\n';
-            if (type === 'script') snippet = '<script>\n    console.log("PSA v2.9 Active");\n<\/script>\n';
+            if (type === 'script') snippet = '<script>\n    console.log("PSA v3.0 Active");\n<\/script>\n';
             if (type === 'flex') snippet = 'display: flex; flex-direction: column; justify-content: center; align-items: center;\n';
             if (type === 'python') snippet = '# PSA Sovereign Engine\nimport sys\n\ndef main():\n    print("Running sovereign routine")\n\nif __name__ == "__main__":\n    main()\n';
 
@@ -918,10 +910,10 @@
         function saveWorkspace() {
             generateGitCommit(`Manual save & commit for ${currentFile}`);
             const payload = { files: files, plugins: plugins, commits: gitCommits };
-            localStorage.setItem('psa_v29_workspace', JSON.stringify(payload));
+            localStorage.setItem('psa_v30_workspace', JSON.stringify(payload));
             
             const terminal = document.getElementById('terminal-logs');
-            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v2.9 workspace persisted & local Git commit generated.</p>`;
+            terminal.innerHTML += `<p style="color: #f59e0b;">> [STATE] v3.0 workspace persisted & local Git commit generated.</p>`;
             terminal.scrollTop = terminal.scrollHeight;
         }
 
@@ -934,7 +926,7 @@
             const iframe = document.getElementById('preview-frame');
             const timestamp = new Date().toLocaleTimeString();
             
-            terminal.innerHTML += `<p>> [${timestamp}] Compiling v2.9 sovereign bundle...</p>`;
+            terminal.innerHTML += `<p>> [${timestamp}] Compiling v3.0 sovereign bundle...</p>`;
             
             const doc = iframe.contentDocument || iframe.contentWindow.document;
             doc.open();
@@ -951,7 +943,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'psa_v29_sovereign_archive.json';
+            a.download = 'psa_v30_sovereign_archive.json';
             a.click();
             URL.revokeObjectURL(url);
             
@@ -997,7 +989,7 @@
                     exportSovereignArchive();
                 } else if (cmd === 'status') {
                     const activeCount = Object.values(plugins).filter(p => p.enabled).length;
-                    terminal.innerHTML += `<p style="color: #10b981;">Node: Flex-Fix Drawer Engine | Inventor: Rean Van Aswegen | Active Plugins: ${activeCount} | Commits: ${gitCommits.length}</p>`;
+                    terminal.innerHTML += `<p style="color: #10b981;">Node: Full Scroll Engine | Inventor: Rean Van Aswegen | Active Plugins: ${activeCount} | Commits: ${gitCommits.length}</p>`;
                 } else if (cmd === 'clear') {
                     terminal.innerHTML = `<p>> terminal cleared.</p>`;
                 } else if (cmd === 'list') {
@@ -1034,14 +1026,14 @@
                     const data = await response.json();
                     aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI: ${data.response.replace(/\n/g, '<br>')}</p>`;
                 } catch (err) {
-                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v2.9 request for Rean Van Aswegen.</p>`;
+                    aiLogs.innerHTML += `<p style="color: #38bdf8;">> AI (Operational): Processed v3.0 request for Rean Van Aswegen.</p>`;
                 }
                 aiLogs.scrollTop = aiLogs.scrollHeight;
             }
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem('psa_v29_workspace');
+            const saved = localStorage.getItem('psa_v30_workspace');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
