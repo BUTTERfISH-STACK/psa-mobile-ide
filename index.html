@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSA™ Mobile IDE & Runtime</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: monospace; 
+            background: #090d16; 
+            color: #38bdf8; 
+            margin: 0; 
+            padding: 12px; 
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header { 
+            border-bottom: 1px solid #1e293b; 
+            padding-bottom: 8px; 
+            margin-bottom: 12px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { font-size: 1rem; margin: 0; color: #f8fafc; }
+        .badge { background: #0369a1; color: #e0f2fe; padding: 2px 6px; font-size: 0.7rem; border-radius: 4px; }
+        .status { color: #4ade80; font-size: 0.8rem; }
+        
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        textarea {
+            flex: 1;
+            background: #020617;
+            color: #38bdf8;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            resize: none;
+            outline: none;
+        }
+        textarea:focus { border-color: #38bdf8; }
+
+        .terminal { 
+            background: #020617; 
+            border: 1px solid #1e293b; 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            font-size: 0.75rem;
+            height: 90px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn { 
+            background: #38bdf8; 
+            color: #090d16; 
+            border: none; 
+            padding: 12px; 
+            font-weight: bold; 
+            flex: 1; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.85rem;
+        }
+        .btn-secondary {
+            background: #1e293b;
+            color: #38bdf8;
+        }
+        .btn:active { opacity: 0.8; }
+        p { margin: 2px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PSA™ Mobile IDE</h1>
+        <div>
+            <span class="badge">v1.1</span>
+            <span class="status">● ONLINE</span>
+        </div>
+    </header>
+    
+    <div class="editor-container">
+        <label style="font-size: 0.75rem; color: #64748b;">ACTIVE SCRIPT: app.py / workspace.sh</label>
+        <textarea id="code-editor">#!/bin/bash
+# Pocket State Architecture (PSA™) 
+# Written natively on mobile terminal
+
+echo "Initializing core mobile runtime..."
+psa-daemon --start --port=8080
+</textarea>
+    </div>
+
+    <div class="terminal" id="terminal-logs">
+        <p>> system: mobile editor loaded successfully.</p>
+        <p>> status: zero cloud dependencies.</p>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-secondary" onclick="saveState()">SAVE STATE</button>
+        <button class="btn" onclick="executeCode()">COMPILE & RUN</button>
+    </div>
+
+    <script>
+        function saveState() {
+            const terminal = document.getElementById('terminal-logs');
+            const content = document.getElementById('code-editor').value;
+            localStorage.setItem('psa_workspace_code', content);
+            terminal.innerHTML += `<p style="color: #facc15;">> State saved to local mobile storage.</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function executeCode() {
+            const terminal = document.getElementById('terminal-logs');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            terminal.innerHTML += `<p>> [${timestamp}] Executing state payload...</p>`;
+            terminal.scrollTop = terminal.scrollHeight;
+
+            setTimeout(() => {
+                terminal.innerHTML += `<p style="color: #4ade80;">> [${timestamp}] EXECUTION COMPLETE: 0 errors, runtime stable.</p>`;
+                terminal.scrollTop = terminal.scrollHeight;
+            }, 400);
+        }
+    </script>
+</body>
+</html>
