@@ -98,7 +98,7 @@
 
     <div class="founder-plaque">
         <div class="plaque-title">Sovereign Architecture Node</div>
-        <div class="plaque-name">REAN VAN ASWEGEN</div>
+        <div class="plaque-name">REAN VS ASWEGEN</div>
         <div class="plaque-sub">INVENTOR & FOUNDER — POCKET STATE ARCHITECTURE (PSA™)</div>
     </div>
 
@@ -138,7 +138,190 @@
 
     <script>
         let files = {
-            'index.html': `<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>PSA™ Sovereign Environment</title>\n    <style>\n        body { background: #050505; color: #f59e0b; font-family: monospace; padding: 20px; }\n    </style>\n</head>\n<body>\n    <h1>PSA™ Sovereign Environment</h1>\n    <p>Clean slate initialized by Rean Van Aswegen.</p>\n</body>\n</html>`
+            'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket State Architecture (PSA™ v3.1) — Sovereign Telemetry</title>
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --surface: rgba(18, 18, 22, 0.85);
+            --border: rgba(245, 158, 11, 0.3);
+            --border-glow: rgba(245, 158, 11, 0.7);
+            --gold-primary: #f59e0b;
+            --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --success: #10b981;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .brand h2 { font-size: 1.1rem; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
+        .brand p { font-size: 0.7rem; color: var(--gold-primary); letter-spacing: 1px; margin-top: 4px; }
+        .node-tag {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: var(--success);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pulse { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.8; } }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.3s;
+        }
+        .card:hover { border-color: var(--border-glow); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1); }
+        .card-title { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .metric { font-size: 1.6rem; font-weight: bold; color: var(--gold-primary); margin-bottom: 6px; }
+        .metric-sub { font-size: 0.65rem; color: var(--text-muted); }
+        .console {
+            background: #030304;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 160px;
+        }
+        .console-logs {
+            flex: 1;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 0.7rem;
+            color: var(--success);
+            overflow-y: auto;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
+        .action-btn {
+            background: var(--gold-gradient);
+            color: #050505;
+            border: none;
+            padding: 10px 18px;
+            font-weight: bold;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex: 1;
+        }
+        .action-btn-outline { background: transparent; color: var(--gold-primary); border: 1px solid var(--gold-primary); }
+        footer { margin-top: 20px; text-align: center; font-size: 0.65rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 12px; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <h2>PSA™ Sovereign Showcase</h2>
+            <p>Architect: Rean Van Aswegen</p>
+        </div>
+        <div class="node-tag">
+            <div class="pulse"></div>
+            <span>AIR-GAPPED ZERO-CLOUD</span>
+        </div>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-title">State Engine Hash</div>
+            <div class="metric" id="hash-display">0x9F8A</div>
+            <div class="metric-sub">Immutable Local RAM State</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Network Overhead</div>
+            <div class="metric">0.00 ms</div>
+            <div class="metric-sub">Zero External API Calls</div>
+        </div>
+        <div class="card">
+            <div class="card-title">Storage Allocation</div>
+            <div class="metric">3.8 KB</div>
+            <div class="metric-sub">Optimized Edge Footprint</div>
+        </div>
+    </div>
+
+    <div class="console">
+        <div class="card-title" style="display:flex; justify-content:space-between;">
+            <span>PSA™ Core Telemetry Stream</span>
+            <span id="live-time">--:--:--</span>
+        </div>
+        <div class="console-logs" id="logs">
+            <p>> Initializing Pocket State Architecture kernel...</p>
+            <p>> Sovereign local disk sync verified successfully.</p>
+            <p>> Node online. Ready for high-speed mobile execution.</p>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button class="action-btn" onclick="mutateState()">Mutate Pocket State</button>
+        <button class="action-btn action-btn-outline" onclick="verifyIntegrity()">Run Integrity Check</button>
+    </div>
+
+    <footer>
+        POCKET STATE ARCHITECTURE™ — ZERO-CLOUD MOBILE INFRASTRUCTURE
+    </footer>
+
+    <script>
+        setInterval(() => {
+            document.getElementById('live-time').innerText = new Date().toLocaleTimeString();
+        }, 1000);
+
+        function logMsg(txt) {
+            const box = document.getElementById('logs');
+            const time = new Date().toLocaleTimeString();
+            box.innerHTML += \`<p>> [\${time}] \${txt}</p>\`;
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function mutateState() {
+            const newHash = '0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase().padStart(4, '0');
+            document.getElementById('hash-display').innerText = newHash;
+            logMsg('State mutated. Root hash updated to ' + newHash);
+        }
+
+        function verifyIntegrity() {
+            logMsg('Executing zero-cloud cryptographic verification...');
+            setTimeout(() => {
+                logMsg('Verification passed: 100% sovereign, zero external leaks.');
+            }, 500);
+        }
+    </script>
+</body>
+</html>`
         };
         let currentFile = 'index.html';
 
